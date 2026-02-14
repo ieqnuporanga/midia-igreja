@@ -233,7 +233,6 @@
       font-weight:800;
       line-height:1.45;
     }
-    /* ✅ Novo: dica do modo técnico */
     .hint{
       margin-top:6px;
       font-size:12.5px;
@@ -302,6 +301,71 @@
     @media (prefers-reduced-motion: reduce){
       *{scroll-behavior:auto !important;transition:none !important;animation:none !important}
     }
+
+    /* =========================================================
+       ✅ NOVO: MODO CELULAR (ativa com body.mobileMode)
+       - aumenta toque, fonte e espaçamento
+       - esconde chips de % e progresso por etapa
+       - simplifica topo e rodapé (menos distração)
+       ========================================================= */
+    body.mobileMode .kickerBar{ width: 120px; margin: 12px 0 10px; }
+    body.mobileMode h1{ font-size:22px; line-height:1.18; }
+    body.mobileMode .sub{ font-size:14px; }
+
+    body.mobileMode .panelTop{
+      padding:12px;
+      gap:10px;
+    }
+    body.mobileMode .panelBody{ padding: 6px 12px 14px; }
+
+    /* esconde % do topo e chips das etapas (deixa só título) */
+    body.mobileMode #chipAll{ display:none; }
+    body.mobileMode .stepHead .meta{ display:none; }
+
+    /* itens mais “tocáveis” */
+    body.mobileMode label.item{
+      padding:14px 12px;
+      border-radius: 18px;
+    }
+    body.mobileMode input[type="checkbox"]{
+      width:24px;height:24px;
+      margin-top:1px;
+    }
+    body.mobileMode .txt{
+      font-size:15px;
+      line-height:1.35;
+      font-weight:900;
+    }
+
+    /* dica técnica mais confortável */
+    body.mobileMode .hint{
+      font-size:13px;
+      padding:10px 10px;
+      border-radius:14px;
+    }
+
+    /* rodapé mais simples */
+    body.mobileMode .footerRow{
+      position: sticky;
+      bottom: 0;
+      z-index: 40;
+      backdrop-filter: blur(10px);
+      background: rgba(6,10,18,.90);
+    }
+    body.mobileMode .progressBar{ width: min(62vw, 260px); height: 12px; }
+
+    /* esconde botão recolher no modo celular (pra evitar clique acidental) */
+    body.mobileMode #collapseBtn{ display:none; }
+
+    /* deixa botões um pouco maiores */
+    body.mobileMode .btn{
+      padding:12px 14px;
+      font-size:13.5px;
+    }
+    body.mobileMode .btn.small{
+      padding:10px 12px;
+      font-size:13px;
+    }
   </style>
 </head>
 
@@ -322,9 +386,14 @@
         <a class="btn ghost" href="geral.html" aria-label="Abrir menu geral da mídia">🏠 Menu Geral</a>
         <a class="btn" id="solutionsBtn" href="solucoes.html" aria-label="Abrir soluções de problemas">Soluções</a>
 
-        <!-- ✅ Novo: alternar modo -->
+        <!-- ✅ modo técnico -->
         <button class="btn small" id="modeBtn" type="button" title="Alternar entre modo simples e modo técnico">
           🧠 Modo: Simples
+        </button>
+
+        <!-- ✅ NOVO: modo celular -->
+        <button class="btn small" id="mobileBtn" type="button" title="Aumenta botões e simplifica a tela para celular">
+          📱 Modo celular: OFF
         </button>
 
         <button class="btn" id="saveBtn" type="button">Salvar</button>
@@ -372,8 +441,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    // ✅ Agora cada item pode ter:
-    // { text: "...", tech: "..." }
     const DATA = [
       {
         id: "etapa1",
@@ -479,7 +546,8 @@
     ];
 
     const KEY = "ieq_checklist_transmissao_v1";
-    const KEY_MODE = "ieq_checklist_transmissao_mode_v1"; // ✅ Novo
+    const KEY_MODE = "ieq_checklist_transmissao_mode_v1";
+    const KEY_MOBILE = "ieq_checklist_transmissao_mobile_v1"; // ✅ Novo
 
     const stepsEl = document.getElementById("steps");
     const statusText = document.getElementById("statusText");
@@ -493,20 +561,29 @@
     const resetBtn = document.getElementById("resetBtn");
     const markAllBtn = document.getElementById("markAllBtn");
     const collapseBtn = document.getElementById("collapseBtn");
-    const modeBtn = document.getElementById("modeBtn"); // ✅ Novo
+    const modeBtn = document.getElementById("modeBtn");
+    const mobileBtn = document.getElementById("mobileBtn"); // ✅ Novo
 
     let state = { checked: {}, updatedAt: null };
     let collapsed = false;
     let dirty = false;
 
-    // ✅ Novo: modo de visualização
-    let mode = "simple"; // "simple" | "tech"
+    let mode = "simple";   // simple | tech
+    let mobileMode = false; // ✅ Novo
 
     function showToast(msg){
       toast.textContent = msg;
       toast.classList.add("show");
       window.clearTimeout(showToast._t);
       showToast._t = window.setTimeout(()=>toast.classList.remove("show"), 2200);
+    }
+
+    function setMobileMode(on){
+      mobileMode = !!on;
+      document.body.classList.toggle("mobileMode", mobileMode);
+      mobileBtn.textContent = mobileMode ? "📱 Modo celular: ON" : "📱 Modo celular: OFF";
+      mobileBtn.classList.toggle("primary", mobileMode);
+      try{ localStorage.setItem(KEY_MOBILE, mobileMode ? "1" : "0"); }catch(e){}
     }
 
     function load(){
@@ -518,12 +595,17 @@
         }
       }catch(e){}
 
-      // ✅ Novo: carrega modo
       try{
         const m = localStorage.getItem(KEY_MODE);
         if(m === "tech" || m === "simple") mode = m;
       }catch(e){}
       updateModeButton();
+
+      // ✅ carrega modo celular
+      try{
+        const mm = localStorage.getItem(KEY_MOBILE);
+        if(mm === "1") setMobileMode(true);
+      }catch(e){}
     }
 
     function save(){
@@ -586,7 +668,6 @@
       });
     }
 
-    // ✅ Novo: alternar modo simples/técnico
     function updateModeButton(){
       modeBtn.textContent = mode === "tech" ? "🧠 Modo: Técnico" : "🧠 Modo: Simples";
       modeBtn.classList.toggle("primary", mode === "tech");
@@ -595,7 +676,7 @@
       mode = (mode === "tech") ? "simple" : "tech";
       try{ localStorage.setItem(KEY_MODE, mode); }catch(e){}
       updateModeButton();
-      render(); // re-render pra mostrar/ocultar dicas
+      render();
       showToast(mode === "tech" ? "Modo técnico ativado" : "Modo simples ativado");
     }
 
@@ -622,7 +703,6 @@
         const meta = document.createElement("div");
         meta.className = "meta";
 
-        // ✅ FIX: chips com data-attributes pra atualizar sem renderizar tudo
         const chip1 = document.createElement("span");
         chip1.className = "chip " + (pct === 100 ? "ok" : "");
         chip1.textContent = `${done}/${total}`;
@@ -659,8 +739,6 @@
           const cb = document.createElement("input");
           cb.type = "checkbox";
           cb.checked = !!state.checked[k];
-
-          // ✅ melhoria: evita clique no checkbox “brigar” com clique do cabeçalho (bubbling)
           cb.addEventListener("click", (e)=>e.stopPropagation());
           cb.addEventListener("change", ()=>setChecked(k, cb.checked));
 
@@ -673,7 +751,6 @@
 
           wrapTxt.appendChild(t);
 
-          // ✅ Novo: mostra dica só no modo técnico (e só se tiver tech)
           if(mode === "tech" && tech){
             const h = document.createElement("div");
             h.className = "hint";
@@ -709,7 +786,6 @@
     }
 
     function updateUIOnly(){
-      // Status geral
       const {done,total} = overallProgress();
       const pct = total ? Math.round((done/total)*100) : 0;
 
@@ -718,7 +794,6 @@
       progressFill.style.width = `${pct}%`;
       chipAll.textContent = `${pct}%`;
 
-      // ✅ FIX: atualiza os chips "0/6" e "%" de cada etapa ao marcar/desmarcar
       for(const step of DATA){
         const {done: sd, total: st} = stepProgress(step);
         const sp = st ? Math.round((sd/st)*100) : 0;
@@ -736,7 +811,6 @@
         }
       }
 
-      // Chip de salvo/não salvo
       if(dirty){
         chipSaved.textContent = "Não salvo";
         chipSaved.classList.remove("ok");
@@ -746,7 +820,7 @@
       }
     }
 
-    // ✅ melhoria: salva com Ctrl+S
+    // Ctrl+S salva
     window.addEventListener("keydown", (e)=>{
       if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s"){
         e.preventDefault();
@@ -754,12 +828,19 @@
       }
     });
 
-    // ✅ Novo: atalho M pra alternar modo (opcional)
+    // atalho M alterna modo técnico/simples
     window.addEventListener("keydown", (e)=>{
       if(e.key.toLowerCase() === "m" && !e.ctrlKey && !e.metaKey && !e.altKey){
-        // evita alternar se estiver digitando em algum input (se você adicionar no futuro)
         const tag = (document.activeElement && document.activeElement.tagName) ? document.activeElement.tagName.toLowerCase() : "";
         if(tag !== "input" && tag !== "textarea") toggleMode();
+      }
+    });
+
+    // ✅ Novo: atalho C alterna modo celular
+    window.addEventListener("keydown", (e)=>{
+      if(e.key.toLowerCase() === "c" && !e.ctrlKey && !e.metaKey && !e.altKey){
+        const tag = (document.activeElement && document.activeElement.tagName) ? document.activeElement.tagName.toLowerCase() : "";
+        if(tag !== "input" && tag !== "textarea") setMobileMode(!mobileMode);
       }
     });
 
@@ -783,9 +864,10 @@
     });
 
     collapseBtn.addEventListener("click", toggleCollapsed);
-
-    // ✅ Novo: botão do modo
     modeBtn.addEventListener("click", toggleMode);
+
+    // ✅ Novo: botão modo celular
+    mobileBtn.addEventListener("click", ()=>setMobileMode(!mobileMode));
 
     load();
     render();
