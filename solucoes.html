@@ -1,0 +1,1115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IEQ Nuporanga | Soluções de Problemas (Transmissão)</title>
+  <meta name="description" content="Guia de soluções para problemas na transmissão ao vivo (voluntários). IEQ Nuporanga." />
+  <meta name="theme-color" content="#060A12" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900;950&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#060A12;
+      --panel: rgba(255,255,255,.07);
+      --panel2: rgba(255,255,255,.10);
+      --line: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.78);
+      --ok: rgba(46, 204, 113, .92);
+      --danger: rgba(255, 72, 72, .92);
+
+      --max: 980px;
+      --r24: 24px;
+      --r18: 18px;
+      --padX: 18px;
+
+      /* gradiente do padrão */
+      --red:#FF0000;
+      --yellow:#FFCC00;
+      --blue:#00B2FF;
+      --purple:#6600FF;
+    }
+
+    *{box-sizing:border-box}
+    html{
+      scroll-behavior:auto;
+      height:100%;
+      background:#060A12;
+      overscroll-behavior: none;
+    }
+
+    body{
+      margin:0;
+      min-height:100%;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #070B14, #050812);
+      color:#fff;
+      line-height:1.65;
+      overflow-x:hidden;
+      text-rendering: optimizeLegibility;
+    }
+
+    a{color:inherit;text-decoration:none}
+    button{font-family:inherit}
+    .container{max-width:var(--max);margin:0 auto;padding:0 var(--padX)}
+
+    /* ===== HEADER PADRÃO (igual ao Manual da Mídia) ===== */
+    .kickerBar{
+      height:6px;border-radius:999px;
+      background: linear-gradient(90deg, var(--red), var(--yellow), var(--blue), var(--purple));
+      width: 160px;margin: 18px 0 14px;
+    }
+
+    header{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(6,10,18,.82);
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .head{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:12px;
+      padding:12px 0;
+      flex-wrap:wrap;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;min-width:0;
+    }
+    .logo{
+      width:42px;height:42px;border-radius:14px;overflow:hidden;flex:0 0 auto;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      display:grid;place-items:center;
+    }
+    .logo img{width:100%;height:100%;object-fit:cover}
+    .brandTxt{min-width:0}
+    .brandTxt strong{
+      display:block;
+      font-weight:950;letter-spacing:-.3px;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      max-width: 64vw;
+    }
+    .brandTxt span{
+      display:block;
+      font-size:12.5px;
+      font-weight:900;
+      color: rgba(255,255,255,.70);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      max-width: 64vw;
+      margin-top:2px;
+    }
+
+    .btnRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:flex-end}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      font-size:13.5px;font-weight:950;
+      padding:10px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.95);
+      cursor:pointer;user-select:none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease, opacity .12s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px);background: rgba(255,255,255,.12);border-color: rgba(255,255,255,.22)}
+    .btn:active{transform:translateY(0)}
+    .btn.primary{background: rgba(255,255,255,.14);border-color: rgba(255,255,255,.26)}
+    .btn.ghost{background: rgba(255,255,255,.06)}
+    .btn.danger{border-color: rgba(255, 72, 72, .35);background: rgba(255, 72, 72, .12)}
+    .btn.ok{border-color: rgba(46, 204, 113, .35); background: rgba(46, 204, 113, .12)}
+
+    /* ===== CONTEÚDO ===== */
+    main{padding: 14px 0 0}
+    .hero{padding:18px 0 10px}
+    h1{
+      margin:0 0 8px;
+      font-weight:950;
+      letter-spacing:-1px;
+      line-height:1.05;
+      font-size: clamp(22px, 4.8vw, 32px);
+    }
+    .sub{
+      margin:0;
+      color: rgba(255,255,255,.84);
+      font-weight:700;
+      font-size:14px;
+    }
+
+    .notice{
+      margin-top:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      border-radius: 18px;
+      padding:12px;
+      color: rgba(255,255,255,.86);
+      font-size:14px;
+      box-shadow: 0 16px 40px rgba(0,0,0,.25);
+    }
+    .notice b{color: rgba(255,255,255,.95)}
+    .notice .tiny{color: rgba(255,255,255,.72);font-weight:800;font-size:12px;margin-top:6px}
+
+    .stats{
+      margin-top:12px;
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+    }
+    .pill{
+      display:inline-flex;align-items:center;gap:10px;
+      padding:10px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      font-weight:950;
+      color: rgba(255,255,255,.92);
+    }
+    .pill small{font-weight:900;color: rgba(255,255,255,.74)}
+    .pill .num{
+      min-width: 34px;
+      height: 26px;
+      display:inline-grid;place-items:center;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      font-weight:950;
+    }
+
+    .sectionTitle{
+      margin: 18px 0 10px;
+      font-weight:950;
+      letter-spacing:-.6px;
+      font-size: 16px;
+      color: rgba(255,255,255,.92);
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+    }
+    .sectionTitle span{
+      color: rgba(255,255,255,.72);
+      font-weight:900;
+      font-size:12px;
+    }
+
+    .stage{
+      border:1px solid rgba(255,255,255,.14);
+      border-radius: 22px;
+      overflow:hidden;
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 16px 40px rgba(0,0,0,.25);
+      margin-bottom: 12px;
+    }
+    .stageHead{
+      padding:12px;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      background: rgba(255,255,255,.05);
+      border-bottom:1px solid rgba(255,255,255,.10);
+      flex-wrap:wrap;
+    }
+    .stageHead strong{
+      font-weight:950;
+      letter-spacing:-.4px;
+      font-size:14px;
+      color: rgba(255,255,255,.92);
+    }
+    .stageHead small{
+      font-size:12px;
+      color: rgba(255,255,255,.70);
+      font-weight:900;
+    }
+
+    .problemList{padding: 10px 12px 12px; display:flex; flex-direction:column; gap:10px;}
+    .problem{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.14);
+      border-radius: 18px;
+      overflow:hidden;
+    }
+    .problemTop{
+      padding:12px;
+      display:flex;align-items:flex-start;justify-content:space-between;gap:10px;
+      cursor:pointer;
+    }
+    .problemTop:hover{background: rgba(255,255,255,.04)}
+    .q{
+      font-weight:950;
+      letter-spacing:-.3px;
+      color: rgba(255,255,255,.95);
+      font-size:14px;
+      line-height:1.25;
+      margin:0;
+    }
+    .chev{
+      flex:0 0 auto;
+      width:36px;height:36px;border-radius:12px;
+      display:grid;place-items:center;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.90);
+      transition: transform .16s ease;
+    }
+    .problem.open .chev{transform: rotate(180deg)}
+    .problemBody{
+      display:none;
+      padding: 0 12px 12px;
+      border-top:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .problem.open .problemBody{display:block}
+
+    .hint{
+      margin:10px 0 10px;
+      color: rgba(255,255,255,.82);
+      font-size:13px;
+      font-weight:900;
+      line-height:1.45;
+    }
+
+    .solutionsHeader{
+      margin-top:10px;
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .solutionsHeader .left{display:flex;align-items:baseline;gap:8px;min-width:0;}
+    .solutionsHeader .bulletTitle{
+      font-size:13px;
+      font-weight:950;
+      color: rgba(255,255,255,.92);
+      letter-spacing:-.2px;
+      line-height:1.2;
+    }
+    .solutionsHeader .right{
+      font-size:12px;
+      color: rgba(255,255,255,.70);
+      font-weight:900;
+      line-height:1.2;
+    }
+
+    .solution{
+      margin-top:10px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
+      border-radius: 16px;
+      overflow:hidden;
+    }
+    .solutionTop{
+      padding:10px 10px;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      cursor:pointer;
+    }
+    .solutionTop:hover{background: rgba(255,255,255,.04)}
+    .solutionTop .left{
+      display:flex;align-items:flex-start;gap:10px;min-width:0;
+    }
+    .dot{
+      flex:0 0 auto;
+      width:18px;height:18px;
+      display:grid;place-items:center;
+      margin-top:1px;
+      color: rgba(255,255,255,.86);
+      font-weight:950;
+      font-size:16px;
+      line-height:1;
+      opacity:.92;
+    }
+    .solText{
+      font-size:13px;
+      font-weight:900;
+      color: rgba(255,255,255,.90);
+      line-height:1.35;
+      min-width:0;
+    }
+    .solChev{
+      width:34px;height:34px;border-radius:12px;
+      display:grid;place-items:center;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.90);
+      transition: transform .16s ease;
+      flex:0 0 auto;
+    }
+    .solution.open .solChev{transform: rotate(180deg)}
+
+    .solutionBody{
+      display:none;
+      padding: 0 10px 10px;
+      border-top:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .solution.open .solutionBody{display:block}
+
+    .arrowHint{
+      margin:10px 0 8px;
+      font-size:12px;
+      color: rgba(255,255,255,.80);
+      font-weight:900;
+      display:flex;gap:8px;align-items:flex-start;
+    }
+    .arrowHint b{color: rgba(255,255,255,.92)}
+    .steps{
+      margin:0;
+      padding-left: 0;
+      list-style:none;
+      display:flex;flex-direction:column;gap:6px;
+    }
+    .steps li{
+      display:flex;gap:10px;align-items:flex-start;
+      color: rgba(255,255,255,.86);
+      font-size:13px;
+      font-weight:800;
+      line-height:1.45;
+    }
+    .steps li .arr{
+      flex:0 0 auto;
+      width:22px;height:22px;border-radius:8px;
+      display:grid;place-items:center;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.90);
+      margin-top:1px;
+    }
+
+    .actions{
+      margin-top:12px;
+      display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+    }
+    .smallBtn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      font-size:13px;font-weight:950;
+      padding:10px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.94);
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease, opacity .12s ease;
+      white-space:nowrap;
+    }
+    .smallBtn:hover{transform:translateY(-1px);background: rgba(255,255,255,.12);border-color: rgba(255,255,255,.24)}
+    .smallBtn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+    .smallBtn.ok{border-color: rgba(46, 204, 113, .35); background: rgba(46, 204, 113, .10)}
+
+    footer{
+      margin-top:18px;
+      padding:18px 0 24px;
+      border-top:1px solid rgba(255,255,255,.12);
+      background: rgba(6,10,18,.35);
+    }
+    .footGrid{
+      display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      color: rgba(255,255,255,.74);
+      font-size:12px;
+      font-weight:900;
+    }
+
+    /* Modal */
+    .modalBackdrop{
+      position:fixed; inset:0;
+      background: rgba(2,6,23,.70);
+      display:none;
+      z-index:200;
+      padding:18px;
+    }
+    .modalBackdrop.show{display:grid;place-items:center}
+    .modal{
+      width:min(680px, 100%);
+      border-radius: 22px;
+      border:1px solid rgba(255,255,255,.14);
+      background: #0B1220;
+      box-shadow: 0 22px 90px rgba(0,0,0,.55);
+      overflow:hidden;
+    }
+    .modalHead{
+      padding:12px 12px;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+    }
+    .modalHead strong{font-weight:950;letter-spacing:-.2px}
+    .modalBody{padding:12px}
+    .modalBody p{margin:0 0 10px;color: rgba(255,255,255,.86);font-size:13px;font-weight:850;line-height:1.55}
+    .modalBody .box{
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      border-radius: 16px;
+      padding:12px;
+      margin-top:10px;
+    }
+    .modalBody .box b{color: rgba(255,255,255,.92)}
+    .modalFoot{
+      padding:12px;
+      border-top:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;
+    }
+
+    @media (max-width: 520px){
+      :root{--padX: 16px;}
+      .brandTxt strong{max-width: 78vw}
+      .brandTxt span{max-width: 78vw}
+      .problemTop{padding:12px}
+      .problemBody{padding:0 12px 12px}
+      .solutionTop{padding:10px}
+      .solutionBody{padding:0 10px 10px}
+      .btn,.smallBtn{padding:10px 12px}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto !important;transition:none !important;animation:none !important}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER PADRÃO -->
+  <header>
+    <div class="container head">
+      <a class="brand" href="geral.html" aria-label="Voltar para o menu geral da mídia">
+        <div class="logo">
+          <img src="https://i.imgur.com/PlDV9NW.jpeg" alt="IEQ Nuporanga" />
+        </div>
+        <div class="brandTxt">
+          <strong>Soluções de Problemas</strong>
+          <span>Transmissão • Manual Vivo</span>
+        </div>
+      </a>
+
+      <div class="btnRow">
+        <!-- NOVO: Menu geral -->
+        <a class="btn ghost" href="geral.html" title="Ir para o menu geral da mídia">🏠 Menu Geral</a>
+
+        <a class="btn ghost" href="checklist.html" title="Voltar ao checklist">↩ Checklist</a>
+        <button class="btn danger" id="btnEmergency" type="button" title="Ligar emergência">🚨 Emergência</button>
+        <a class="btn ok" id="btnWhats" href="#" target="_blank" rel="noopener" title="Chamar técnico no WhatsApp">💬 Chamar técnico</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="hero">
+      <div class="kickerBar"></div>
+      <h1>Manual Vivo — Soluções rápidas</h1>
+      <p class="sub">
+        Sempre mantenha a calma e siga as orientações por etapa.<br>
+        <b>Importante:</b> em cada problema, as ações abaixo são <b>possíveis soluções</b> (alternativas). Tente <b>uma por vez</b>.
+      </p>
+
+      <div class="notice">
+        <b>Como usar:</b> clique no problema (❓) para abrir. Depois clique em uma solução (•) para ver o detalhe.
+        <div class="tiny">Dentro de algumas soluções existe um passo a passo — ele aparece com seta “→”.</div>
+      </div>
+
+      <div class="stats">
+        <div class="pill">
+          ✅ Problemas solucionados: <span class="num" id="solvedCount">0</span>
+          <small id="solvedHint">marque “Resolvido” quando finalizar</small>
+        </div>
+        <button class="btn ghost" id="btnReset" type="button">Zerar</button>
+      </div>
+    </div>
+
+    <div id="app"></div>
+  </main>
+
+  <footer>
+    <div class="container footGrid">
+      <div>© <span id="year"></span> • IEQ Nuporanga</div>
+      <div>Se não resolver: use “🚨 Emergência” ou “💬 Chamar técnico”.</div>
+    </div>
+  </footer>
+
+  <!-- MODAL EMERGÊNCIA -->
+  <div class="modalBackdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Emergência">
+      <div class="modalHead">
+        <strong>🚨 Emergência</strong>
+        <button class="btn ghost" id="modalClose" type="button">✕</button>
+      </div>
+      <div class="modalBody">
+        <p>Se ninguém conseguir solucionar, use as opções abaixo:</p>
+        <div class="box">
+          <p style="margin:0">
+            <b>Opção 1:</b> Chamar o técnico no WhatsApp (recomendado).<br>
+            <b>Opção 2:</b> Fazer ligação (se necessário).
+          </p>
+        </div>
+      </div>
+      <div class="modalFoot">
+        <a class="btn ok" id="modalWhats" href="#" target="_blank" rel="noopener">💬 WhatsApp do técnico</a>
+        <a class="btn danger" id="modalCall" href="tel:+5516994241388">📞 Ligar agora</a>
+        <button class="btn ghost" id="modalOk" type="button">Entendi</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ======= CONFIG =======
+    const TECH_WHATS_NUMBER = "5516994241388"; // +55 16 99424-1388
+    const TECH_WHATS_MESSAGE =
+      "Olá! Estamos com um problema na transmissão ao vivo na IEQ Nuporanga e não conseguimos resolver. Pode ajudar, por favor?";
+
+    // ======= DADOS (mantendo seus textos; sem remover) =======
+    const DATA = [
+      {
+        stage: "ETAPA 1 — ENERGIA / INICIALIZAÇÃO",
+        problems: [
+          {
+            q: "Nada liga.",
+            solutions: [
+              { text: "Verifique o disjuntor geral." },
+              { text: "Confirme se o filtro de linha está ligado." },
+              { text: "Verifique cabos de energia." }
+            ]
+          },
+          {
+            q: "Câmera não liga.",
+            solutions: [
+              { text: "Conferir pilhas do controle." },
+              { text: "Conferir se no controle está selecionada a PTZ 1 (apertar no botão 1)." },
+              { text: "Verificar cabo de energia da PTZ." },
+              { text: "Retire da tomada e coloque novamente, ela vai ligar sozinha. Caso não ligue, faça uma oração." }
+            ]
+          },
+          {
+            q: "Câmera liga mas não dá imagem.",
+            solutions: [
+              { text: "Trocar de cena no OBS e voltar." },
+              { text: "Verificar se a câmera correta está selecionada no OBS." },
+              { text: "Desligar e ligar a câmera novamente." },
+              {
+                text: "Verificar se a câmera está conectada no IP do roteador.",
+                steps: [
+                  "Entre no navegador e digite: 192.168.3.30",
+                  "Se a página carregar, está tudo certo.",
+                  "Se não carregar, você deve trocar o IP do roteador."
+                ]
+              },
+              {
+                text: "Trocar o IP do roteador (quando não acessar 192.168.3.30).",
+                steps: [
+                  "Digite no navegador: 192.168.3.1",
+                  "Se não funcionar, troque apenas o terceiro número: 192.168.4.1 / 192.168.5.1 / 192.168.6.1 (continue assim até conseguir entrar nas configurações do modem/roteador).",
+                  "Clique na opção de configurações de rede (LAN).",
+                  "Todos os IPs que começarem com 192.168, troque o número depois do terceiro ponto para 3.",
+                  "Exemplo: se estiver 192.168.10.1, altere para 192.168.3.1",
+                  "Você deve fazer isso em 3 áreas diferentes dentro dessa mesma aba. Fique atento!",
+                  "Salve as configurações.",
+                  "Reinicie o OBS.",
+                  "Aguarde 1 minuto.",
+                  "Tente novamente acessar: 192.168.3.30",
+                  "Dica: faça as mudanças com calma. Se perder acesso ao roteador, volte a testar 192.168.X.1."
+                ]
+              },
+              {
+                text: "Verificar se a câmera trocou de IP.",
+                steps: [
+                  "Entre na pasta “Configurações PTZ” na área de trabalho.",
+                  "Inicie o aplicativo “*****”.",
+                  "Selecione a fonte de wifi “***”.",
+                  "Clique em refresh.",
+                  "A câmera deve aparecer, clique nela e em editar.",
+                  "Os ips que devem aparecer são 192.168.3.1 e 192.168.3.30 respectivamente.",
+                  "Se estiver por exemplo “192.168.10.1 e 192.168.10.30”, altere para os citados acima e salve."
+                ]
+              }
+            ]
+          },
+          {
+            q: "Computador não abriu programas.",
+            solutions: [
+              { text: "Aguarde 2 minutos." },
+              { text: "Reinicie o computador se necessário." }
+            ]
+          }
+        ]
+      },
+
+      {
+        stage: "ETAPA 2 — VÍDEO",
+        problems: [
+          {
+            q: "Tela preta no OBS.",
+            solutions: [
+              { text: "Verificar se a câmera está ligada." },
+              { text: "Trocar de cena e voltar." },
+              { text: "Reiniciar OBS." }
+            ]
+          },
+          {
+            q: "Imagem travando.",
+            solutions: [
+              { text: "Fechar programas desnecessários." },
+              { text: "Evitar abrir muitas abas do navegador." },
+              {
+                text: "Verifique a conexão com a internet.",
+                steps: [
+                  "No Google digite “teste de velocidade”.",
+                  "Clique no primeiro que aparecer e realize os testes.",
+                  "O UPLOAD deve estar acima de 400Mb, se não estiver, reinicie o roteador."
+                ]
+              }
+            ]
+          },
+          {
+            q: "Câmera fora de posição.",
+            solutions: [
+              { text: "Altere a predefinição no canto superior esquerdo do OBS." },
+              { text: "Movimente a câmera pelos números: 8 – 4 – 6 e 2 ou use o zoom com o + e -" },
+              { text: "Reinicie a câmera" }
+            ]
+          }
+        ]
+      },
+
+      {
+        stage: "ETAPA 3 — ÁUDIO",
+        problems: [
+          {
+            q: "Não entra áudio no OBS.",
+            solutions: [
+              { text: "Verificar se a interface de áudio está ligada, se não, mexa no cabo que vai até o computador." },
+              { text: "Verificar se o áudio chega até interface de áudio, se não, tire e coloque o cabo que sai do multicabo direito que está em baixo da mesa (Sempre use a última entrada)." },
+              { text: "Conferir se os microfones estão indo para o auxiliar AUDIO LIVE (FADERS -> AUDIO LIVE -> Verificar se o fader está levantado." },
+              { text: "Conferir se o auxiliar AUDIO LIVE não está mutado (AUX 1-8 -> Verifique se o AUDIO LIVE não está com o M marcado em vermelho, se estiver, clique em cima e desmarque)." },
+              { text: "Reiniciar OBS." }
+            ]
+          },
+          {
+            q: "Tem som no OBS mas não no fone.",
+            solutions: [
+              { text: "Verificar volume do fone." },
+              { text: "Verificar conector do fone." },
+              {
+                text: "Verificar se ele está enviando o monitor para o fone.",
+                steps: [
+                  "Clique nos 3 pontinhos na barra “mesa de som” ao centro inferior da tela",
+                  "Vá em “Propriedades avançadas de áudio”",
+                  "No canal “MIC/AUX” em “MONITORAMENTE DO ÁUDIO” selecione “MONITORAR E ENVIAR”"
+                ]
+              },
+              {
+                text: "Conferir se o áudio está vindo do lugar certo.",
+                steps: [
+                  "Clique nos 3 pontinhos na barra “mesa de som” ao centro inferior da tela",
+                  "Clique em “propriedades”",
+                  "Selecione o dispositivo “HD-1”",
+                  "Se não aparecer, desconecte a interface do computador, conecte novamente e reinicie o programa"
+                ]
+              }
+            ]
+          },
+          {
+            q: "Som estourado.",
+            solutions: [
+              { text: "Diminuir fader do AUDIO LIVE." },
+              { text: "Caso seja apenas uma voz, diminuir o volume individual no AUDIO LIVE" }
+            ]
+          },
+          {
+            q: "Som chiando.",
+            solutions: [
+              { text: "Diminuir o knob da interface e aumentar o áudio que AUDIO LIVE na mesa" },
+              { text: "Movimentar o multicabo direito que está em baixo da mesa, se durante o movimento o chiado parar, tente deixar o muti cabo nessa posição" },
+              {
+                text: "Aumentar o cancelamento de ruído no OBS",
+                steps: [
+                  "Clique nos 3 pontinhos na barra “mesa de som” ao centro inferior da tela",
+                  "Vá em “Supressão de ruídos”",
+                  "E diminua a barra. Quanto menor, mais ela vai cortar o som.",
+                  "⚠ NO LOUVOR, ELA NÃO DEVE BAIXAR MENOS QUE -6 DB, POIS VAI CORTAR OS INTRUMENTOS, DURANTE A PREGAÇÃO VOCÊ PODERÁ DIMINUIR O QUANTO QUISER, SÓ CUIDADO PARA NÃO CORTAR A VOZ."
+                ]
+              }
+            ]
+          }
+        ]
+      },
+
+      {
+        stage: "ETAPA 4 — MESA DE SOM",
+        problems: [
+          {
+            q: "App não encontra a mesa.",
+            solutions: [
+              { text: "Conferir Wi-Fi “Mesa de Som”." },
+              { text: "Se não estiver conectado, use a senha: 03132628" },
+              { text: "Clicar em Refresh" },
+              { text: "Reiniciar a mesa no altar" }
+            ]
+          },
+          {
+            q: "Mesa não conecta.",
+            solutions: [
+              { text: "Fechar e reabrir o aplicativo." },
+              { text: "Tentar Connect novamente." },
+              { text: "Desconectar e conectar novamente na rede da MESA" }
+            ]
+          },
+          {
+            q: "Louvor muito alto ou voz baixa.",
+            solutions: [
+              { text: "Ajustar faders do auxiliar AUDIO LIVE na categoria FADERS. (PRIORIZAR AS VOZES)" }
+            ]
+          }
+        ]
+      },
+
+      {
+        stage: "ETAPA 5 — YOUTUBE / FACEBOOK",
+        problems: [
+          {
+            q: "Contador não aparece.",
+            solutions: [
+              { text: "Conferir se OBS está na cena “Início”." },
+              { text: "Aguardar 30 segundos." },
+              { text: "Atualizar a página." },
+              { text: "Conferir chave de transmissão" }
+            ]
+          },
+          {
+            q: "Chave de transmissão indisponível",
+            solutions: [
+              {
+                text: "Atualizar chave no YouTube Studio e colar no OBS.",
+                steps: [
+                  "Vá até o Youtube Studio no navegador",
+                  "No previw da imagem no canto superior direito, procure por “Chave de transmissão”",
+                  "Selecione a chave “TRANSMISSÃO”",
+                  "Clique no icone de copiar para copiar essa chave.",
+                  "Entre no OBS -> CONFIGURAÇÕES -> TRANSMISSÃO -> USAR CHAVE DE TRANSMISSÃO -> COLE A CHAVE QUE VOCÊ COPIOU"
+                ]
+              },
+              {
+                text: "Atualizar chave no Facebook e colar no plugin multi stream.",
+                steps: [
+                  "No facebook selecione “Software de streaming”, copie a chave de transmissão e cole no plugin multi stream"
+                ]
+              }
+            ]
+          },
+          {
+            q: "YouTube funciona mas Facebook não.",
+            solutions: [
+              { text: "Atualizar página do Facebook." },
+              { text: "Aguardar preview aparecer." },
+              { text: "Clicar em “iniciar transmissão”" }
+            ]
+          }
+        ]
+      },
+
+      {
+        stage: "ETAPA 6 — DURANTE O CULTO",
+        problems: [
+          {
+            q: "Cena errada no ar.",
+            solutions: [
+              { text: "Trocar manualmente para a cena correta." }
+            ]
+          },
+          {
+            q: "Som caiu durante a palavra.",
+            solutions: [
+              { text: "Verificar barra do OBS. Se chegar na barra, está chegando na live" },
+              { text: "Retirar e colocar o cabo do multi cabo direito que fica em baixo da mesa, lembre-se de conectar no último canal" },
+              { text: "Verificar em um aparelho externo se o som realmente caiu ou o fone parou de funcionar" }
+            ]
+          }
+        ]
+      },
+
+      {
+        stage: "ETAPA 7 — ENCERRAMENTO",
+        problems: [
+          {
+            q: "Live não encerrou.",
+            solutions: [
+              { text: "Clicar novamente na cena “Encerrar”." },
+              { text: "Confirmar no YouTube." },
+              { text: "Confirmar no Facebook." }
+            ]
+          }
+        ]
+      },
+
+      {
+        stage: "PLANO DE EMERGÊNCIA",
+        problems: [
+          {
+            q: "90% dos problemas são resolvidos nesses passos.",
+            solutions: [
+              { text: "Reiniciar OBS." },
+              { text: "Conferir câmera." },
+              { text: "Conferir áudio." },
+              { text: "Atualizar YouTube/Facebook." },
+              { text: "Manter a calma." }
+            ]
+          }
+        ]
+      }
+    ];
+
+    // ======= UTIL =======
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+    function waLink(number, message){
+      const text = encodeURIComponent(message);
+      return `https://wa.me/${number}?text=${text}`;
+    }
+
+    // ======= RENDER =======
+    const app = document.getElementById("app");
+
+    function render(){
+      app.innerHTML = DATA.map((stage, si)=>{
+        const items = stage.problems.length;
+        return `
+          <div class="sectionTitle">
+            <div>${escapeHtml(stage.stage)}</div>
+            <span>${items} item(ns)</span>
+          </div>
+
+          <section class="stage" data-stage="${si}">
+            <div class="stageHead">
+              <div>
+                <strong>${escapeHtml(stage.stage)}</strong><br>
+                <small>Clique no problema (❓) para ver as possíveis soluções</small>
+              </div>
+              <small>${items} item(ns)</small>
+            </div>
+
+            <div class="problemList">
+              ${stage.problems.map((p, pi)=>renderProblem(si, pi, p)).join("")}
+            </div>
+          </section>
+        `;
+      }).join("");
+
+      bindEvents();
+      restoreSolved();
+    }
+
+    function renderProblem(si, pi, p){
+      const totalSolutions = p.solutions.length;
+
+      return `
+        <article class="problem" data-problem="${si}:${pi}">
+          <div class="problemTop" role="button" tabindex="0" aria-label="Abrir problema">
+            <div style="min-width:0">
+              <p class="q">❓ ${escapeHtml(p.q)}</p>
+              <div style="margin-top:6px;color:rgba(255,255,255,.74);font-weight:900;font-size:12px">
+                ${totalSolutions} possível(is) solução(ões)
+              </div>
+            </div>
+            <div class="chev" aria-hidden="true">⌄</div>
+          </div>
+
+          <div class="problemBody">
+            <div class="hint">
+              Abaixo estão <b>possíveis soluções independentes</b> — tente <b>uma por vez</b>.
+              <br>Quando uma solução tiver detalhe, clique nela e siga as setas “→”.
+            </div>
+
+            <div class="solutionsHeader">
+              <div class="left">
+                <div class="bulletTitle">• POSSÍVEIS SOLUÇÕES</div>
+              </div>
+              <div class="right">TENTE UMA POR VEZ</div>
+            </div>
+
+            ${p.solutions.map((s, idx)=>renderSolution(si, pi, idx, s)).join("")}
+
+            <div class="actions">
+              <button class="smallBtn ok" type="button" data-action="solved" data-key="${si}:${pi}">
+                ✅ Marcar como resolvido
+              </button>
+              <a class="smallBtn" href="${waLink(TECH_WHATS_NUMBER, TECH_WHATS_MESSAGE)}" target="_blank" rel="noopener">
+                💬 Chamar técnico no WhatsApp
+              </a>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderSolution(si, pi, idx, s){
+      const hasSteps = Array.isArray(s.steps) && s.steps.length > 0;
+      const text = escapeHtml(s.text || "");
+
+      return `
+        <div class="solution" data-solution="${si}:${pi}:${idx}">
+          <div class="solutionTop" role="button" tabindex="0" aria-label="${hasSteps ? "Abrir detalhe da solução" : "Solução"}">
+            <div class="left">
+              <div class="dot" aria-hidden="true">•</div>
+              <div class="solText">${text}</div>
+            </div>
+            <div class="solChev" aria-hidden="true">⌄</div>
+          </div>
+
+          <div class="solutionBody">
+            ${hasSteps ? `
+              <div class="arrowHint">
+                <span style="opacity:.92">📌</span>
+                <div>
+                  <b>Detalhe desta solução</b><br>
+                  Siga o passo a passo abaixo (setas “→”).
+                </div>
+              </div>
+
+              <ul class="steps">
+                ${s.steps.map(line => `
+                  <li>
+                    <span class="arr">→</span>
+                    <span>${escapeHtml(line)}</span>
+                  </li>
+                `).join("")}
+              </ul>
+            ` : `
+              <div class="arrowHint"><b>Sem passo a passo</b> — tente esta ação e veja se resolve.</div>
+            `}
+          </div>
+        </div>
+      `;
+    }
+
+    // ======= INTERAÇÕES =======
+    function bindEvents(){
+      document.querySelectorAll(".problemTop").forEach(el=>{
+        el.addEventListener("click", ()=>{
+          const wrap = el.closest(".problem");
+          wrap.classList.toggle("open");
+        });
+        el.addEventListener("keydown", (e)=>{
+          if(e.key === "Enter" || e.key === " "){
+            e.preventDefault();
+            el.click();
+          }
+        });
+      });
+
+      document.querySelectorAll(".solutionTop").forEach(el=>{
+        el.addEventListener("click", ()=>{
+          const wrap = el.closest(".solution");
+          wrap.classList.toggle("open");
+        });
+        el.addEventListener("keydown", (e)=>{
+          if(e.key === "Enter" || e.key === " "){
+            e.preventDefault();
+            el.click();
+          }
+        });
+      });
+
+      document.querySelectorAll("[data-action='solved']").forEach(btn=>{
+        btn.addEventListener("click", ()=>{
+          const key = btn.getAttribute("data-key");
+          markSolved(key, btn);
+        });
+      });
+    }
+
+    // ======= RESOLVIDOS (localStorage) =======
+    const LS_SOLVED = "ieq_live_solved_v1";
+
+    function getSolvedSet(){
+      try{
+        const raw = localStorage.getItem(LS_SOLVED);
+        if(!raw) return new Set();
+        const arr = JSON.parse(raw);
+        if(!Array.isArray(arr)) return new Set();
+        return new Set(arr);
+      }catch(e){ return new Set(); }
+    }
+    function saveSolvedSet(set){
+      localStorage.setItem(LS_SOLVED, JSON.stringify(Array.from(set)));
+    }
+    function updateSolvedCount(){
+      const set = getSolvedSet();
+      document.getElementById("solvedCount").textContent = String(set.size);
+    }
+    function markSolved(key, btnEl){
+      const set = getSolvedSet();
+      if(set.has(key)) return;
+
+      set.add(key);
+      saveSolvedSet(set);
+      updateSolvedCount();
+
+      if(btnEl){
+        btnEl.disabled = true;
+        btnEl.textContent = "✅ Resolvido";
+      }
+
+      const card = document.querySelector(`.problem[data-problem="${key}"]`);
+      if(card){
+        card.style.borderColor = "rgba(46, 204, 113, .22)";
+        card.style.background = "rgba(46, 204, 113, .06)";
+      }
+    }
+    function restoreSolved(){
+      const set = getSolvedSet();
+      set.forEach(key=>{
+        const btn = document.querySelector(`[data-action="solved"][data-key="${key}"]`);
+        if(btn){
+          btn.disabled = true;
+          btn.textContent = "✅ Resolvido";
+        }
+        const card = document.querySelector(`.problem[data-problem="${key}"]`);
+        if(card){
+          card.style.borderColor = "rgba(46, 204, 113, .22)";
+          card.style.background = "rgba(46, 204, 113, .06)";
+        }
+      });
+      updateSolvedCount();
+    }
+
+    // Reset
+    document.getElementById("btnReset").addEventListener("click", ()=>{
+      localStorage.removeItem(LS_SOLVED);
+      document.getElementById("solvedCount").textContent = "0";
+      render();
+    });
+
+    // ======= EMERGÊNCIA =======
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalClose = document.getElementById("modalClose");
+    const modalOk = document.getElementById("modalOk");
+    const btnEmergency = document.getElementById("btnEmergency");
+    const btnWhats = document.getElementById("btnWhats");
+    const modalWhats = document.getElementById("modalWhats");
+
+    const whatsHref = waLink(TECH_WHATS_NUMBER, TECH_WHATS_MESSAGE);
+    btnWhats.href = whatsHref;
+    modalWhats.href = whatsHref;
+
+    function openEmergency(){
+      modalBackdrop.classList.add("show");
+      modalBackdrop.setAttribute("aria-hidden","false");
+    }
+    function closeEmergency(){
+      modalBackdrop.classList.remove("show");
+      modalBackdrop.setAttribute("aria-hidden","true");
+    }
+
+    btnEmergency.addEventListener("click", openEmergency);
+    modalClose.addEventListener("click", closeEmergency);
+    modalOk.addEventListener("click", closeEmergency);
+    modalBackdrop.addEventListener("click", (e)=>{
+      if(e.target === modalBackdrop) closeEmergency();
+    });
+    document.addEventListener("keydown", (e)=>{
+      if(e.key === "Escape") closeEmergency();
+    });
+
+    // ======= INIT =======
+    document.getElementById("year").textContent = new Date().getFullYear();
+    render();
+  </script>
+</body>
+</html>

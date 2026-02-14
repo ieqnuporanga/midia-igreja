@@ -1,0 +1,684 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Checklist da Transmissão | IEQ Nuporanga</title>
+  <meta name="description" content="Checklist simples para a equipe de mídia iniciar, acompanhar e encerrar a transmissão ao vivo." />
+  <meta name="theme-color" content="#060A12" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900;950&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#060A12;
+      --panel: rgba(255,255,255,.07);
+      --panel2: rgba(255,255,255,.10);
+      --line: rgba(255,255,255,.14);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.74);
+
+      --red:#FF0000;
+      --yellow:#FFCC00;
+      --blue:#00B2FF;
+      --purple:#6600FF;
+
+      --max: 980px;
+      --r24: 24px;
+      --padX: 18px;
+    }
+
+    *{box-sizing:border-box}
+    html{
+      scroll-behavior:auto;
+      height:100%;
+      background:#060A12;
+      overscroll-behavior: none;
+    }
+
+    body{
+      margin:0;
+      min-height:100%;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg, #070B14, #050812);
+      color:#fff;
+      line-height:1.65;
+      overflow-x:hidden;
+      text-rendering: optimizeLegibility;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max);margin:0 auto;padding:0 var(--padX)}
+    .kickerBar{
+      height:6px;border-radius:999px;
+      background: linear-gradient(90deg, var(--red), var(--yellow), var(--blue), var(--purple));
+      width: 160px;margin: 18px 0 14px;
+    }
+
+    header{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(6,10,18,.82);
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .head{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:12px;
+      padding:12px 0;
+      flex-wrap:wrap;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;min-width:0;
+    }
+    .logo{
+      width:42px;height:42px;border-radius:14px;overflow:hidden;flex:0 0 auto;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      display:grid;place-items:center;
+    }
+    .logo img{width:100%;height:100%;object-fit:cover}
+    .brandTxt{min-width:0}
+    .brandTxt strong{
+      display:block;
+      font-weight:950;letter-spacing:-.3px;
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      max-width: 64vw;
+    }
+    .brandTxt span{
+      display:block;
+      font-size:12.5px;
+      font-weight:900;
+      color: rgba(255,255,255,.70);
+      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      max-width: 64vw;
+      margin-top:2px;
+    }
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      font-size:13.5px;font-weight:950;
+      padding:10px 12px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.95);
+      cursor:pointer;user-select:none;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px);background: rgba(255,255,255,.12);border-color: rgba(255,255,255,.22)}
+    .btn.primary{
+      background: rgba(255,255,255,.14);
+      border-color: rgba(255,255,255,.26);
+    }
+    .btn.danger{
+      background: rgba(255,0,0,.12);
+      border-color: rgba(255,0,0,.22);
+    }
+    .btn.ghost{background: rgba(255,255,255,.06)}
+
+    main{padding: 14px 0 36px}
+
+    .hero{padding: 10px 0 14px;}
+    h1{
+      margin:0 0 6px;
+      font-size:28px;
+      letter-spacing:-.9px;
+      line-height:1.15;
+      font-weight:950;
+    }
+    .sub{
+      margin:0;
+      color: rgba(255,255,255,.80);
+      font-size:15px;
+      max-width: 80ch;
+    }
+
+    .panel{
+      margin-top:16px;
+      border:1px solid var(--line);
+      background: var(--panel);
+      border-radius: var(--r24);
+      box-shadow: 0 16px 40px rgba(0,0,0,.30);
+      overflow:hidden;
+    }
+    .panelTop{
+      padding:14px 16px;
+      display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
+      background: rgba(0,0,0,.12);
+      border-bottom:1px solid rgba(255,255,255,.10);
+      flex-wrap:wrap;
+    }
+    .panelTop .left strong{
+      display:block;
+      font-weight:950;
+      letter-spacing:-.2px;
+      margin-bottom:2px;
+    }
+    .panelTop .left span{
+      color: rgba(255,255,255,.72);
+      font-weight:900;
+      font-size:12.5px;
+    }
+    .panelBody{padding: 6px 16px 16px}
+
+    .step{
+      margin-top:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      border-radius: 18px;
+      overflow:hidden;
+    }
+    .stepHead{
+      padding:12px 12px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      cursor:pointer;
+    }
+    .stepHead h2{
+      margin:0;
+      font-size:15px;
+      font-weight:950;
+      letter-spacing:-.2px;
+      color: rgba(255,255,255,.92);
+    }
+    .stepHead .meta{
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      color: rgba(255,255,255,.70);
+      font-weight:900;
+      font-size:12.5px;
+      user-select:none;
+    }
+    .chip{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:6px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.16);
+      color: rgba(255,255,255,.86);
+      font-weight:950;
+      font-size:12px;
+    }
+    .chip.ok{
+      background: rgba(0,255,140,.10);
+      border-color: rgba(0,255,140,.20);
+    }
+
+    .stepBody{padding: 12px}
+    .items{display:grid;gap:10px}
+
+    label.item{
+      display:flex;gap:10px;align-items:flex-start;
+      padding:10px 10px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      border-radius: 16px;
+      cursor:pointer;
+    }
+    input[type="checkbox"]{
+      width:18px;height:18px;
+      margin-top:2px;
+      accent-color: #8b5cff;
+      flex:0 0 auto;
+    }
+    .txt{
+      font-size:14px;
+      color: rgba(255,255,255,.90);
+      font-weight:700;
+      line-height:1.45;
+    }
+
+    .footerRow{
+      padding:14px 16px;
+      border-top:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.10);
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    }
+    .progressWrap{
+      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+      color: rgba(255,255,255,.80);
+      font-weight:900;
+      font-size:13px;
+    }
+    .progressBar{
+      width:200px;height:10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+    }
+    .progressBar > i{
+      display:block;height:100%;width:0%;
+      background: linear-gradient(90deg, var(--red), var(--yellow), var(--blue), var(--purple));
+      border-radius:999px;
+    }
+
+    .toast{
+      position:fixed;left:50%;bottom:18px;transform:translateX(-50%);
+      background: rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.92);
+      padding:10px 12px;border-radius:14px;
+      box-shadow: 0 16px 45px rgba(0,0,0,.45);
+      font-weight:900;font-size:13px;
+      display:none;
+      z-index:80;
+      max-width:min(92vw, 540px);
+      text-align:center;
+    }
+    .toast.show{display:block}
+
+    @media (max-width: 560px){
+      :root{--padX: 16px;}
+      h1{font-size:24px}
+      .sub{font-size:14.5px}
+      .panelTop{padding:12px}
+      .panelBody{padding: 6px 12px 14px}
+      .footerRow{padding:12px}
+      .progressBar{width: min(70vw, 240px)}
+      .stepHead{padding:11px}
+      label.item{padding:9px}
+      .txt{font-size:13.8px}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto !important;transition:none !important;animation:none !important}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container head">
+      <a class="brand" href="geral.html" aria-label="Voltar para o menu geral da mídia">
+        <div class="logo">
+          <img src="https://i.imgur.com/PlDV9NW.jpeg" alt="IEQ Nuporanga" />
+        </div>
+        <div class="brandTxt">
+          <strong>Checklist da Transmissão</strong>
+          <span>IEQ Nuporanga • Equipe de Mídia</span>
+        </div>
+      </a>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+        <!-- NOVO: Menu Geral -->
+        <a class="btn ghost" href="geral.html" aria-label="Abrir menu geral da mídia">🏠 Menu Geral</a>
+
+        <!-- Soluções -->
+        <a class="btn" id="solutionsBtn" href="solucoes.html" aria-label="Abrir soluções de problemas">
+          Soluções
+        </a>
+
+        <button class="btn" id="saveBtn" type="button">Salvar</button>
+        <button class="btn danger" id="resetBtn" type="button">Limpar tudo</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="hero">
+      <div class="kickerBar"></div>
+      <h1>Checklist antes, durante e após a live</h1>
+      <p class="sub">
+        Siga cada etapa com atenção e não pule verificações. Uma boa transmissão começa com organização.
+      </p>
+    </div>
+
+    <section class="panel" aria-label="Checklist">
+      <div class="panelTop">
+        <div class="left">
+          <strong>Status geral</strong>
+          <span id="statusText">Carregando…</span>
+        </div>
+        <div class="right" style="display:flex;gap:10px;flex-wrap:wrap">
+          <span class="chip" id="chipSaved">Não salvo</span>
+          <span class="chip" id="chipAll">0%</span>
+        </div>
+      </div>
+
+      <div class="panelBody" id="steps"></div>
+
+      <div class="footerRow">
+        <div class="progressWrap">
+          <span id="progressLabel">0/0 concluído</span>
+          <div class="progressBar" aria-hidden="true"><i id="progressFill"></i></div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn primary" id="markAllBtn" type="button">Marcar tudo</button>
+          <button class="btn" id="collapseBtn" type="button">Recolher etapas</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const DATA = [
+      {
+        id: "etapa1",
+        title: "ETAPA 1 – ENERGIA E INICIALIZAÇÃO",
+        items: [
+          "Ligar o disjuntor geral da sala técnica",
+          "Ligar a câmera PTZ via controle remoto",
+          "Ligar o computador da transmissão",
+          "Verificar se a interface de áudio ligou corretamente",
+          "Conferir se o knob da interface está na posição “meio-dia” (50%)",
+          "Aguardar todos os programas iniciarem automaticamente (não abrir nada manualmente)"
+        ]
+      },
+      {
+        id: "etapa2",
+        title: "ETAPA 2 – VÍDEO",
+        items: [
+          "Verificar se o vídeo da câmera aparece no programa OBS",
+          "Conferir se a imagem não está preta ou travada",
+          "Ajustar enquadramento para o início do culto",
+          "Conferir se os comandos de movimento estão respondendo (cima, baixo, esquerda, direita e zoom)"
+        ]
+      },
+      {
+        id: "etapa3",
+        title: "ETAPA 3 – ÁUDIO",
+        items: [
+          "Verificar se está chegando áudio no OBS (a barra de áudio deve estar se movimentando ao falar no microfone ou tocar instrumento)",
+          "Conferir áudio no fone do técnico ligado ao computador",
+          "Verificar se não existe distorções ou excesso de ruído chegando no fone técnico"
+        ]
+      },
+      {
+        id: "etapa4",
+        title: "ETAPA 4 – MESA DE SOM",
+        items: [
+          "Conectar no Wi-Fi “Mesa de Som”",
+          "Abrir aplicativo da mesa",
+          "Clicar em Refresh",
+          "Selecionar a mesa até ficar verde",
+          "Clicar em Connect",
+          "Entrar em Faders → AUDIO LIVE",
+          "Ajustar MIX da live: pedir para o louvor tocar uma música, ajustar volumes e conferir equilíbrio entre voz e instrumentos"
+        ]
+      },
+      {
+        id: "etapa5",
+        title: "ETAPA 5 – PLATAFORMAS (YOUTUBE + FACEBOOK)",
+        items: [
+          "Entrar no YouTube Studio",
+          "Atualizar título",
+          "Atualizar thumbnail",
+          "Conferir descrição",
+          "Alterar visibilidade para Público",
+          "Abrir painel da live no Facebook",
+          "Conferir se está criada corretamente (deve estar em “Software de streaming”)"
+        ]
+      },
+      {
+        id: "etapa6",
+        title: "ETAPA 6 – TESTE FINAL",
+        items: [
+          "Confirmar: tem vídeo",
+          "Confirmar: tem áudio no OBS",
+          "Confirmar: tem áudio no fone",
+          "Confirmar: mix equilibrada",
+          "Confirmar: internet estável"
+        ]
+      },
+      {
+        id: "etapa7",
+        title: "ETAPA 7 – INICIAR TRANSMISSÃO",
+        items: [
+          "No OBS clicar na cena “Início”",
+          "Abrir YouTube Studio e verificar se na visualização está aparecendo o contador de início",
+          "Abrir Facebook e verificar se na visualização está aparecendo o contador de início",
+          "Clicar em “iniciar a transmissão” no canto inferior esquerdo (Facebook)"
+        ]
+      },
+      {
+        id: "etapa8",
+        title: "ETAPA 8 – DURANTE O CULTO",
+        items: [
+          "Após o louvor trocar para cena “Palavra”",
+          "Quando mostradas imagens no projetor, trocar pra cena “Tela Projetor”",
+          "Monitorar áudio e vídeo constantemente"
+        ]
+      },
+      {
+        id: "etapa9",
+        title: "ETAPA 9 – ENCERRAMENTO",
+        items: [
+          "Clicar na cena “Encerrar”",
+          "Confirmar encerramento no YouTube",
+          "Confirmar encerramento no Facebook",
+          "Desligar câmera PTZ",
+          "Desligar o notebook pela função desligar (nunca direto no disjuntor ou no botão físico de ligar)"
+        ]
+      }
+    ];
+
+    const KEY = "ieq_checklist_transmissao_v1";
+
+    const stepsEl = document.getElementById("steps");
+    const statusText = document.getElementById("statusText");
+    const progressLabel = document.getElementById("progressLabel");
+    const progressFill = document.getElementById("progressFill");
+    const chipSaved = document.getElementById("chipSaved");
+    const chipAll = document.getElementById("chipAll");
+    const toast = document.getElementById("toast");
+
+    const saveBtn = document.getElementById("saveBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const markAllBtn = document.getElementById("markAllBtn");
+    const collapseBtn = document.getElementById("collapseBtn");
+
+    let state = { checked: {}, updatedAt: null };
+    let collapsed = false;
+    let dirty = false;
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      window.clearTimeout(showToast._t);
+      showToast._t = window.setTimeout(()=>toast.classList.remove("show"), 2200);
+    }
+
+    function load(){
+      try{
+        const raw = localStorage.getItem(KEY);
+        if(raw){
+          const parsed = JSON.parse(raw);
+          if(parsed && typeof parsed === "object") state = parsed;
+        }
+      }catch(e){}
+    }
+
+    function save(){
+      state.updatedAt = new Date().toISOString();
+      localStorage.setItem(KEY, JSON.stringify(state));
+      dirty = false;
+      updateSavedChip(true);
+      showToast("Checklist salvo!");
+    }
+
+    function resetAll(){
+      state = { checked:{}, updatedAt:null };
+      dirty = true;
+      render();
+      updateSavedChip(false);
+      showToast("Checklist limpo.");
+    }
+
+    function updateSavedChip(saved){
+      chipSaved.textContent = saved ? "Salvo" : (dirty ? "Não salvo" : "Não salvo");
+      chipSaved.classList.toggle("ok", saved && !dirty);
+      chipSaved.classList.toggle("active", false);
+    }
+
+    function stepProgress(step){
+      const total = step.items.length;
+      let done = 0;
+      for(let i=0;i<total;i++){
+        const k = `${step.id}:${i}`;
+        if(state.checked[k]) done++;
+      }
+      return {done,total};
+    }
+
+    function overallProgress(){
+      let total = 0;
+      let done = 0;
+      for(const step of DATA){
+        total += step.items.length;
+        for(let i=0;i<step.items.length;i++){
+          const k = `${step.id}:${i}`;
+          if(state.checked[k]) done++;
+        }
+      }
+      return {done,total};
+    }
+
+    function setChecked(key, val){
+      state.checked[key] = !!val;
+      dirty = true;
+      updateSavedChip(false);
+      updateUIOnly();
+    }
+
+    function toggleCollapsed(){
+      collapsed = !collapsed;
+      collapseBtn.textContent = collapsed ? "Expandir etapas" : "Recolher etapas";
+      document.querySelectorAll(".stepBody").forEach(el=>{
+        el.style.display = collapsed ? "none" : "block";
+      });
+    }
+
+    function render(){
+      stepsEl.innerHTML = "";
+
+      for(const step of DATA){
+        const {done,total} = stepProgress(step);
+        const pct = total ? Math.round((done/total)*100) : 0;
+
+        const wrap = document.createElement("div");
+        wrap.className = "step";
+        wrap.setAttribute("data-step", step.id);
+
+        const head = document.createElement("div");
+        head.className = "stepHead";
+        head.tabIndex = 0;
+        head.setAttribute("role","button");
+        head.setAttribute("aria-label", step.title);
+
+        const h2 = document.createElement("h2");
+        h2.textContent = step.title;
+
+        const meta = document.createElement("div");
+        meta.className = "meta";
+
+        const chip1 = document.createElement("span");
+        chip1.className = "chip " + (pct === 100 ? "ok" : "");
+        chip1.textContent = `${done}/${total}`;
+
+        const chip2 = document.createElement("span");
+        chip2.className = "chip " + (pct === 100 ? "ok" : "");
+        chip2.textContent = `${pct}%`;
+
+        meta.appendChild(chip1);
+        meta.appendChild(chip2);
+
+        head.appendChild(h2);
+        head.appendChild(meta);
+
+        const body = document.createElement("div");
+        body.className = "stepBody";
+        body.style.display = collapsed ? "none" : "block";
+
+        const items = document.createElement("div");
+        items.className = "items";
+
+        step.items.forEach((text, idx)=>{
+          const k = `${step.id}:${idx}`;
+
+          const lab = document.createElement("label");
+          lab.className = "item";
+
+          const cb = document.createElement("input");
+          cb.type = "checkbox";
+          cb.checked = !!state.checked[k];
+          cb.addEventListener("change", ()=>setChecked(k, cb.checked));
+
+          const t = document.createElement("div");
+          t.className = "txt";
+          t.textContent = text;
+
+          lab.appendChild(cb);
+          lab.appendChild(t);
+          items.appendChild(lab);
+        });
+
+        body.appendChild(items);
+
+        function toggleStepBody(){
+          const isHidden = body.style.display === "none";
+          body.style.display = isHidden ? "block" : "none";
+        }
+        head.addEventListener("click", toggleStepBody);
+        head.addEventListener("keydown", (e)=>{
+          if(e.key === "Enter" || e.key === " "){
+            e.preventDefault();
+            toggleStepBody();
+          }
+        });
+
+        wrap.appendChild(head);
+        wrap.appendChild(body);
+        stepsEl.appendChild(wrap);
+      }
+
+      updateUIOnly();
+    }
+
+    function updateUIOnly(){
+      const {done,total} = overallProgress();
+      const pct = total ? Math.round((done/total)*100) : 0;
+
+      statusText.textContent = `${done} de ${total} itens concluídos`;
+      progressLabel.textContent = `${done}/${total} concluído`;
+      progressFill.style.width = `${pct}%`;
+      chipAll.textContent = `${pct}%`;
+
+      if(dirty){
+        chipSaved.textContent = "Não salvo";
+        chipSaved.classList.remove("ok");
+      }else{
+        chipSaved.textContent = state.updatedAt ? "Salvo" : "Não salvo";
+        chipSaved.classList.toggle("ok", !!state.updatedAt);
+      }
+    }
+
+    saveBtn.addEventListener("click", save);
+
+    resetBtn.addEventListener("click", ()=>{
+      if(confirm("Tem certeza que deseja limpar todo o checklist?")){
+        resetAll();
+      }
+    });
+
+    markAllBtn.addEventListener("click", ()=>{
+      for(const step of DATA){
+        for(let i=0;i<step.items.length;i++){
+          state.checked[`${step.id}:${i}`] = true;
+        }
+      }
+      dirty = true;
+      updateSavedChip(false);
+      render();
+      showToast("Tudo marcado. Salve para gravar.");
+    });
+
+    collapseBtn.addEventListener("click", toggleCollapsed);
+
+    load();
+    render();
+  </script>
+</body>
+</html>
