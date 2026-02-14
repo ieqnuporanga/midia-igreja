@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>404 | Mídia</title>
+<meta name="robots" content="noindex, nofollow" />
+
+<style>
+:root{
+  --bg:#0b0d12;
+  --muted:#8b93a7;
+  --text:#e9ecf5;
+  --brand:#7c5cff;
+  --brand2:#24d3ee;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,Segoe UI,Roboto,Arial;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  overflow:hidden;
+}
+.bg{position:fixed;inset:-30%;z-index:0;pointer-events:none}
+.bg::before,
+.bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(900px 520px at 22% 12%, rgba(124,92,255,.28), transparent 60%),
+    radial-gradient(760px 460px at 88% 18%, rgba(36,211,238,.22), transparent 55%),
+    radial-gradient(700px 420px at 55% 85%, rgba(124,92,255,.14), transparent 60%);
+  animation:pulse 10s ease-in-out infinite;
+}
+.bg::after{
+  background:
+    radial-gradient(820px 480px at 15% 80%, rgba(36,211,238,.18), transparent 60%),
+    radial-gradient(760px 440px at 92% 70%, rgba(124,92,255,.22), transparent 58%);
+  animation:pulse2 14s ease-in-out infinite;
+  opacity:.75;
+}
+@keyframes pulse{
+  0%{transform:scale(1);opacity:.85}
+  50%{transform:scale(1.12);opacity:1}
+  100%{transform:scale(1);opacity:.85}
+}
+@keyframes pulse2{
+  0%{transform:scale(1.08);opacity:.6}
+  50%{transform:scale(1);opacity:.9}
+  100%{transform:scale(1.08);opacity:.6}
+}
+@media(prefers-reduced-motion:reduce){
+  .bg::before,.bg::after{animation:none}
+}
+.box{
+  position:relative;
+  z-index:1;
+  width:100%;
+  max-width:540px;
+  padding:40px 24px;
+  text-align:center;
+}
+h1{
+  font-size:clamp(56px,18vw,80px);
+  margin:0;
+  line-height:1;
+}
+h2{
+  margin:10px 0;
+  font-weight:800;
+  font-size:clamp(20px,5vw,26px);
+}
+p{
+  color:var(--muted);
+  line-height:1.5;
+  font-size:15px;
+}
+a{
+  display:inline-block;
+  margin-top:18px;
+  padding:14px 26px;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  color:white;
+  font-weight:800;
+  text-decoration:none;
+  font-size:15px;
+  transition:.15s;
+}
+a:hover{transform:translateY(-2px)}
+.path{
+  margin:18px auto 0;
+  max-width:520px;
+  font-size:13px;
+  color:#9aa2b8;
+  word-break:break-all;
+}
+.verse{
+  margin-top:28px;
+  font-size:13px;
+  color:#9aa2b8;
+}
+@media(max-width:480px){
+  .box{padding:28px 10px}
+}
+</style>
+</head>
+
+<body>
+<div class="bg"></div>
+
+<div class="box">
+<h1>404</h1>
+<h2>Página não encontrada</h2>
+
+<p>
+O link que você tentou acessar não existe ou foi movido.<br>
+Clique no botão abaixo para voltar ao site principal.
+</p>
+
+<a id="homeLink" href="./">Ir para o Site</a>
+
+<div class="path" id="badPath"></div>
+
+<div class="verse">
+“Tudo o que fizerem, façam de todo o coração, como para o Senhor.”<br>
+<strong>Colossenses 3:23</strong>
+</div>
+</div>
+
+<script>
+(function(){
+  var bad=location.pathname+location.search+location.hash;
+  document.getElementById("badPath").textContent="Você tentou acessar: "+bad;
+  var link=document.getElementById("homeLink");
+  link.href="./";
+  var canBack=false;
+  try{
+    var ref=document.referrer?new URL(document.referrer):null;
+    if(ref&&ref.origin===location.origin&&history.length>1){
+      var p=ref.pathname.toLowerCase();
+      canBack=!(p.endsWith("/404.html")||p.endsWith("/404")||p.includes("404"));
+    }
+  }catch(e){canBack=false}
+  if(canBack){
+    link.textContent="Voltar";
+    link.addEventListener("click",function(e){
+      e.preventDefault();
+      history.back();
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
