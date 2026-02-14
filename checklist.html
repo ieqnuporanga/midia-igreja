@@ -290,7 +290,7 @@
 <body>
   <header>
     <div class="container head">
-      <a class="brand" href="index.html" aria-label="Voltar para o menu geral da mídia">
+      <a class="brand" href="geral.html" aria-label="Voltar para o menu geral da mídia">
         <div class="logo">
           <img src="https://i.imgur.com/PlDV9NW.jpeg" alt="IEQ Nuporanga" />
         </div>
@@ -301,14 +301,8 @@
       </a>
 
       <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-        <!-- NOVO: Menu Geral -->
-        <a class="btn ghost" href="index.html" aria-label="Abrir menu geral da mídia">🏠 Menu Geral</a>
-
-        <!-- Soluções -->
-        <a class="btn" id="solutionsBtn" href="solucoes.html" aria-label="Abrir soluções de problemas">
-          Soluções
-        </a>
-
+        <a class="btn ghost" href="geral.html" aria-label="Abrir menu geral da mídia">🏠 Menu Geral</a>
+        <a class="btn" id="solutionsBtn" href="solucoes.html" aria-label="Abrir soluções de problemas">Soluções</a>
         <button class="btn" id="saveBtn" type="button">Salvar</button>
         <button class="btn danger" id="resetBtn" type="button">Limpar tudo</button>
       </div>
@@ -574,13 +568,18 @@
         const meta = document.createElement("div");
         meta.className = "meta";
 
+        // ✅ FIX: chips com data-attributes pra atualizar sem renderizar tudo
         const chip1 = document.createElement("span");
         chip1.className = "chip " + (pct === 100 ? "ok" : "");
         chip1.textContent = `${done}/${total}`;
+        chip1.setAttribute("data-step-id", step.id);
+        chip1.setAttribute("data-step-chip", "count");
 
         const chip2 = document.createElement("span");
         chip2.className = "chip " + (pct === 100 ? "ok" : "");
         chip2.textContent = `${pct}%`;
+        chip2.setAttribute("data-step-id", step.id);
+        chip2.setAttribute("data-step-chip", "pct");
 
         meta.appendChild(chip1);
         meta.appendChild(chip2);
@@ -604,6 +603,10 @@
           const cb = document.createElement("input");
           cb.type = "checkbox";
           cb.checked = !!state.checked[k];
+
+          // ✅ melhoria: evita o clique no checkbox disparar o "abre/fecha" do head (por bubbling acidental em layouts)
+          cb.addEventListener("click", (e)=>e.stopPropagation());
+
           cb.addEventListener("change", ()=>setChecked(k, cb.checked));
 
           const t = document.createElement("div");
@@ -617,6 +620,7 @@
 
         body.appendChild(items);
 
+        // ✅ melhoria: só abre/fecha clicando no cabeçalho, sem interferir nos checks
         function toggleStepBody(){
           const isHidden = body.style.display === "none";
           body.style.display = isHidden ? "block" : "none";
@@ -638,6 +642,7 @@
     }
 
     function updateUIOnly(){
+      // Status geral
       const {done,total} = overallProgress();
       const pct = total ? Math.round((done/total)*100) : 0;
 
@@ -646,6 +651,25 @@
       progressFill.style.width = `${pct}%`;
       chipAll.textContent = `${pct}%`;
 
+      // ✅ FIX: atualiza os chips "0/6" e "%" de cada etapa ao marcar/desmarcar
+      for(const step of DATA){
+        const {done: sd, total: st} = stepProgress(step);
+        const sp = st ? Math.round((sd/st)*100) : 0;
+
+        const chipCount = document.querySelector(`[data-step-id="${step.id}"][data-step-chip="count"]`);
+        const chipPct   = document.querySelector(`[data-step-id="${step.id}"][data-step-chip="pct"]`);
+
+        if(chipCount){
+          chipCount.textContent = `${sd}/${st}`;
+          chipCount.classList.toggle("ok", sp === 100);
+        }
+        if(chipPct){
+          chipPct.textContent = `${sp}%`;
+          chipPct.classList.toggle("ok", sp === 100);
+        }
+      }
+
+      // Chip de salvo/não salvo
       if(dirty){
         chipSaved.textContent = "Não salvo";
         chipSaved.classList.remove("ok");
@@ -654,6 +678,14 @@
         chipSaved.classList.toggle("ok", !!state.updatedAt);
       }
     }
+
+    // ✅ melhoria: salva com Ctrl+S
+    window.addEventListener("keydown", (e)=>{
+      if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s"){
+        e.preventDefault();
+        save();
+      }
+    });
 
     saveBtn.addEventListener("click", save);
 
@@ -682,4 +714,3 @@
   </script>
 </body>
 </html>
-
