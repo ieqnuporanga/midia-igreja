@@ -281,45 +281,11 @@
       line-height:1.35;
     }
 
-    /* ===== Escala: form + lista ===== */
-    .scaleGrid{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:12px;
-      align-items:start;
-    }
-    .formCard{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      border-radius: 16px;
-      padding:12px;
-    }
-    .formTitle{
-      font-weight:950;
-      letter-spacing:-.2px;
-      color: rgba(255,255,255,.92);
-      font-size:14px;
-      margin:0 0 8px;
-    }
-    .formHint{
-      margin:0 0 10px;
-      color: rgba(255,255,255,.74);
-      font-weight:850;
-      font-size:13px;
-      line-height:1.5;
-    }
-    .fieldGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    .field{display:flex;flex-direction:column;gap:6px}
-    .field label{
-      font-size:12.5px;
-      font-weight:900;
-      color: rgba(255,255,255,.72);
-    }
-    .input, .select, .textarea{
+    /* Registro */
+    .textarea{
+      width:100%;
+      min-height: 110px;
+      resize: vertical;
       background: rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.14);
       color: rgba(255,255,255,.92);
@@ -328,103 +294,50 @@
       font-family:inherit;
       font-weight:850;
       outline:none;
+    }
+    .input{
       width:100%;
-    }
-    .textarea{min-height: 90px; resize: vertical}
-    .checkGrid{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:8px;
-      margin-top:8px;
-    }
-    .check{
-      display:flex;align-items:center;gap:10px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      border-radius: 14px;
-      padding:10px 10px;
-      user-select:none;
-    }
-    .check input{
-      width:18px;height:18px;
-      accent-color:#8b5cff;
-      flex:0 0 auto;
-    }
-    .check span{
-      font-weight:900;
-      color: rgba(255,255,255,.86);
-      font-size:13.5px;
-      line-height:1.2;
-    }
-    .actionsRow{
-      display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;
-      margin-top:12px;
-    }
-
-    .listCard{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      border-radius: 16px;
-      overflow:hidden;
-    }
-    .listTop{
-      padding:12px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;
-      background: rgba(255,255,255,.03);
-    }
-    .listTop strong{
-      display:block;
-      font-weight:950;
-      letter-spacing:-.2px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
       color: rgba(255,255,255,.92);
-      font-size:14px;
-      margin-bottom:2px;
+      border-radius: 12px;
+      padding:10px 12px;
+      font-family:inherit;
+      font-weight:850;
+      outline:none;
     }
-    .listTop span{
-      color: rgba(255,255,255,.72);
-      font-weight:900;
-      font-size:12.5px;
-    }
-    .scaleList{padding:12px;display:grid;gap:10px}
-    .scaleItem{
+    .miniList2{display:grid;gap:10px;margin-top:10px}
+    .miniNote{
       border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.16);
       border-radius: 14px;
       padding:10px;
     }
-    .scaleItem .topline{
+    .miniNote .topline{
       display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;
     }
-    .scaleItem .when{
+    .miniNote .when{
       font-weight:950;
-      color: rgba(255,255,255,.92);
+      color: rgba(255,255,255,.90);
+      font-size:12.8px;
       letter-spacing:-.2px;
-      font-size:13.8px;
-      line-height:1.25;
     }
-    .scaleItem .type{
-      color: rgba(255,255,255,.70);
+    .miniNote .who{
+      margin-top:2px;
+      color: rgba(255,255,255,.78);
       font-weight:900;
       font-size:12.5px;
-      line-height:1.25;
+      letter-spacing:-.1px;
     }
-    .scaleItem .roles{
+    .miniNote .txt{
       margin-top:8px;
       color: rgba(255,255,255,.84);
       font-weight:850;
-      font-size:13px;
-      line-height:1.5;
+      font-size:13.2px;
+      line-height:1.55;
+      white-space:pre-wrap;
+      word-break:break-word;
     }
-    .roles .r{display:block}
-    .scaleItem .note{
-      margin-top:8px;
-      color: rgba(255,255,255,.70);
-      font-weight:850;
-      font-size:12.8px;
-      line-height:1.5;
-    }
-    .miniBtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
     .empty{
       color: rgba(255,255,255,.74);
       font-weight:850;
@@ -433,12 +346,28 @@
       padding: 8px 2px;
     }
 
+    /* ✅ NOTICE ARRUMADO (não “separa” pontuação e ainda quebra bem no mobile) */
+    .notice{
+      margin-top:10px;
+      border:1px dashed rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      border-radius: 14px;
+      padding:10px;
+      color: rgba(255,255,255,.82);
+      font-weight:850;
+      font-size:13px;
+      line-height:1.55;
+
+      white-space: normal;
+      word-break: normal;
+      overflow-wrap: anywhere; /* quebra "localStorage" se precisar */
+      hyphens: auto;
+    }
+    .notice strong{color: rgba(255,255,255,.92);font-weight:950}
+
     /* Mobile */
     @media (max-width: 860px){
       .grid2{grid-template-columns: 1fr}
-      .scaleGrid{grid-template-columns: 1fr}
-      .checkGrid{grid-template-columns: 1fr}
-      .fieldGrid{grid-template-columns: 1fr}
     }
     @media (max-width: 560px){
       :root{--padX: 16px;}
@@ -504,111 +433,166 @@
 
       <div class="panelBody" id="wrap">
 
-      <!-- GERADOR DE TÍTULO -->
-      <div class="panel">
-        <div class="panelTop">
-          <div class="left">
-            <strong>Gerador de Título da Live</strong>
-            <span>Dia e data automáticos</span>
-          </div>
-        </div>
-      
-        <div class="panelBody">
-          <div class="fieldGrid">
-            <div class="field">
-              <label>Data do culto</label>
-              <input type="date" id="liveDate" class="input">
-            </div>
-          </div>
-      
-          <div class="card" style="margin-top:12px">
-            <strong>Título gerado</strong>
-            <p id="liveTitle" style="word-break:break-word"></p>
-      
-            <div class="row">
-              <button class="btn primary small" id="copyLive">Copiar título</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-        <!-- VÍDEOS -->
+        <!-- GERADOR DE TÍTULO (FECHADO POR PADRÃO) -->
         <div class="section" data-section>
-          <div class="sectionHead" role="button" tabindex="0" aria-label="Vídeos explicativos">
-            <h2>VÍDEOS EXPLICATIVOS</h2>
+          <div class="sectionHead" role="button" tabindex="0" aria-label="Gerador de título da live">
+            <h2>GERADOR DE TÍTULO DA LIVE</h2>
             <div class="meta">
-              <span class="chip" data-chip>8 vídeos</span>
+              <span class="chip" id="liveWhenChip">—</span>
             </div>
           </div>
           <div class="sectionBody" data-body>
-            <div class="grid2">
-              <div class="card" data-item>
-                <strong>Como funciona a sala da mídia</strong>
-                <p>Vídeo explicando o ambiente e organização da sala.</p>
-                <div class="row">
-                  <a class="btn small" href="https://youtu.be/bHvkwNT70sk" target="_blank" rel="noopener">Abrir no YouTube</a>
-                </div>
-              </div>
+            <div class="card">
+              <strong>Título gerado</strong>
+              <p id="liveTitle" style="word-break:break-word"></p>
 
-              <div class="card" data-item>
-                <strong>Como funciona o programa de transmissão</strong>
-                <p>Visão geral do software utilizado na live.</p>
-                <div class="row">
-                  <a class="btn small" href="https://youtu.be/lfOu8_fzxBI" target="_blank" rel="noopener">Abrir no YouTube</a>
-                </div>
-              </div>
-
-              <div class="card" data-item>
-                <strong>Como iniciar uma transmissão do culto</strong>
-                <p>Passos essenciais antes de entrar ao vivo.</p>
-                <div class="row">
-                  <a class="btn small" href="https://youtu.be/pJmiZArXGpY" target="_blank" rel="noopener">Abrir no YouTube</a>
-                </div>
-              </div>
-
-              <div class="card" data-item>
-                <strong>Como funciona a projeção no culto</strong>
-                <p>Orientações para projeção e acompanhamento do culto.</p>
-                <div class="row">
-                  <a class="btn small" href="https://youtu.be/hV1OfCjrcVU" target="_blank" rel="noopener">Abrir no YouTube</a>
-                </div>
-              </div>
-
-              <div class="card" data-item>
-                <strong>Como controlar o áudio que vai para a transmissão</strong>
-                <p>Como ajustar o mix da live com clareza.</p>
-                <div class="row">
-                  <a class="btn small" href="https://youtu.be/E3oSplzdOBA" target="_blank" rel="noopener">Abrir no YouTube</a>
-                </div>
-              </div>
-
-              <div class="card" data-item>
-                <strong>Como enviar a imagem da câmera para a projeção</strong>
-                <p>Fluxo de vídeo: câmera → projeção.</p>
-                <div class="row">
-                  <a class="btn small" href="https://youtu.be/PBif7TNvut8" target="_blank" rel="noopener">Abrir no YouTube</a>
-                </div>
-              </div>
-
-              <div class="card" data-item>
-                <strong>Como conectar o áudio e projetar vídeos</strong>
-                <p>Conexões práticas e cuidados na execução.</p>
-                <div class="row">
-                  <a class="btn small" href="https://youtu.be/PMEtejRNf5k" target="_blank" rel="noopener">Abrir no YouTube</a>
-                </div>
-              </div>
-
-              <div class="card" data-item>
-                <strong>Básico da Mesa de Som</strong>
-                <p>Fundamentos para operar e entender o áudio.</p>
-                <div class="row">
-                  <a class="btn small" href="https://youtu.be/AaPl1Lh2E70" target="_blank" rel="noopener">Abrir no YouTube</a>
-                </div>
+              <div class="row">
+                <button class="btn primary small" id="copyLive" type="button">Copiar título</button>
+                <button class="btn ghost small" id="refreshLive" type="button">Atualizar</button>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- REGISTRO DE PROBLEMAS (FECHADO POR PADRÃO) -->
+        <div class="section" data-section>
+          <div class="sectionHead" role="button" tabindex="0" aria-label="Registro de problemas e ocorrências">
+            <h2>REGISTRO DE PROBLEMAS</h2>
+            <div class="meta">
+              <span class="chip" id="probCountChip">0 registro(s)</span>
+            </div>
+          </div>
+          <div class="sectionBody" data-body>
+            <div class="card">
+              <strong>Anotar ocorrência</strong>
+              <p style="margin:0 0 10px;color:rgba(255,255,255,.78);font-weight:850;font-size:13.3px;line-height:1.55">
+				OBS: Registre a ocorrência apenas no computador da live, pois ela são salvas no navegador local!<br>
+              </p>
+
+              <!-- ✅ texto sem quebra errada (sem vírgula solta) -->
+
+              <div style="margin-top:10px;display:grid;gap:10px">
+                <div>
+                  <label for="probWho" style="display:block;margin-bottom:6px;font-size:12.5px;font-weight:900;color:rgba(255,255,255,.72)">Quem está reportando?</label>
+                  <input class="input" id="probWho" type="text" placeholder="Ex: Gabriel / Lívia / Bruno..." />
+                </div>
+
+                <div>
+                  <label for="probText" style="display:block;margin-bottom:6px;font-size:12.5px;font-weight:900;color:rgba(255,255,255,.72)">Descrição do problema</label>
+                  <textarea class="textarea" id="probText" placeholder="Descreva o problema (o que aconteceu + como resolveu, se souber)..."></textarea>
+                </div>
+              </div>
+
+              <div class="row" style="margin-top:10px">
+                <button class="btn primary small" id="probSave" type="button">Salvar</button>
+                <button class="btn ghost small" id="probClear" type="button">Limpar campos</button>
+                <button class="btn danger small" id="probWipe" type="button">Apagar tudo</button>
+              </div>
+
+              <div class="miniList2" id="probList"></div>
+              <div class="empty hidden" id="probEmpty">Nenhum registro ainda. Quando acontecer algo, anota aqui pra equipe aprender e melhorar.</div>
+            </div>
+          </div>
+        </div>
+
+		<!-- VÍDEOS -->
+		<div class="section" data-section>
+		  <div class="sectionHead" role="button" tabindex="0" aria-label="Vídeos explicativos">
+			<h2>VÍDEOS EXPLICATIVOS</h2>
+			<div class="meta">
+			  <span class="chip" data-chip>9 vídeos</span>
+			</div>
+		  </div>
+
+		  <div class="sectionBody" data-body>
+			<div class="grid2">
+
+			  <div class="card" data-item>
+				<strong>Como funciona a sala da mídia</strong>
+				<p>Vídeo explicando o ambiente e organização da sala.</p>
+				<div class="row">
+				  <a class="btn small" href="https://youtu.be/bHvkwNT70sk" target="_blank" rel="noopener">Abrir no YouTube</a>
+				</div>
+			  </div>
+
+			  <div class="card" data-item>
+				<strong>Como funciona o programa de transmissão</strong>
+				<p>Visão geral do software utilizado na live.</p>
+				<div class="row">
+				  <a class="btn small" href="https://youtu.be/lfOu8_fzxBI" target="_blank" rel="noopener">Abrir no YouTube</a>
+				</div>
+			  </div>
+
+			  <div class="card" data-item>
+				<strong>Como iniciar uma transmissão do culto (Atualizado)</strong>
+				<p>Passos essenciais antes de entrar ao vivo.</p>
+				<div class="row">
+				  <a class="btn small" href="https://youtu.be/qPlfcIo4XXo" target="_blank" rel="noopener">Abrir no YouTube</a>
+				</div>
+			  </div>
+
+			  <div class="card" data-item>
+				<strong>Como funciona a projeção no culto</strong>
+				<p>Orientações para projeção e acompanhamento do culto.</p>
+				<div class="row">
+				  <a class="btn small" href="https://youtu.be/hV1OfCjrcVU" target="_blank" rel="noopener">Abrir no YouTube</a>
+				</div>
+			  </div>
+
+			  <div class="card" data-item>
+				<strong>Como controlar o áudio que vai para a transmissão</strong>
+				<p>Como ajustar o mix da live com clareza.</p>
+				<div class="row">
+				  <a class="btn small" href="https://youtu.be/E3oSplzdOBA" target="_blank" rel="noopener">Abrir no YouTube</a>
+				</div>
+			  </div>
+
+			  <div class="card" data-item>
+				<strong>Como enviar a imagem da câmera para a projeção</strong>
+				<p>Fluxo de vídeo: câmera → projeção.</p>
+				<div class="row">
+				  <a class="btn small" href="https://youtu.be/PBif7TNvut8" target="_blank" rel="noopener">Abrir no YouTube</a>
+				</div>
+			  </div>
+
+			  <div class="card" data-item>
+				<strong>Como conectar o áudio e projetar vídeos</strong>
+				<p>Conexões práticas e cuidados na execução.</p>
+				<div class="row">
+				  <a class="btn small" href="https://youtu.be/PMEtejRNf5k" target="_blank" rel="noopener">Abrir no YouTube</a>
+				</div>
+			  </div>
+
+			  <div class="card" data-item>
+				<strong>Básico da Mesa de Som</strong>
+				<p>Fundamentos para operar e entender o áudio.</p>
+				<div class="row">
+				  <a class="btn small" href="https://youtu.be/AaPl1Lh2E70" target="_blank" rel="noopener">Abrir no YouTube</a>
+				</div>
+			  </div>
+
+			  <div class="card" data-item>
+				<strong>Como corrigir o IP do roteador</strong>
+				<p>A câmera não funciona? Corrija o IP.</p>
+				<div class="row">
+				  <a class="btn small" href="https://youtu.be/Xi2b-17VGbU" target="_blank" rel="noopener">Abrir no YouTube</a>
+				</div>
+			  </div>
+
+			  <!-- ====== CARD MODELO (COPIE E COLE PARA ADICIONAR MAIS) ======
+			  <div class="card" data-item>
+				<strong>TÍTULO DO VÍDEO</strong>
+				<p>Descrição curta do que o vídeo ensina.</p>
+				<div class="row">
+				  <a class="btn small" href="https://youtu.be/SEU_LINK_AQUI" target="_blank" rel="noopener">Abrir no YouTube</a>
+				</div>
+			  </div>
+			  ============================================================ -->
+
+			</div>
+		  </div>
+		</div>
+
 
         <!-- DRIVES -->
         <div class="section" data-section>
@@ -823,6 +807,9 @@
       </div>
     </section>
 
+    <!-- ✅ NO FIM DE TUDO: só o versículo (troca ao abrir o site) -->
+    <div class="quote" id="verseBox" style="margin-top:16px"></div>
+
   </main>
 
   <script>
@@ -834,23 +821,22 @@
       head.setAttribute("aria-expanded", (!hidden).toString());
     }
 
-      document.querySelectorAll(".sectionHead").forEach(head=>{
-        head.addEventListener("click", ()=>toggleBody(head));
-        head.addEventListener("keydown", (e)=>{
-          if(e.key === "Enter" || e.key === " "){
-            e.preventDefault();
-            toggleBody(head);
-          }
-        });
-      
-        // começar recolhido
-        const body = head.parentElement.querySelector("[data-body]");
-        if(body) body.classList.add("hidden");
-        head.setAttribute("aria-expanded","false");
+    // Iniciar TODAS as seções recolhidas
+    document.querySelectorAll(".sectionHead").forEach(head=>{
+      head.addEventListener("click", ()=>toggleBody(head));
+      head.addEventListener("keydown", (e)=>{
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          toggleBody(head);
+        }
       });
 
+      const body = head.parentElement.querySelector("[data-body]");
+      if(body) body.classList.add("hidden");
+      head.setAttribute("aria-expanded","false");
+    });
 
-    // Search / filter (manual + funções + escala contam como data-item)
+    // Search / filter (somente itens com data-item contam)
     const q = document.getElementById("q");
     const clearBtn = document.getElementById("clearBtn");
     const countChip = document.getElementById("countChip");
@@ -909,263 +895,219 @@
       q.focus();
     });
 
-    // ====== ESCALA (localStorage) ======
-    const SCALE_KEY = "ieq_midias_escala_v1";
-
-    const scDate  = document.getElementById("scDate");
-    const scType  = document.getElementById("scType");
-    const scTime  = document.getElementById("scTime");
-    const scTitle = document.getElementById("scTitle");
-    const scNames = document.getElementById("scNames");
-    const scNote  = document.getElementById("scNote");
-
-    const scClear = document.getElementById("scClear");
-    const scAdd   = document.getElementById("scAdd");
-    const scWipe  = document.getElementById("scWipe");
-    const scExport= document.getElementById("scExport");
-
-    const rolesChecks = document.getElementById("rolesChecks");
-    const scaleList   = document.getElementById("scaleList");
-    const scaleEmpty  = document.getElementById("scaleEmpty");
-    const scaleCount  = document.getElementById("scaleCount");
-
-    let scaleState = { items: [] };
-
-    function loadScale(){
-      try{
-        const raw = localStorage.getItem(SCALE_KEY);
-        if(raw){
-          const parsed = JSON.parse(raw);
-          if(parsed && typeof parsed === "object" && Array.isArray(parsed.items)){
-            scaleState = parsed;
-          }
-        }
-      }catch(e){}
-    }
-
-    function saveScale(){
-      localStorage.setItem(SCALE_KEY, JSON.stringify(scaleState));
-    }
-
-    function clearForm(){
-      scDate.value = "";
-      scType.value = "";
-      scTime.value = "";
-      scTitle.value = "";
-      scNames.value = "";
-      scNote.value = "";
-      rolesChecks.querySelectorAll("input[type='checkbox']").forEach(cb=>cb.checked=false);
-    }
-
-    function getSelectedRoles(){
-      const out = [];
-      rolesChecks.querySelectorAll("input[type='checkbox']").forEach(cb=>{
-        if(cb.checked) out.push(cb.value);
-      });
-      return out;
-    }
-
-    function fmtDateBR(yyyyMmDd){
-      if(!yyyyMmDd) return "";
-      const [y,m,d] = yyyyMmDd.split("-").map(x=>parseInt(x,10));
-      if(!y || !m || !d) return yyyyMmDd;
-      const dd = String(d).padStart(2,"0");
-      const mm = String(m).padStart(2,"0");
-      return `${dd}/${mm}/${y}`;
-    }
-
-    function sortScale(){
-      scaleState.items.sort((a,b)=>{
-        const ad = (a.date||"9999-12-31") + "T" + (a.time||"00:00");
-        const bd = (b.date||"9999-12-31") + "T" + (b.time||"00:00");
-        return ad.localeCompare(bd);
-      });
-    }
-
-    function renderScale(){
-      sortScale();
-      scaleList.innerHTML = "";
-      const n = scaleState.items.length;
-      scaleCount.textContent = `${n} escala(s)`;
-
-      if(n === 0){
-        scaleList.appendChild(scaleEmpty);
-        scaleEmpty.classList.remove("hidden");
-        return;
-      }
-      scaleEmpty.classList.add("hidden");
-
-      for(const item of scaleState.items){
-        const el = document.createElement("div");
-        el.className = "scaleItem";
-        el.setAttribute("data-item","");
-
-        const when = `${fmtDateBR(item.date)}${item.time ? " • " + item.time : ""}`;
-        const type = `${item.type || "—"}${item.title ? " • " + item.title : ""}`;
-
-        const top = document.createElement("div");
-        top.className = "topline";
-
-        const left = document.createElement("div");
-        left.innerHTML = `<div class="when">${when || "Sem data"}</div><div class="type">${type}</div>`;
-
-        const right = document.createElement("div");
-        right.style.display = "flex";
-        right.style.gap = "8px";
-        right.style.flexWrap = "wrap";
-
-        const del = document.createElement("button");
-        del.className = "btn small danger";
-        del.type = "button";
-        del.textContent = "Excluir";
-        del.addEventListener("click", ()=>{
-          if(confirm("Excluir esta escala?")){
-            scaleState.items = scaleState.items.filter(x=>x.id !== item.id);
-            saveScale();
-            renderScale();
-            updateCount();
-          }
-        });
-
-        right.appendChild(del);
-        top.appendChild(left);
-        top.appendChild(right);
-
-        const roles = document.createElement("div");
-        roles.className = "roles";
-        const rolesTxt = (item.roles && item.roles.length)
-          ? item.roles.map(r=>`<span class="r">• ${r}</span>`).join("")
-          : `<span class="r">• (nenhuma função marcada)</span>`;
-        roles.innerHTML = rolesTxt;
-
-        el.appendChild(top);
-        el.appendChild(roles);
-
-        if(item.names){
-          const names = document.createElement("div");
-          names.className = "note";
-          names.innerHTML = `<strong style="color:rgba(255,255,255,.86);font-weight:950">Nomes:</strong><br>${escapeHtml(item.names).replace(/\n/g,"<br>")}`;
-          el.appendChild(names);
-        }
-
-        if(item.note){
-          const note = document.createElement("div");
-          note.className = "note";
-          note.innerHTML = `<strong style="color:rgba(255,255,255,.86);font-weight:950">Obs:</strong><br>${escapeHtml(item.note).replace(/\n/g,"<br>")}`;
-          el.appendChild(note);
-        }
-
-        scaleList.appendChild(el);
-      }
-    }
-
     function escapeHtml(str){
       return (str||"").replace(/[&<>"']/g, (m)=>({
         "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
       }[m]));
     }
 
-    function addScale(){
-      const date = scDate.value.trim();
-      const type = scType.value.trim();
-      const time = scTime.value.trim();
-      const title= scTitle.value.trim();
-      const roles= getSelectedRoles();
-      const names= scNames.value.trim();
-      const note = scNote.value.trim();
+    // ===== GERADOR DE TITULO LIVE (IOS/ANDROID OK) =====
+    (function(){
+      const liveTitle = document.getElementById("liveTitle");
+      const copyLive = document.getElementById("copyLive");
+      const refreshLive = document.getElementById("refreshLive");
+      const liveWhenChip = document.getElementById("liveWhenChip");
+      if(!liveTitle || !copyLive || !refreshLive || !liveWhenChip) return;
 
-      if(!date){
-        alert("Coloque a data da escala.");
-        scDate.focus();
-        return;
+      const dias = ["DOMINGO","SEGUNDA","TERÇA","QUARTA","QUINTA","SEXTA","SÁBADO"];
+
+      function gerarTituloHoje(){
+        const now = new Date();
+        const dia = dias[now.getDay()];
+        const dd = String(now.getDate()).padStart(2,"0");
+        const mm = String(now.getMonth()+1).padStart(2,"0");
+        const titulo = `🔴LIVE - CULTO ${dia} ${dd}/${mm} | IEQ NUPORANGA - TEMPLO A RESPOSTA`;
+        liveTitle.textContent = titulo;
+        liveWhenChip.textContent = `${dia} ${dd}/${mm}`;
       }
-      if(!type){
-        alert("Selecione o tipo (ex: Quarta / Domingo / Eventos).");
-        scType.focus();
-        return;
+
+      function copiar(){
+        const txt = liveTitle.textContent || "";
+        if(!txt) return;
+
+        const ta = document.createElement("textarea");
+        ta.value = txt;
+        ta.setAttribute("readonly","");
+        ta.style.position = "fixed";
+        ta.style.top = "0";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+
+        ta.focus();
+        ta.select();
+        ta.setSelectionRange(0, 99999); // iOS
+
+        const ok = document.execCommand("copy");
+        ta.remove();
+
+        copyLive.textContent = ok ? "Copiado!" : "Não foi possível copiar";
+        setTimeout(()=>copyLive.textContent="Copiar título", 1500);
       }
-      if(roles.length === 0 && !names){
-        if(!confirm("Nenhuma função marcada e sem nomes. Deseja salvar mesmo assim?")){
-          return;
+
+      copyLive.addEventListener("click", (e)=>{ e.stopPropagation(); copiar(); });
+      refreshLive.addEventListener("click", (e)=>{ e.stopPropagation(); gerarTituloHoje(); });
+
+      gerarTituloHoje();
+    })();
+
+    // ===== REGISTRO DE PROBLEMAS (localStorage) =====
+    (function(){
+      const KEY = "ieq_midias_problemas_v2"; // v2 (com "quem")
+
+      const probWho  = document.getElementById("probWho");
+      const probText = document.getElementById("probText");
+      const probSave = document.getElementById("probSave");
+      const probClear = document.getElementById("probClear");
+      const probWipe = document.getElementById("probWipe");
+      const probList = document.getElementById("probList");
+      const probEmpty = document.getElementById("probEmpty");
+      const probCountChip = document.getElementById("probCountChip");
+      if(!probWho || !probText || !probSave || !probClear || !probWipe || !probList || !probEmpty || !probCountChip) return;
+
+      let state = { items: [] };
+
+      function load(){
+        try{
+          const raw = localStorage.getItem(KEY);
+          if(raw){
+            const parsed = JSON.parse(raw);
+            if(parsed && typeof parsed === "object" && Array.isArray(parsed.items)){
+              state = parsed;
+            }
+          }
+        }catch(e){}
+      }
+
+      function save(){
+        localStorage.setItem(KEY, JSON.stringify(state));
+      }
+
+      function fmt(ts){
+        try{
+          const d = new Date(ts);
+          const dd = String(d.getDate()).padStart(2,"0");
+          const mm = String(d.getMonth()+1).padStart(2,"0");
+          const yyyy = d.getFullYear();
+          const hh = String(d.getHours()).padStart(2,"0");
+          const mi = String(d.getMinutes()).padStart(2,"0");
+          return `${dd}/${mm}/${yyyy} • ${hh}:${mi}`;
+        }catch(e){
+          return ts;
         }
       }
 
-      scaleState.items.push({
-        id: "sc_" + Math.random().toString(36).slice(2) + Date.now().toString(36),
-        date, type, time, title, roles, names, note,
-        createdAt: new Date().toISOString()
+      function render(){
+        probList.innerHTML = "";
+        const n = state.items.length;
+        probCountChip.textContent = `${n} registro(s)`;
+
+        if(n === 0){
+          probEmpty.classList.remove("hidden");
+          return;
+        }
+        probEmpty.classList.add("hidden");
+
+        const items = [...state.items].sort((a,b)=>(b.ts||"").localeCompare(a.ts||""));
+
+        for(const it of items){
+          const wrap = document.createElement("div");
+          wrap.className = "miniNote";
+
+          const top = document.createElement("div");
+          top.className = "topline";
+
+          const left = document.createElement("div");
+          left.style.display = "grid";
+          left.style.gap = "2px";
+
+          const when = document.createElement("div");
+          when.className = "when";
+          when.textContent = fmt(it.ts);
+
+          const who = document.createElement("div");
+          who.className = "who";
+          who.textContent = `Reportado por: ${it.who || "—"}`;
+
+          left.appendChild(when);
+          left.appendChild(who);
+
+          const del = document.createElement("button");
+          del.className = "btn small danger";
+          del.type = "button";
+          del.textContent = "Excluir";
+          del.addEventListener("click", (e)=>{
+            e.stopPropagation();
+            if(confirm("Excluir este registro?")){
+              state.items = state.items.filter(x=>x.id !== it.id);
+              save();
+              render();
+            }
+          });
+
+          top.appendChild(left);
+          top.appendChild(del);
+
+          const txt = document.createElement("div");
+          txt.className = "txt";
+          txt.innerHTML = escapeHtml(it.text);
+
+          wrap.appendChild(top);
+          wrap.appendChild(txt);
+          probList.appendChild(wrap);
+        }
+      }
+
+      function add(){
+        const who = (probWho.value || "").trim();
+        const text = (probText.value || "").trim();
+
+        if(!who){
+          alert("Digite quem está reportando.");
+          probWho.focus();
+          return;
+        }
+        if(!text){
+          alert("Escreva o problema para salvar.");
+          probText.focus();
+          return;
+        }
+
+        state.items.push({
+          id: "pb_" + Math.random().toString(36).slice(2) + Date.now().toString(36),
+          ts: new Date().toISOString(),
+          who,
+          text
+        });
+
+        save();
+        probWho.value = "";
+        probText.value = "";
+        render();
+      }
+
+      probSave.addEventListener("click", (e)=>{ e.stopPropagation(); add(); });
+      probClear.addEventListener("click", (e)=>{
+        e.stopPropagation();
+        probWho.value = "";
+        probText.value = "";
+        probWho.focus();
+      });
+      probWipe.addEventListener("click", (e)=>{
+        e.stopPropagation();
+        if(confirm("Apagar TODOS os registros deste dispositivo?")){
+          state = { items: [] };
+          save();
+          render();
+        }
       });
 
-      saveScale();
-      renderScale();
-      updateCount();
-      clearForm();
-    }
+      load();
+      render();
+    })();
 
-    scAdd.addEventListener("click", addScale);
-    scClear.addEventListener("click", clearForm);
 
-    scWipe.addEventListener("click", ()=>{
-      if(confirm("Apagar TODAS as escalas deste dispositivo?")){
-        scaleState = { items: [] };
-        saveScale();
-        renderScale();
-        updateCount();
-      }
-    });
-
-    scExport.addEventListener("click", ()=>{
-      const data = JSON.stringify(scaleState, null, 2);
-      const blob = new Blob([data], {type:"application/json"});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "escala-midias-ieq-nuporanga.json";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    });
-
-    // init
-    loadScale();
-    renderScale();
+    // init count
     updateCount();
-
-    // ===== GERADOR DE TITULO LIVE =====
-    const liveDate = document.getElementById("liveDate");
-    const liveTitle = document.getElementById("liveTitle");
-    const copyLive = document.getElementById("copyLive");
-    
-    const dias = ["DOMINGO","SEGUNDA","TERÇA","QUARTA","QUINTA","SEXTA","SÁBADO"];
-    
-    function gerarTitulo(){
-      if(!liveDate.value){
-        liveTitle.textContent = "";
-        return;
-      }
-    
-      const d = new Date(liveDate.value + "T00:00:00");
-      const dia = dias[d.getDay()];
-      const dd = String(d.getDate()).padStart(2,"0");
-      const mm = String(d.getMonth()+1).padStart(2,"0");
-    
-      const titulo = `🔴LIVE - CULTO ${dia} ${dd}/${mm} | IEQ NUPORANGA - TEMPLO A RESPOSTA`;
-    
-      liveTitle.textContent = titulo;
-    }
-    
-    liveDate.addEventListener("change", gerarTitulo);
-    
-    copyLive.addEventListener("click", ()=>{
-      navigator.clipboard.writeText(liveTitle.textContent);
-      copyLive.textContent = "Copiado!";
-      setTimeout(()=>copyLive.textContent="Copiar título",1500);
-    });
-
-    
   </script>
 </body>
 </html>
-
-
