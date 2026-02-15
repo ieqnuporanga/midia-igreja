@@ -13,12 +13,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900;950&display=swap" rel="stylesheet">
 
   <style>
+.stage,
+.problem,
+.solution,
+.search,
+.headerMenu,
+.modal,
+.pill,
+.chip{
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
 
 :root{
   --bg0:#070A12;
   --bg1:#0B1220;
 
-  /* + contraste e menos “lavado” */
   --card: rgba(255,255,255,.08);
   --card2: rgba(255,255,255,.10);
   --line: rgba(255,255,255,.10);
@@ -27,10 +37,10 @@
   --muted: rgba(255,255,255,.76);
   --muted2: rgba(255,255,255,.66);
 
-  --accent1:#7C3AED; /* roxo */
-  --accent2:#06B6D4; /* ciano */
-  --accent3:#22C55E; /* verde */
-  --accent4:#F59E0B; /* âmbar */
+  --accent1:#7C3AED;
+  --accent2:#06B6D4;
+  --accent3:#22C55E;
+  --accent4:#F59E0B;
   --danger:#EF4444;
   --ok:#22C55E;
 
@@ -41,6 +51,8 @@
   --r28: 28px;
   --r22: 22px;
   --r18: 18px;
+
+  /* MAIS “RESPIRO” NO MOBILE */
   --padX: 18px;
 }
 
@@ -63,25 +75,33 @@ body{
   background: linear-gradient(180deg, var(--bg1) 0%, var(--bg0) 100%);
 }
 
+/* ===== BORRÃO / GLOW NO FUNDO ===== */
 body::before{
   content:"";
   position: fixed;
-  inset: -20%;
+  inset: -22%;
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(900px 700px at 18% 12%, rgba(124,58,237,.18), transparent 70%),
-    radial-gradient(900px 700px at 82% 16%, rgba(6,182,212,.14), transparent 72%),
-    radial-gradient(900px 700px at 55% 88%, rgba(34,197,94,.10), transparent 74%),
-    radial-gradient(1100px 900px at 50% 50%, rgba(245,158,11,.05), transparent 78%);
-  filter: blur(55px);
+    radial-gradient(900px 700px at 18% 12%, rgba(124,58,237,.20), transparent 70%),
+    radial-gradient(900px 700px at 82% 16%, rgba(6,182,212,.16), transparent 72%),
+    radial-gradient(900px 700px at 55% 88%, rgba(34,197,94,.11), transparent 74%),
+    radial-gradient(1100px 900px at 50% 50%, rgba(245,158,11,.06), transparent 78%);
+  filter: blur(58px);
   opacity: .95;
   transform: translateZ(0);
 }
 
 a{color:inherit;text-decoration:none}
 button{font-family:inherit}
-.container{max-width:var(--max);margin:0 auto;padding:0 calc(var(--padX) + env(safe-area-inset-right)) 0 calc(var(--padX) + env(safe-area-inset-left));}
+
+.container{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:
+    0 calc(var(--padX) + env(safe-area-inset-right))
+    0 calc(var(--padX) + env(safe-area-inset-left));
+}
 
 :focus-visible{
   outline: 2px solid rgba(6,182,212,.65);
@@ -92,7 +112,7 @@ button{font-family:inherit}
 .hidden{display:none !important}
 
 @media (max-width: 560px){
-  :root{--padX: 18px;}
+  :root{ --padX: 16px; } /* mais centralizado no celular */
 }
 
 @media (prefers-reduced-motion: reduce){
@@ -131,6 +151,7 @@ header.compact .head{padding:6px 0}
 }
 header.compact .logo{width:36px;height:36px;border-radius:12px}
 .logo img{width:100%;height:100%;object-fit:cover}
+
 .brandTxt{min-width:0}
 .brandTxt strong{
   display:block;font-weight:950;letter-spacing:-.4px;
@@ -260,7 +281,6 @@ header.compact .brandTxt span{font-size:11px}
   font-weight:950;
   cursor:pointer;
 }
-
 .headerMenu .menuGrid{
   display:flex;
   flex-direction:column;
@@ -284,8 +304,9 @@ header.compact .brandTxt span{font-size:11px}
   .brandTxt span{ font-size:11px; }
 }
 
-main{padding: 14px 0 0}
+main{padding: 14px 0 24px}
 
+/* ===== HERO ===== */
 .kickerBar{
   height:10px;border-radius:999px;
   background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3), var(--accent4));
@@ -293,8 +314,13 @@ main{padding: 14px 0 0}
   margin: 14px 0 12px;
   box-shadow: 0 10px 28px rgba(124,58,237,.10);
 }
-
-.hero{padding:18px 0 10px}
+.hero{
+  padding:18px 0 10px;
+  /* garante “centralizado” dentro do container e sem quebrar layout */
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
 h1{
   margin:0 0 8px;
   font-weight:950;
@@ -359,7 +385,13 @@ h1{
 }
 
 /* stats */
-.stats{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.stats{
+  margin-top:12px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
 .pill{
   display:inline-flex;align-items:center;gap:10px;
   padding:10px 12px;border-radius:999px;
@@ -378,47 +410,15 @@ h1{
   font-weight:950;
 }
 
-/* filters */
-.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.filterBtn{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  font-size:13px;font-weight:950;
-  padding:10px 12px;border-radius:999px;
-  border:1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.06);
-  color: rgba(255,255,255,.92);
-  cursor:pointer;
-  transition: transform .12s ease, background .12s ease, border-color .12s ease, opacity .12s ease;
-  user-select:none;
-  white-space:nowrap;
-}
-.filterBtn.active{
-  background: rgba(255,255,255,.14);
-  border-color: rgba(255,255,255,.26);
-}
-.filterBtn:hover{transform:translateY(-1px);background: rgba(255,255,255,.10);border-color: rgba(255,255,255,.22)}
-.filterBtn:active{transform:translateY(0)}
-
 /* stages */
-.sectionTitle{
-  margin: 18px 0 10px;
-  font-weight:950;
-  letter-spacing:-.4px;
-  font-size: 16px;
-  color: rgba(255,255,255,.94);
-  display:flex;align-items:center;justify-content:space-between;gap:10px;
-}
-.sectionTitle span{color: rgba(255,255,255,.70);font-weight:900;font-size:12px}
-
 .stage{
   border:1px solid rgba(255,255,255,.12);
   border-radius: 24px;
   overflow:hidden;
   background: rgba(255,255,255,.06);
   box-shadow: var(--shadow2);
-  margin-bottom: 12px;
+  margin: 14px 0 12px;
 }
-/* ===== STAGE HEADER (estilo "Conteúdo") ===== */
 .stageHead{
   padding: 14px 14px;
   display:flex;
@@ -458,7 +458,6 @@ h1{
 }
 .problemList{padding: 12px; display:flex; flex-direction:column; gap:10px;}
 
-/* ===== PROBLEM ROW (estilo lista do checklist) ===== */
 .problem{
   border:1px solid rgba(255,255,255,.12);
   background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.16));
@@ -593,16 +592,11 @@ h1{
 }
 .solution.open .solutionBody{display:block}
 
-/* ====== AQUI: tira seta e “clicável” quando NÃO tem complemento ====== */
+/* tira seta e “clicável” quando NÃO tem complemento */
 .solution.noSteps .solChev{display:none !important;}
-.solution.noSteps .solutionTop{
-  cursor:default;
-}
-.solution.noSteps .solutionTop:hover{
-  background: transparent;
-}
+.solution.noSteps .solutionTop{cursor:default;}
+.solution.noSteps .solutionTop:hover{background: transparent;}
 
-/* passo a passo */
 .steps{
   margin:10px 0 0;
   padding-left: 0;
@@ -626,7 +620,6 @@ h1{
   margin-top:2px;
 }
 
-/* ações (menos poluição, melhor contraste) */
 .actions{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .smallBtn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
@@ -646,7 +639,23 @@ h1{
 .smallBtn.danger{border-color: rgba(239,68,68,.35); background: rgba(239,68,68,.12)}
 .smallBtn.ghost{background: rgba(255,255,255,.06)}
 
-/* highlight */
+/* ===== BOTÃO “VER VÍDEO” (placeholder quando sem link) ===== */
+.smallBtn.video{
+  border-color: rgba(6,182,212,.35);
+  background: rgba(6,182,212,.10);
+}
+.smallBtn.video:hover{
+  border-color: rgba(6,182,212,.55);
+  background: rgba(6,182,212,.14);
+}
+.smallBtn.disabled{
+  opacity:.55;
+  cursor:not-allowed;
+  pointer-events:none;
+  box-shadow:none !important;
+  transform:none !important;
+}
+
 mark{
   background: rgba(245,158,11,.22);
   border: 1px solid rgba(245,158,11,.22);
@@ -656,7 +665,6 @@ mark{
   font-weight: 950;
 }
 
-/* footer */
 footer{
   margin-top:18px;
   padding:18px 0 24px;
@@ -671,24 +679,22 @@ footer{
 }
 
 @media (max-width: 520px){
-  .btn,.smallBtn,.filterBtn{padding:10px 12px}
+  .btn,.smallBtn{padding:10px 12px}
   .search{flex: 1 1 100%;}
 }
 
-/* mobile mode (melhor leitura + mais respiro) */
+/* mobile mode */
 body.mobileMode .kickerBar{ width: 120px; margin: 12px 0 10px; }
 body.mobileMode h1{ font-size:23px; line-height:1.18; }
 body.mobileMode .sub{ font-size:15px; line-height:1.55; }
 body.mobileMode .search input{ font-size:15px; }
 body.mobileMode .q{ font-size:16px; line-height:1.25; }
-body.mobileMode .metaLine{ font-size:13px; }
 body.mobileMode .problemTop{ padding:16px 14px; }
 body.mobileMode .chev{ width:42px; height:42px; border-radius:16px; }
 body.mobileMode .solText{ font-size:15.2px; line-height:1.45; }
 body.mobileMode .solutionTop{ padding:14px 12px; }
 body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
-
-</style>
+  </style>
 </head>
 
 <body>
@@ -717,7 +723,7 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
       </div>
 
       <!-- Mobile: ⋮ -->
-      <button class="menuBtn" id="menuBtn" type="button" aria-label="Abrir menu">⋮</button>
+      <button class="menuBtn" id="menuBtn" type="button" aria-label="Abrir menu" aria-expanded="false">⋮</button>
     </div>
 
     <!-- Overlay + Menu flutuante -->
@@ -741,7 +747,8 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
 
   <main class="container">
     <div class="hero">
-      <div class="kickerBar"></div>
+      <div class="kickerBar" aria-hidden="true"></div>
+
       <h1>Manual Vivo — Soluções rápidas</h1>
       <p class="sub">
         Sempre mantenha a calma e siga as orientações por etapa.<br>
@@ -749,7 +756,7 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
       </p>
 
       <div class="toolsRow">
-        <div class="search" role="search">
+        <div class="search" role="search" aria-label="Pesquisar problemas">
           <div class="icon" aria-hidden="true">🔎</div>
           <input id="searchInput" type="text" placeholder="Pesquisar: 'áudio', 'mesa', 'travando', 'chave'..." autocomplete="off" />
           <button class="clearBtn" id="btnClearSearch" type="button" title="Limpar busca">Limpar</button>
@@ -762,6 +769,7 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
           <small>conforme busca</small>
         </div>
       </div>
+    </div>
 
     <div id="app"></div>
   </main>
@@ -829,7 +837,7 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
     // ======================
     const TECH_WHATS_NUMBER = "5516994241388";
     const TECH_WHATS_MESSAGE =
-      "Olá! Estamos com um problema na transmissão ao vivo na IEQ Nuporanga e não conseguimos resolver. Pode ajudar, por favor?";
+      "Gabriel, estamos com um problema técnico, você pode nos ajudar?";
 
     // localStorage (apenas preferências)
     const LS_MOBILE = "ieq_live_mobile_v2";
@@ -838,22 +846,24 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
     // ======================
     // DADOS
     // ======================
+    // DICA: Para adicionar vídeo em qualquer problema, basta preencher o campo:
+    // video: "https://...."
     const DATA = [
       {
         stage: "ETAPA 1 — ENERGIA / INICIALIZAÇÃO",
         problems: [
-          { q: "Nada liga.", solutions: [
+          { q: "Nada liga.", video: "", solutions: [
             { text: "Verifique o disjuntor geral." },
             { text: "Confirme se o filtro de linha está ligado." },
             { text: "Verifique cabos de energia." }
           ]},
-          { q: "Câmera não liga.", solutions: [
+          { q: "Câmera não liga.", video: "", solutions: [
             { text: "Conferir pilhas do controle." },
             { text: "Conferir se no controle está selecionada a PTZ 1 (apertar no botão 1)." },
             { text: "Verificar cabo de energia da PTZ." },
             { text: "Retire da tomada e coloque novamente, ela vai ligar sozinha. Caso não ligue, faça uma oração." }
           ]},
-          { q: "Câmera liga mas não dá imagem.", solutions: [
+          { q: "Câmera liga mas não dá imagem.", video: "https://youtu.be/Xi2b-17VGbU", solutions: [
             { text: "Trocar de cena no OBS e voltar." },
             { text: "Verificar se a câmera correta está selecionada no OBS." },
             { text: "Desligar e ligar a câmera novamente." },
@@ -875,16 +885,16 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
               "Tente novamente acessar: 192.168.3.30"
             ]},
             { text: "Verificar se a câmera trocou de IP.", steps: [
-              "Entre na pasta “Configurações PTZ” na área de trabalho.",
-              "Inicie o aplicativo “*****”.",
-              "Selecione a fonte de wifi “***”.",
+              "Entre na pasta “Configurador PTZ” na área de trabalho.",
+              "Inicie o aplicativo “Configure Tool”.",
+              "Selecione a fonte de wifi “Realtek PCIe”.",
               "Clique em refresh.",
               "A câmera deve aparecer, clique nela e em editar.",
               "Os ips que devem aparecer são 192.168.3.1 e 192.168.3.30 respectivamente.",
               "Se estiver por exemplo “192.168.10.1 e 192.168.10.30”, altere para os citados acima e salve."
             ]}
           ]},
-          { q: "Computador não abriu programas.", solutions: [
+          { q: "Computador não abriu programas.", video: "", solutions: [
             { text: "Aguarde 2 minutos." },
             { text: "Reinicie o computador se necessário." }
           ]}
@@ -894,12 +904,12 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
       {
         stage: "ETAPA 2 — VÍDEO",
         problems: [
-          { q: "Tela preta no OBS.", solutions: [
+          { q: "Tela preta no OBS.", video: "", solutions: [
             { text: "Verificar se a câmera está ligada." },
             { text: "Trocar de cena e voltar." },
             { text: "Reiniciar OBS." }
           ]},
-          { q: "Imagem travando.", solutions: [
+          { q: "Imagem travando.", video: "", solutions: [
             { text: "Fechar programas desnecessários." },
             { text: "Evitar abrir muitas abas do navegador." },
             { text: "Verifique a conexão com a internet.", steps: [
@@ -908,7 +918,7 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
               "O UPLOAD deve estar acima de 400Mb, se não estiver, reinicie o roteador."
             ]}
           ]},
-          { q: "Câmera fora de posição.", solutions: [
+          { q: "Câmera fora de posição.", video: "", solutions: [
             { text: "Altere a predefinição no canto superior esquerdo do OBS." },
             { text: "Movimente a câmera pelos números: 8 – 4 – 6 e 2 ou use o zoom com o + e -" },
             { text: "Reinicie a câmera" }
@@ -919,14 +929,14 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
       {
         stage: "ETAPA 3 — ÁUDIO",
         problems: [
-          { q: "Não entra áudio no OBS.", solutions: [
+          { q: "Não entra áudio no OBS.", video: "", solutions: [
             { text: "Verificar se a interface de áudio está ligada, se não, mexa no cabo que vai até o computador." },
             { text: "Verificar se o áudio chega até interface de áudio, se não, tire e coloque o cabo que sai do multicabo direito que está em baixo da mesa (Sempre use a última entrada)." },
             { text: "Conferir se os microfones estão indo para o auxiliar AUDIO LIVE (FADERS -> AUDIO LIVE -> Verificar se o fader está levantado." },
             { text: "Conferir se o auxiliar AUDIO LIVE não está mutado (AUX 1-8 -> Verifique se o AUDIO LIVE não está com o M marcado em vermelho, se estiver, clique em cima e desmarque)." },
             { text: "Reiniciar OBS." }
           ]},
-          { q: "Tem som no OBS mas não no fone.", solutions: [
+          { q: "Tem som no OBS mas não no fone.", video: "", solutions: [
             { text: "Verificar volume do fone." },
             { text: "Verificar conector do fone." },
             { text: "Verificar se ele está enviando o monitor para o fone.", steps: [
@@ -941,11 +951,11 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
               "Se não aparecer, desconecte a interface do computador, conecte novamente e reinicie o programa"
             ]}
           ]},
-          { q: "Som estourado.", solutions: [
+          { q: "Som estourado.", video: "", solutions: [
             { text: "Diminuir fader do AUDIO LIVE." },
             { text: "Caso seja apenas uma voz, diminuir o volume individual no AUDIO LIVE" }
           ]},
-          { q: "Som chiando.", solutions: [
+          { q: "Som chiando.", video: "", solutions: [
             { text: "Diminuir o knob da interface e aumentar o áudio que AUDIO LIVE na mesa" },
             { text: "Movimentar o multicabo direito que está em baixo da mesa, se durante o movimento o chiado parar, tente deixar o muti cabo nessa posição" },
             { text: "Aumentar o cancelamento de ruído no OBS", steps: [
@@ -961,18 +971,18 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
       {
         stage: "ETAPA 4 — MESA DE SOM",
         problems: [
-          { q: "App não encontra a mesa.", solutions: [
+          { q: "App não encontra a mesa.", video: "", solutions: [
             { text: "Conferir Wi-Fi “Mesa de Som”." },
             { text: "Se não estiver conectado, use a senha: 03132628" },
             { text: "Clicar em Refresh" },
             { text: "Reiniciar a mesa no altar" }
           ]},
-          { q: "Mesa não conecta.", solutions: [
+          { q: "Mesa não conecta.", video: "", solutions: [
             { text: "Fechar e reabrir o aplicativo." },
             { text: "Tentar Connect novamente." },
             { text: "Desconectar e conectar novamente na rede da MESA" }
           ]},
-          { q: "Louvor muito alto ou voz baixa.", solutions: [
+          { q: "Louvor muito alto ou voz baixa.", video: "", solutions: [
             { text: "Ajustar faders do auxiliar AUDIO LIVE na categoria FADERS. (PRIORIZAR AS VOZES)" }
           ]}
         ]
@@ -981,13 +991,13 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
       {
         stage: "ETAPA 5 — YOUTUBE / FACEBOOK",
         problems: [
-          { q: "Contador não aparece.", solutions: [
+          { q: "Contador não aparece.", video: "", solutions: [
             { text: "Conferir se OBS está na cena “Início”." },
             { text: "Aguardar 30 segundos." },
             { text: "Atualizar a página." },
             { text: "Conferir chave de transmissão" }
           ]},
-          { q: "Chave de transmissão indisponível", solutions: [
+          { q: "Chave de transmissão indisponível", video: "", solutions: [
             { text: "Atualizar chave no YouTube Studio e colar no OBS.", steps: [
               "Vá até o Youtube Studio no navegador",
               "No preview da imagem no canto superior direito, procure por “Chave de transmissão”",
@@ -999,7 +1009,7 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
               "No Facebook selecione “Software de streaming”, copie a chave e cole no plugin multi stream"
             ]}
           ]},
-          { q: "YouTube funciona mas Facebook não.", solutions: [
+          { q: "YouTube funciona mas Facebook não.", video: "", solutions: [
             { text: "Atualizar página do Facebook." },
             { text: "Aguardar preview aparecer." },
             { text: "Clicar em “iniciar transmissão”" }
@@ -1010,10 +1020,10 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
       {
         stage: "ETAPA 6 — DURANTE O CULTO",
         problems: [
-          { q: "Cena errada no ar.", solutions: [
+          { q: "Cena errada no ar.", video: "", solutions: [
             { text: "Trocar manualmente para a cena correta." }
           ]},
-          { q: "Som caiu durante a palavra.", solutions: [
+          { q: "Som caiu durante a palavra.", video: "", solutions: [
             { text: "Verificar barra do OBS. Se chegar na barra, está chegando na live" },
             { text: "Retirar e colocar o cabo do multicabo direito que fica em baixo da mesa, conecte no último canal" },
             { text: "Verificar em um aparelho externo se o som realmente caiu ou o fone parou de funcionar" }
@@ -1024,7 +1034,7 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
       {
         stage: "ETAPA 7 — ENCERRAMENTO",
         problems: [
-          { q: "Live não encerrou.", solutions: [
+          { q: "Live não encerrou.", video: "", solutions: [
             { text: "Clicar novamente na cena “Encerrar”." },
             { text: "Confirmar no YouTube." },
             { text: "Confirmar no Facebook." }
@@ -1035,7 +1045,7 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
       {
         stage: "PLANO DE EMERGÊNCIA",
         problems: [
-          { q: "90% dos problemas são resolvidos nesses passos.", solutions: [
+          { q: "90% dos problemas são resolvidos nesses passos.", video: "", solutions: [
             { text: "Reiniciar OBS." },
             { text: "Conferir câmera." },
             { text: "Conferir áudio." },
@@ -1118,9 +1128,7 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
       app.innerHTML = DATA.map((stage, si)=>{
         const filteredProblems = stage.problems
           .map((p, pi)=>({p, pi}))
-          .filter(({
-            p
-          }) => problemMatches(stage.stage, p, query));
+          .filter(({ p }) => problemMatches(stage.stage, p, query));
 
         if(filteredProblems.length === 0) return "";
 
@@ -1137,9 +1145,7 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
               <div class="chip">${items} problema(s)</div>
             </div>
             <div class="problemList">
-              ${filteredProblems.map(({
-                p, pi
-              }) => renderProblem(si, pi, stage.stage, p)).join("")}
+              ${filteredProblems.map(({ p, pi }) => renderProblem(si, pi, stage.stage, p)).join("")}
             </div>
           </section>
         `;
@@ -1159,6 +1165,9 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
     function renderProblem(si, pi, stageTitle, p){
       const totalSolutions = (p.solutions || []).length;
       const qHtml = highlight(p.q, query);
+
+      const hasVideo = typeof p.video === "string" && p.video.trim().length > 0;
+      const videoHref = hasVideo ? p.video.trim() : "#";
 
       return `
         <article class="problem" data-problem="${si}:${pi}">
@@ -1181,6 +1190,18 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
             ${(p.solutions || []).map((s, idx)=>renderSolution(si, pi, idx, s)).join("")}
 
             <div class="actions">
+              <a
+                class="smallBtn video ${hasVideo ? "" : "disabled"}"
+                href="${escapeHtml(videoHref)}"
+                target="_blank"
+                rel="noopener"
+                data-video="${escapeHtml(videoHref)}"
+                aria-disabled="${hasVideo ? "false" : "true"}"
+                title="${hasVideo ? "Abrir vídeo deste problema" : "Sem vídeo ainda (adicione o link no DATA)"}"
+              >
+                🎥 Ver vídeo
+              </a>
+
               <a class="smallBtn" href="${waLink(TECH_WHATS_NUMBER, TECH_WHATS_MESSAGE)}" target="_blank" rel="noopener">
                 💬 WhatsApp
               </a>
@@ -1304,9 +1325,7 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
       render();
     }
 
-    searchInput.addEventListener("input", ()=>{
-      setQuery(searchInput.value);
-    });
+    searchInput.addEventListener("input", ()=> setQuery(searchInput.value));
 
     btnClearSearch.addEventListener("click", ()=>{
       searchInput.value = "";
@@ -1400,11 +1419,13 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
       headerMenu.classList.add("show");
       menuOverlay.classList.add("show");
       menuOverlay.setAttribute("aria-hidden","false");
+      menuBtn.setAttribute("aria-expanded","true");
     }
     function closeHeaderMenu(){
       headerMenu.classList.remove("show");
       menuOverlay.classList.remove("show");
       menuOverlay.setAttribute("aria-hidden","true");
+      menuBtn.setAttribute("aria-expanded","false");
     }
     function toggleHeaderMenu(){
       const isOpen = headerMenu.classList.contains("show");
@@ -1445,19 +1466,43 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
 
     render();
 
-    // ===== HEADER SHRINK ON SCROLL =====
+    // ===== HEADER SHRINK ON SCROLL (com histerese, sem “oscilar”) =====
     (function(){
       const header = document.querySelector("header");
       if(!header) return;
-      function onScroll(){
+
+      let ticking = false;
+      let compact = false;
+
+      const ENTER_Y = 70;
+      const EXIT_Y  = 20;
+
+      function update(){
+        ticking = false;
         if(document.body.classList.contains("mobileMode")){
           header.classList.remove("compact");
+          compact = false;
           return;
         }
-        header.classList.toggle("compact", window.scrollY > 40);
+        const y = window.scrollY || 0;
+        if(!compact && y > ENTER_Y){
+          compact = true;
+          header.classList.add("compact");
+        }else if(compact && y < EXIT_Y){
+          compact = false;
+          header.classList.remove("compact");
+        }
       }
+
+      function onScroll(){
+        if(!ticking){
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      }
+
       window.addEventListener("scroll", onScroll, {passive:true});
-      onScroll();
+      update();
     })();
 
     // ===== ESC fecha tudo corretamente =====
