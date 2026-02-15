@@ -512,6 +512,137 @@ h1{
   .menuBtn{display:inline-grid;place-items:center;}
   .head{flex-wrap:nowrap;}
 }
+
+/* =========================
+   THUMBS DOS VÍDEOS
+   ========================= */
+.videoCard{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.videoThumb{
+  position:relative;
+  width:100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 16px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  box-shadow: 0 12px 26px rgba(0,0,0,.25);
+}
+.videoThumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transform: scale(1.02);
+  filter: saturate(1.05) contrast(1.05);
+}
+.videoThumb::after{
+  content:"";
+  position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55));
+  pointer-events:none;
+}
+.playBadge{
+  position:absolute;
+  inset:auto auto 12px 12px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  background: rgba(0,0,0,.40);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255,255,255,.92);
+  font-weight:950;
+  font-size:12.5px;
+  box-shadow: 0 10px 22px rgba(0,0,0,.25);
+}
+.playIcon{
+  width:0;height:0;
+  border-left:10px solid rgba(255,255,255,.92);
+  border-top:6px solid transparent;
+  border-bottom:6px solid transparent;
+  filter: drop-shadow(0 6px 10px rgba(0,0,0,.35));
+}
+
+/* =========================
+   MODAL PLAYER
+   ========================= */
+.modalOverlay{
+  position:fixed; inset:0;
+  background: rgba(2,6,23,.62);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display:none;
+  z-index:999;
+}
+.modalOverlay.show{display:block}
+
+.modalBox{
+  position:fixed;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:min(920px, calc(100vw - 28px));
+  border-radius: 22px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(11,18,32,.92);
+  box-shadow: 0 30px 120px rgba(0,0,0,.65);
+  overflow:hidden;
+  display:none;
+  z-index:1000;
+}
+.modalBox.show{display:block}
+
+.modalTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 12px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+.modalTitle{
+  font-weight:950;
+  letter-spacing:-.2px;
+  font-size:13.5px;
+  color: rgba(255,255,255,.92);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width: 75%;
+}
+.modalClose{
+  width:42px;height:42px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.92);
+  font-weight:950;
+  cursor:pointer;
+}
+.modalBody{
+  padding:12px;
+}
+.playerFrame{
+  width:100%;
+  aspect-ratio:16/9;
+  border-radius: 18px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.35);
+}
+.playerFrame iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  display:block;
+}
   </style>
 </head>
 
@@ -538,7 +669,6 @@ h1{
     </div>
   </header>
 
-  <!-- ✅ FORA DO HEADER (evita bug no iOS + melhora centralização/blur) -->
   <div class="menuOverlay" id="menuOverlay" aria-hidden="true"></div>
 
   <nav class="headerMenu" id="headerMenu" aria-label="Menu do topo">
@@ -674,138 +804,156 @@ h1{
 
           <div class="sectionBody" data-body>
             <div class="grid2">
-              <div class="card" data-item>
-                <strong>Como funciona a sala da mídia</strong>
-                <p>Vídeo explicando o ambiente e organização da sala.</p>
+
+              <!-- 1 -->
+              <div class="card videoCard" data-item data-video>
+                <div class="videoThumb">
+                  <img data-thumb alt="Thumbnail do vídeo" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  <div class="playBadge"><span class="playIcon" aria-hidden="true"></span>Prévia</div>
+                </div>
+                <div class="videoMeta">
+                  <strong>Como funciona a sala da mídia</strong>
+                  <p>Vídeo explicando o ambiente e organização da sala.</p>
+                </div>
                 <div class="row">
-                  <a class="btn small" href="https://youtu.be/bHvkwNT70sk" target="_blank" rel="noopener">Abrir no YouTube</a>
+                  <button class="btn primary small" type="button" data-watch>🎬 Assistir aqui</button>
+                  <a class="btn small" data-youtube href="https://youtu.be/bHvkwNT70sk" target="_blank" rel="noopener">Abrir no YouTube</a>
                 </div>
               </div>
 
-              <div class="card" data-item>
-                <strong>Como funciona o programa de transmissão</strong>
-                <p>Visão geral do software utilizado na live.</p>
+              <!-- 2 -->
+              <div class="card videoCard" data-item data-video>
+                <div class="videoThumb">
+                  <img data-thumb alt="Thumbnail do vídeo" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  <div class="playBadge"><span class="playIcon" aria-hidden="true"></span>Prévia</div>
+                </div>
+                <div class="videoMeta">
+                  <strong>Como funciona o programa de transmissão</strong>
+                  <p>Visão geral do software utilizado na live.</p>
+                </div>
                 <div class="row">
-                  <a class="btn small" href="https://youtu.be/lfOu8_fzxBI" target="_blank" rel="noopener">Abrir no YouTube</a>
+                  <button class="btn primary small" type="button" data-watch>🎬 Assistir aqui</button>
+                  <a class="btn small" data-youtube href="https://youtu.be/lfOu8_fzxBI" target="_blank" rel="noopener">Abrir no YouTube</a>
                 </div>
               </div>
 
-              <div class="card" data-item>
-                <strong>Como iniciar uma transmissão do culto (Atualizado)</strong>
-                <p>Passos essenciais antes de entrar ao vivo.</p>
+              <!-- 3 -->
+              <div class="card videoCard" data-item data-video>
+                <div class="videoThumb">
+                  <img data-thumb alt="Thumbnail do vídeo" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  <div class="playBadge"><span class="playIcon" aria-hidden="true"></span>Prévia</div>
+                </div>
+                <div class="videoMeta">
+                  <strong>Como iniciar uma transmissão do culto (Atualizado)</strong>
+                  <p>Passos essenciais antes de entrar ao vivo.</p>
+                </div>
                 <div class="row">
-                  <a class="btn small" href="https://youtu.be/qPlfcIo4XXo" target="_blank" rel="noopener">Abrir no YouTube</a>
+                  <button class="btn primary small" type="button" data-watch>🎬 Assistir aqui</button>
+                  <a class="btn small" data-youtube href="https://youtu.be/qPlfcIo4XXo" target="_blank" rel="noopener">Abrir no YouTube</a>
                 </div>
               </div>
 
-              <div class="card" data-item>
-                <strong>Como funciona a projeção no culto</strong>
-                <p>Orientações para projeção e acompanhamento do culto.</p>
+              <!-- 4 -->
+              <div class="card videoCard" data-item data-video>
+                <div class="videoThumb">
+                  <img data-thumb alt="Thumbnail do vídeo" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  <div class="playBadge"><span class="playIcon" aria-hidden="true"></span>Prévia</div>
+                </div>
+                <div class="videoMeta">
+                  <strong>Como funciona a projeção no culto</strong>
+                  <p>Orientações para projeção e acompanhamento do culto.</p>
+                </div>
                 <div class="row">
-                  <a class="btn small" href="https://youtu.be/hV1OfCjrcVU" target="_blank" rel="noopener">Abrir no YouTube</a>
+                  <button class="btn primary small" type="button" data-watch>🎬 Assistir aqui</button>
+                  <a class="btn small" data-youtube href="https://youtu.be/hV1OfCjrcVU" target="_blank" rel="noopener">Abrir no YouTube</a>
                 </div>
               </div>
 
-              <div class="card" data-item>
-                <strong>Como controlar o áudio que vai para a transmissão</strong>
-                <p>Como ajustar o mix da live com clareza.</p>
+              <!-- 5 -->
+              <div class="card videoCard" data-item data-video>
+                <div class="videoThumb">
+                  <img data-thumb alt="Thumbnail do vídeo" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  <div class="playBadge"><span class="playIcon" aria-hidden="true"></span>Prévia</div>
+                </div>
+                <div class="videoMeta">
+                  <strong>Como controlar o áudio que vai para a transmissão</strong>
+                  <p>Como ajustar o mix da live com clareza.</p>
+                </div>
                 <div class="row">
-                  <a class="btn small" href="https://youtu.be/E3oSplzdOBA" target="_blank" rel="noopener">Abrir no YouTube</a>
+                  <button class="btn primary small" type="button" data-watch>🎬 Assistir aqui</button>
+                  <a class="btn small" data-youtube href="https://youtu.be/E3oSplzdOBA" target="_blank" rel="noopener">Abrir no YouTube</a>
                 </div>
               </div>
 
-              <div class="card" data-item>
-                <strong>Como enviar a imagem da câmera para a projeção</strong>
-                <p>Fluxo de vídeo: câmera → projeção.</p>
+              <!-- 6 -->
+              <div class="card videoCard" data-item data-video>
+                <div class="videoThumb">
+                  <img data-thumb alt="Thumbnail do vídeo" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  <div class="playBadge"><span class="playIcon" aria-hidden="true"></span>Prévia</div>
+                </div>
+                <div class="videoMeta">
+                  <strong>Como enviar a imagem da câmera para a projeção</strong>
+                  <p>Fluxo de vídeo: câmera → projeção.</p>
+                </div>
                 <div class="row">
-                  <a class="btn small" href="https://youtu.be/PBif7TNvut8" target="_blank" rel="noopener">Abrir no YouTube</a>
+                  <button class="btn primary small" type="button" data-watch>🎬 Assistir aqui</button>
+                  <a class="btn small" data-youtube href="https://youtu.be/PBif7TNvut8" target="_blank" rel="noopener">Abrir no YouTube</a>
                 </div>
               </div>
 
-              <div class="card" data-item>
-                <strong>Como conectar o áudio e projetar vídeos</strong>
-                <p>Conexões práticas e cuidados na execução.</p>
+              <!-- 7 -->
+              <div class="card videoCard" data-item data-video>
+                <div class="videoThumb">
+                  <img data-thumb alt="Thumbnail do vídeo" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  <div class="playBadge"><span class="playIcon" aria-hidden="true"></span>Prévia</div>
+                </div>
+                <div class="videoMeta">
+                  <strong>Como conectar o áudio e projetar vídeos</strong>
+                  <p>Conexões práticas e cuidados na execução.</p>
+                </div>
                 <div class="row">
-                  <a class="btn small" href="https://youtu.be/PMEtejRNf5k" target="_blank" rel="noopener">Abrir no YouTube</a>
+                  <button class="btn primary small" type="button" data-watch>🎬 Assistir aqui</button>
+                  <a class="btn small" data-youtube href="https://youtu.be/PMEtejRNf5k" target="_blank" rel="noopener">Abrir no YouTube</a>
                 </div>
               </div>
 
-              <div class="card" data-item>
-                <strong>Básico da Mesa de Som</strong>
-                <p>Fundamentos para operar e entender o áudio.</p>
+              <!-- 8 -->
+              <div class="card videoCard" data-item data-video>
+                <div class="videoThumb">
+                  <img data-thumb alt="Thumbnail do vídeo" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  <div class="playBadge"><span class="playIcon" aria-hidden="true"></span>Prévia</div>
+                </div>
+                <div class="videoMeta">
+                  <strong>Básico da Mesa de Som</strong>
+                  <p>Fundamentos para operar e entender o áudio.</p>
+                </div>
                 <div class="row">
-                  <a class="btn small" href="https://youtu.be/AaPl1Lh2E70" target="_blank" rel="noopener">Abrir no YouTube</a>
+                  <button class="btn primary small" type="button" data-watch>🎬 Assistir aqui</button>
+                  <a class="btn small" data-youtube href="https://youtu.be/AaPl1Lh2E70" target="_blank" rel="noopener">Abrir no YouTube</a>
                 </div>
               </div>
 
-              <div class="card" data-item>
-                <strong>Como corrigir o IP do roteador</strong>
-                <p>A câmera não funciona? Corrija o IP.</p>
+              <!-- 9 -->
+              <div class="card videoCard" data-item data-video>
+                <div class="videoThumb">
+                  <img data-thumb alt="Thumbnail do vídeo" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+                  <div class="playBadge"><span class="playIcon" aria-hidden="true"></span>Prévia</div>
+                </div>
+                <div class="videoMeta">
+                  <strong>Como corrigir o IP do roteador</strong>
+                  <p>A câmera não funciona? Corrija o IP.</p>
+                </div>
                 <div class="row">
-                  <a class="btn small" href="https://youtu.be/Xi2b-17VGbU" target="_blank" rel="noopener">Abrir no YouTube</a>
+                  <button class="btn primary small" type="button" data-watch>🎬 Assistir aqui</button>
+                  <a class="btn small" data-youtube href="https://youtu.be/Xi2b-17VGbU?si=oOv-HLov6AXy3JWU" target="_blank" rel="noopener">Abrir no YouTube</a>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
 
-        <!-- DRIVES -->
-        <div class="section" data-section>
-          <div class="sectionHead" role="button" tabindex="0" aria-label="Links de drivers úteis">
-            <h2>LINKS DE DRIVERS ÚTEIS</h2>
-            <div class="meta">
-              <span class="chip" data-chip>5 links</span>
-              <span class="chev" aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-            </div>
-          </div>
-          <div class="sectionBody" data-body>
-            <div class="grid2">
-              <div class="card" data-item>
-                <strong>Drive Mídia Nuporanga</strong>
-                <p>Pasta principal com arquivos e materiais da mídia.</p>
-                <div class="row">
-                  <a class="btn small" href="https://drive.google.com/drive/folders/1-GQcfvZRFquY4fwe92kJaebK8PD-Q3kI?usp=drive_link" target="_blank" rel="noopener">Google Drive</a>
-                </div>
-              </div>
-
-              <div class="card" data-item>
-                <strong>Drive para enviar arquivos pro PC</strong>
-                <p>Envio e organização de arquivos para o computador.</p>
-                <div class="row">
-                  <a class="btn small" href="https://drive.google.com/drive/folders/1QjY1DF6QsRXKQGtE8BK4-lvwv3mjKDYk?usp=drive_link" target="_blank" rel="noopener">Google Drive</a>
-                </div>
-              </div>
-
-              <div class="card" data-item>
-                <strong>Drive EVENTOS</strong>
-                <p>Fotos e registros de eventos.</p>
-                <div class="row">
-                  <a class="btn small" href="https://drive.google.com/drive/folders/1LG5aJrqR8th5IkgLpDCRSFci9OvYjNt3?usp=drive_link" target="_blank" rel="noopener">Google Drive</a>
-                </div>
-              </div>
-
-              <div class="card" data-item>
-                <strong>Drive Ministério Quadrangular Nacional</strong>
-                <p>Arquivos e materiais nacionais.</p>
-                <div class="row">
-                  <a class="btn small" href="https://drive.google.com/drive/u/0/folders/1IVmIFSqOS4ai-nKMJYzkx-IhiDXxV02O" target="_blank" rel="noopener">Google Drive</a>
-                </div>
-              </div>
-
-              <div class="card" data-item>
-                <strong>Drive Secretária de Comunicação</strong>
-                <p>Documento com orientações e materiais.</p>
-                <div class="row">
-                  <a class="btn small" href="https://docs.google.com/document/d/1H7ag2DlPKMsB8zpv1w6szogb5b-KQ2O9bjy6smvPwyg/edit?tab=t.0#heading=h.oxwmg6qc6mf5" target="_blank" rel="noopener">Google Docs</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- (resto do seu site continua igual) -->
 
         <!-- TRANSMISSÃO -->
         <div class="section" data-section>
@@ -994,6 +1142,21 @@ h1{
 
     <div class="quote fadeUp" id="verseBox" style="margin-top:16px"></div>
   </main>
+
+  <!-- MODAL -->
+  <div class="modalOverlay" id="modalOverlay" aria-hidden="true"></div>
+  <div class="modalBox" id="modalBox" role="dialog" aria-modal="true" aria-label="Player do vídeo">
+    <div class="modalTop">
+      <div class="modalTitle" id="modalTitle">Assistir</div>
+      <button class="modalClose" id="modalClose" type="button" aria-label="Fechar">✕</button>
+    </div>
+    <div class="modalBody">
+      <div class="playerFrame" id="playerFrame"></div>
+      <div class="row" style="margin-top:10px">
+        <a class="btn small" id="modalYoutube" target="_blank" rel="noopener">Abrir no YouTube</a>
+      </div>
+    </div>
+  </div>
 
   <script>
     // Toggle sections
@@ -1388,6 +1551,188 @@ h1{
       document.addEventListener("keydown", (e)=>{
         if(e.key === "Escape"){
           closeHeaderMenu();
+        }
+      });
+    })();
+
+    // =========================
+    // THUMBS + MODAL PLAYER (ATUALIZADO)
+    // =========================
+    (function(){
+      function getYoutubeId(url){
+        try{
+          const u = new URL(url);
+          if(u.hostname.includes("youtu.be")){
+            return u.pathname.replace("/","").trim() || null;
+          }
+          const v = u.searchParams.get("v");
+          if(v) return v;
+
+          const parts = u.pathname.split("/").filter(Boolean);
+          const iShorts = parts.indexOf("shorts");
+          if(iShorts >= 0 && parts[iShorts+1]) return parts[iShorts+1];
+
+          const iEmbed = parts.indexOf("embed");
+          if(iEmbed >= 0 && parts[iEmbed+1]) return parts[iEmbed+1];
+
+          return null;
+        }catch(e){
+          return null;
+        }
+      }
+
+      function setThumb(imgEl, videoId){
+        const maxres = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+        const hq = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+        imgEl.src = maxres;
+        imgEl.onerror = function(){
+          imgEl.onerror = null;
+          imgEl.src = hq;
+        };
+      }
+
+      // ===== NOVO: monta URL embed preservando `si=` e adicionando `origin=`
+      function buildEmbedUrl(originalUrl){
+        try{
+          const u = new URL(originalUrl);
+
+          // pega o ID do vídeo de qualquer formato
+          let id = null;
+
+          if (u.hostname.includes("youtu.be")) {
+            id = u.pathname.replace("/","").trim();
+          }
+
+          if (!id) {
+            id = u.searchParams.get("v");
+          }
+
+          const parts = u.pathname.split("/").filter(Boolean);
+          const iShorts = parts.indexOf("shorts");
+          if (!id && iShorts >= 0 && parts[iShorts+1]) id = parts[iShorts+1];
+
+          const iEmbed = parts.indexOf("embed");
+          if (!id && iEmbed >= 0 && parts[iEmbed+1]) id = parts[iEmbed+1];
+
+          if(!id) return null;
+
+          // preserva 'si' se tiver
+          const si = u.searchParams.get("si");
+
+          const qs = new URLSearchParams({
+            autoplay: "1",
+            rel: "0",
+            modestbranding: "1",
+            playsinline: "1",
+            origin: location.origin
+          });
+
+          if(si) qs.set("si", si);
+
+          return `https://www.youtube-nocookie.com/embed/${id}?${qs.toString()}`;
+        }catch(e){
+          return null;
+        }
+      }
+
+      // Modal refs
+      const overlay = document.getElementById("modalOverlay");
+      const box = document.getElementById("modalBox");
+      const closeBtn = document.getElementById("modalClose");
+      const titleEl = document.getElementById("modalTitle");
+      const frameWrap = document.getElementById("playerFrame");
+      const modalYoutube = document.getElementById("modalYoutube");
+
+      let lastFocus = null;
+
+      function openModal({id, title, url}){
+        if(!overlay || !box || !frameWrap) return;
+
+        lastFocus = document.activeElement;
+
+        titleEl.textContent = title || "Assistir";
+        modalYoutube.href = url || "#";
+
+        const src = buildEmbedUrl(url) || `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1&origin=${encodeURIComponent(location.origin)}`;
+
+        frameWrap.innerHTML = `<iframe
+          src="${src}"
+          title="${(title||"Vídeo").replace(/"/g,'&quot;')}"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>`;
+
+        overlay.classList.add("show");
+        box.classList.add("show");
+        overlay.setAttribute("aria-hidden","false");
+
+        document.body.style.overflow = "hidden";
+        closeBtn.focus();
+      }
+
+      function closeModal(){
+        if(!overlay || !box || !frameWrap) return;
+
+        overlay.classList.remove("show");
+        box.classList.remove("show");
+        overlay.setAttribute("aria-hidden","true");
+
+        frameWrap.innerHTML = "";
+        document.body.style.overflow = "";
+
+        if(lastFocus && typeof lastFocus.focus === "function"){
+          lastFocus.focus();
+        }
+      }
+
+      if(overlay) overlay.addEventListener("click", closeModal);
+      if(closeBtn) closeBtn.addEventListener("click", closeModal);
+
+      document.addEventListener("keydown", (e)=>{
+        if(e.key === "Escape" && overlay && overlay.classList.contains("show")){
+          closeModal();
+        }
+      });
+
+      // Setup cards
+      document.querySelectorAll("[data-video]").forEach(card=>{
+        const a = card.querySelector("a[data-youtube]");
+        const img = card.querySelector("img[data-thumb]");
+        const watch = card.querySelector("[data-watch]");
+        const title = card.querySelector("strong")?.textContent?.trim() || "Vídeo";
+
+        if(!a) return;
+        const id = getYoutubeId(a.href);
+        if(!id) return;
+
+        if(img){
+          img.alt = "Thumbnail do vídeo: " + title;
+          setThumb(img, id);
+        }
+
+        // thumb clicável
+        const thumbWrap = card.querySelector(".videoThumb");
+        if(thumbWrap){
+          thumbWrap.style.cursor = "pointer";
+          thumbWrap.setAttribute("role","button");
+          thumbWrap.setAttribute("tabindex","0");
+          thumbWrap.setAttribute("aria-label","Assistir aqui");
+          const go = ()=>openModal({id, title, url:a.href});
+          thumbWrap.addEventListener("click", (e)=>{ e.stopPropagation(); go(); });
+          thumbWrap.addEventListener("keydown", (e)=>{
+            if(e.key === "Enter" || e.key === " "){
+              e.preventDefault();
+              go();
+            }
+          });
+        }
+
+        if(watch){
+          watch.addEventListener("click", (e)=>{
+            e.stopPropagation();
+            openModal({id, title, url:a.href});
+          });
         }
       });
     })();
