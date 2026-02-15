@@ -217,6 +217,92 @@ h1{
   font-weight:800;
 }
 
+/* ===== AVISO HORÁRIO DO CULTO ===== */
+.alertBox{
+  margin-top:14px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.14);
+  border-radius: 22px;
+  box-shadow: 0 14px 38px rgba(0,0,0,.35);
+  overflow:hidden;
+}
+.alertBox .row{
+  display:flex;align-items:flex-start;gap:12px;
+  padding:12px 12px;
+  min-width:0; /* ✅ permite o texto quebrar corretamente em flex */
+}
+.alertBox .ico{
+  width:38px;height:38px;border-radius:16px;
+  display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  flex:0 0 auto;
+  font-size:18px;
+}
+.alertBox strong{
+  display:block;
+  font-weight:950;
+  letter-spacing:-.2px;
+  line-height:1.25;
+}
+.alertBox p{
+  margin:6px 0 0;
+  color: rgba(255,255,255,.78);
+  font-weight:850;
+  line-height:1.45;
+  font-size:13.5px;
+}
+.alertBox .meta{
+  margin-top:8px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  min-width:0; /* ✅ */
+}
+.badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.88);
+  font-weight:950;
+  font-size:12px;
+  white-space:nowrap; /* desktop ok */
+  max-width:100%;
+}
+.alertBox.warn{
+  border-color: rgba(245,158,11,.35);
+  background: rgba(245,158,11,.08);
+}
+.alertBox.warn .ico{
+  border-color: rgba(245,158,11,.35);
+  background: rgba(245,158,11,.12);
+}
+.alertBox.danger{
+  border-color: rgba(239,68,68,.35);
+  background: rgba(239,68,68,.08);
+}
+.alertBox.danger .ico{
+  border-color: rgba(239,68,68,.35);
+  background: rgba(239,68,68,.12);
+}
+
+/* ✅ FIX MOBILE: badges viram “full width” e quebram texto */
+@media (max-width: 560px){
+  .alertBox .meta{
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .badge{
+    width: 100%;
+    justify-content: flex-start;
+    white-space: normal;          /* ✅ permite quebrar */
+    overflow-wrap: anywhere;      /* ✅ quebra string longa */
+    word-break: break-word;
+    line-height: 1.25;
+  }
+}
+
 /* Panel */
 .panel{
   margin-top:16px;
@@ -346,7 +432,7 @@ input[type="checkbox"]{
   border:1px dashed rgba(255,255,255,.14);
 }
 
-/* ✅ MODO TÉCNICO: só mostra/oculta as .hint (sem mexer em header) */
+/* ✅ MODO TÉCNICO */
 .hint{ display:none; }
 body.techMode .hint{ display:block; }
 
@@ -406,8 +492,6 @@ body.techMode .hint{ display:block; }
 
 /* =========================
    MODO CELULAR
-   - NÃO aumenta header
-   - aumenta apenas o "tocável" do checklist
    ========================= */
 body.mobileMode header .head{flex-wrap: nowrap !important;}
 body.mobileMode header .brand{flex: 0 0 auto;max-width: 55vw;}
@@ -555,7 +639,6 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
     </div>
   </header>
 
-  <!-- ✅ ELEMENTOS QUE FALTAVAM (menu do ⋮) -->
   <div class="menuOverlay" id="menuOverlay" aria-hidden="true"></div>
 
   <nav class="headerMenu" id="headerMenu" aria-label="Menu do cabeçalho">
@@ -575,7 +658,6 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
       <button class="btn danger" id="resetBtn_m" type="button">🗑 Zerar</button>
     </div>
   </nav>
-  <!-- /menu -->
 
   <main class="container">
     <div class="hero">
@@ -585,6 +667,21 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
         Siga cada etapa com atenção e não pule verificações. Uma boa transmissão começa com organização.
       </p>
     </div>
+
+    <!-- ✅ AVISO DINÂMICO (horário local) -->
+    <section class="alertBox hidden" id="timeAlert" aria-live="polite">
+      <div class="row">
+        <div class="ico" id="timeAlertIco">⏰</div>
+        <div style="min-width:0">
+          <strong id="timeAlertTitle">Aviso</strong>
+          <p id="timeAlertText"></p>
+          <div class="meta">
+            <span class="badge" id="nextServiceBadge">Próximo culto: —</span>
+            <span class="badge" id="countdownBadge">Faltam: —</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="panel" aria-label="Checklist">
       <div class="panelTop">
@@ -739,11 +836,18 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
     const modeBtn = document.getElementById("modeBtn");
     const mobileBtn = document.getElementById("mobileBtn");
 
-    // Botões do menu mobile (agora existem no HTML)
     const modeBtn_m = document.getElementById("modeBtn_m");
     const mobileBtn_m = document.getElementById("mobileBtn_m");
     const saveBtn_m = document.getElementById("saveBtn_m");
     const resetBtn_m = document.getElementById("resetBtn_m");
+
+    // AVISO
+    const timeAlert = document.getElementById("timeAlert");
+    const timeAlertIco = document.getElementById("timeAlertIco");
+    const timeAlertTitle = document.getElementById("timeAlertTitle");
+    const timeAlertText = document.getElementById("timeAlertText");
+    const nextServiceBadge = document.getElementById("nextServiceBadge");
+    const countdownBadge = document.getElementById("countdownBadge");
 
     let state = { checked: {}, updatedAt: null };
     let collapsed = true;
@@ -988,7 +1092,7 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
       const pct = total ? Math.round((done/total)*100) : 0;
 
       statusText.textContent = `${done} de ${total} itens concluídos`;
-      progressLabel.textContent = `${done}/${total} concluído`;
+      progressLabel.textContent = `${done}/${total} concluídos`;
       progressFill.style.width = `${pct}%`;
       chipAll.textContent = `${pct}%`;
 
@@ -999,6 +1103,100 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
       }
     }
 
+    // ======= AVISO POR HORÁRIO LOCAL =======
+    const SERVICES = [
+      { day: 0, hour: 18, minute: 0, label: "Domingo" }, // 0=Dom
+      { day: 4, hour: 19, minute: 0, label: "Quinta" }  // 4=Qui
+    ];
+    const WARN_MINUTES = 30;
+
+    function pad2(n){ return String(n).padStart(2,"0"); }
+
+    function formatDateTime(d){
+      const dd = pad2(d.getDate());
+      const mm = pad2(d.getMonth()+1);
+      const yyyy = d.getFullYear();
+      const hh = pad2(d.getHours());
+      const mi = pad2(d.getMinutes());
+      return `${dd}/${mm}/${yyyy} • ${hh}:${mi}`;
+    }
+
+	function humanCountdown(ms){
+	  const totalSec = Math.max(0, Math.floor(ms/1000));
+	  const h = Math.floor(totalSec/3600);
+	  const m = Math.floor((totalSec%3600)/60);
+	  const s = totalSec % 60;
+
+	  if(h > 0) return `${h}h ${m}min ${s}s`;
+	  if(m > 0) return `${m}min ${s}s`;
+	  return `${s}s`;
+	}
+
+    function nextServiceDate(now){
+      const candidates = SERVICES.map(s=>{
+        const d = new Date(now);
+        d.setSeconds(0,0);
+
+        const delta = (s.day - d.getDay() + 7) % 7;
+        d.setDate(d.getDate() + delta);
+        d.setHours(s.hour, s.minute, 0, 0);
+
+        if(d.getTime() <= now.getTime()){
+          d.setDate(d.getDate() + 7);
+        }
+
+        return { when: d, ...s };
+      });
+
+      candidates.sort((a,b)=>a.when - b.when);
+      return candidates[0];
+    }
+
+    function updateTimeAlert(){
+      if(!timeAlert) return;
+
+      const now = new Date();
+      const next = nextServiceDate(now);
+      const diff = next.when.getTime() - now.getTime();
+
+      nextServiceBadge.textContent = `Próximo culto: ${next.label} (${formatDateTime(next.when)})`;
+      countdownBadge.textContent = `Faltam: ${humanCountdown(diff)}`;
+
+      timeAlert.classList.remove("hidden","warn","danger");
+
+		const secondsLeft = Math.floor(diff / 1000);
+		const warnSeconds = WARN_MINUTES * 60;
+
+		// > 30:00: mostra “Planeje com antecedência”
+		if(secondsLeft > warnSeconds){
+		  timeAlert.classList.add("warn");
+		  timeAlertIco.textContent = "🗓️";
+		  timeAlertTitle.textContent = "Planeje com antecedência";
+		  timeAlertText.textContent = `Comece o checklist com pelo menos ${WARN_MINUTES} minutos de antecedência para evitar correria.`;
+		  return;
+		}
+
+		// de 30:00 até 00:00 (inclusive): mostra “Você começou tarde!”
+		if(secondsLeft >= 0){
+		  timeAlert.classList.add("danger");
+		  timeAlertIco.textContent = "⚠️";
+		  timeAlertTitle.textContent = "Você começou tarde!";
+		  timeAlertText.textContent = `Você deve começar a fazer o checklist no mínimo ${WARN_MINUTES} minutos antes do início do culto! Se erros acontecerem não reclame!`;
+		  return;
+		}
+
+		// < 0: já passou
+		timeAlert.classList.add("danger");
+		timeAlertIco.textContent = "🚨";
+		timeAlertTitle.textContent = "Culto já começou";
+		timeAlertText.textContent = "Se ainda não iniciou a live, corrija o que for urgente e pule o que não for crítico!";
+		 return;
+	    }
+		
+		updateTimeAlert();
+		setInterval(updateTimeAlert, 1000);
+
+    // ======= atalhos =======
     window.addEventListener("keydown", (e)=>{
       if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s"){
         e.preventDefault();
@@ -1132,13 +1330,11 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
       });
     }
 
-    // Espelha ações
     if(modeBtn_m) modeBtn_m.addEventListener("click", ()=> modeBtn.click());
     if(mobileBtn_m) mobileBtn_m.addEventListener("click", ()=> mobileBtn.click());
     if(saveBtn_m) saveBtn_m.addEventListener("click", ()=> saveBtn.click());
     if(resetBtn_m) resetBtn_m.addEventListener("click", ()=> resetBtn.click());
 
-    // ESC fecha o menu
     document.addEventListener("keydown", (e)=>{
       if(e.key === "Escape"){
         closeHeaderMenu();
