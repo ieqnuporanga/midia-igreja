@@ -1,0 +1,1018 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Projeção (Holyrics) | Manual da Mídia - IEQ Nuporanga</title>
+  <meta name="description" content="Guia prático de como operar a projeção no Holyrics: músicas, bíblia, ferramentas e controle pelo celular." />
+  <meta name="theme-color" content="#0B1220" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900;950&display=swap" rel="stylesheet">
+
+  <style>
+:root{
+  --bg0:#070A12;
+  --bg1:#0B1220;
+  --bg2:#0A0F1D;
+
+  --card: rgba(255,255,255,.06);
+  --card2: rgba(255,255,255,.08);
+  --line: rgba(255,255,255,.12);
+  --line2: rgba(255,255,255,.16);
+
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.72);
+
+  --accent1:#7C3AED; /* roxo */
+  --accent2:#06B6D4; /* ciano */
+  --accent3:#22C55E; /* verde */
+  --accent4:#F59E0B; /* âmbar */
+  --danger:#EF4444;
+  --ok:#22C55E;
+
+  --shadow: 0 18px 55px rgba(0,0,0,.45);
+  --shadow2: 0 10px 26px rgba(0,0,0,.35);
+
+  --max: 1040px;
+  --r28: 28px;
+  --r20: 20px;
+  --r16: 16px;
+  --padX: 18px;
+}
+
+*{box-sizing:border-box}
+html{
+  height:100%;
+  background:#070A12;
+  overscroll-behavior:none;
+}
+body{
+  margin:0;
+  min-height:100%;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  line-height:1.65;
+  overflow-x:hidden;
+  text-rendering: optimizeLegibility;
+  position:relative;
+  background: linear-gradient(180deg, #0B1220 0%, #070A12 100%);
+}
+body::before{
+  content:"";
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 700px at 18% 12%, rgba(124,58,237,.22), transparent 70%),
+    radial-gradient(900px 700px at 82% 16%, rgba(6,182,212,.18), transparent 72%),
+    radial-gradient(900px 700px at 55% 88%, rgba(34,197,94,.12), transparent 74%),
+    radial-gradient(1100px 900px at 50% 50%, rgba(245,158,11,.06), transparent 78%);
+  filter: blur(55px);
+  opacity: .95;
+  transform: translateZ(0);
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+
+.container{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:
+    0 calc(var(--padX) + env(safe-area-inset-right))
+    0 calc(var(--padX) + env(safe-area-inset-left));
+}
+
+/* ===== HEADER ===== */
+header{
+  position:sticky;top:0;z-index:50;
+  background: rgba(7,10,18,.70);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.10);
+  transition: background .25s ease, box-shadow .25s ease;
+}
+header.compact{
+  background: rgba(7,10,18,.85);
+  box-shadow: 0 10px 25px rgba(0,0,0,.35);
+}
+.head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  flex-wrap:wrap;
+  transition: padding .22s ease;
+}
+header.compact .head{padding:8px 0}
+
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.logo{
+  width:44px;height:44px;border-radius:16px;overflow:hidden;flex:0 0 auto;
+  border:1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  box-shadow: 0 10px 18px rgba(0,0,0,.25);
+  display:grid;place-items:center;
+  transition: width .22s ease, height .22s ease, border-radius .22s ease;
+}
+header.compact .logo{width:38px;height:38px;border-radius:13px}
+.logo img{width:100%;height:100%;object-fit:cover}
+.brandTxt{min-width:0}
+.brandTxt strong{
+  display:block;font-weight:950;letter-spacing:-.4px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width: 66vw;line-height:1.05;
+}
+.brandTxt span{
+  display:block;font-size:12.5px;font-weight:900;
+  color: rgba(255,255,255,.70);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width: 66vw;margin-top:3px;
+}
+header.compact .brandTxt strong{font-size:15px}
+header.compact .brandTxt span{font-size:11px}
+
+/* ===== BUTTONS ===== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-size:13.5px;font-weight:950;
+  padding:10px 12px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.95);
+  cursor:pointer;user-select:none;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease, opacity .12s ease;
+  white-space:nowrap;
+}
+.btn:hover{
+  transform:translateY(-1px);
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.22);
+  box-shadow: 0 10px 18px rgba(0,0,0,.25);
+}
+.btn:active{transform:translateY(0)}
+.btn.primary{
+  border-color: rgba(124,58,237,.45);
+  background: linear-gradient(180deg, rgba(124,58,237,.32), rgba(124,58,237,.18));
+  box-shadow: 0 10px 22px rgba(124,58,237,.12);
+}
+.btn.primary:hover{
+  border-color: rgba(124,58,237,.62);
+  background: linear-gradient(180deg, rgba(124,58,237,.42), rgba(124,58,237,.20));
+}
+.btn.ghost{background: rgba(255,255,255,.05)}
+.btn.small{padding:8px 10px;font-size:13px}
+.btn.danger{
+  border-color: rgba(239,68,68,.40);
+  background: rgba(239,68,68,.14);
+}
+.btn.danger:hover{
+  border-color: rgba(239,68,68,.58);
+  background: rgba(239,68,68,.18);
+}
+
+:focus-visible{
+  outline: 2px solid rgba(6,182,212,.65);
+  outline-offset: 2px;
+  border-radius: 14px;
+}
+.hidden{display:none !important}
+
+@media (max-width: 560px){
+  :root{--padX: 16px;}
+  .brandTxt strong{max-width: 78vw}
+  .brandTxt span{max-width: 78vw}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{scroll-behavior:auto !important;transition:none !important;animation:none !important}
+}
+
+main{padding: 14px 0 36px}
+
+/* ===== HERO / KICKER ===== */
+.kicker{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.86);
+  font-weight:950;
+  font-size:12px;
+  white-space:nowrap;
+}
+.dot{width:8px;height:8px;border-radius:999px;background: rgba(6,182,212,.85);box-shadow:0 0 0 4px rgba(6,182,212,.18)}
+.kickerBar{
+  height:10px;border-radius:999px;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3), var(--accent4));
+  width: 168px;margin: 14px 0 12px;
+  box-shadow: 0 10px 28px rgba(124,58,237,.10);
+}
+
+.hero{padding: 10px 0 14px}
+h1{
+  margin:0 0 6px;
+  font-size:30px;
+  letter-spacing:-1px;
+  line-height:1.12;
+  font-weight:950;
+}
+.sub{
+  margin:0;
+  color: rgba(255,255,255,.80);
+  font-size:15px;
+  max-width: 92ch;
+  font-weight:800;
+}
+
+/* search */
+.searchWrap{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  border-radius: 20px;
+  padding:10px;
+  margin-top:12px;
+  box-shadow: var(--shadow2);
+}
+.searchWrap input{
+  flex: 1 1 220px;
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.92);
+  border-radius: 14px;
+  padding:10px 12px;
+  font-family:inherit;
+  font-weight:900;
+  outline:none;
+}
+.searchWrap input::placeholder{color: rgba(255,255,255,.55);font-weight:900}
+
+/* panels */
+.panel{
+  margin-top:16px;
+  border:1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.05));
+  border-radius: var(--r28);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+}
+.panelTop{
+  padding:14px 16px;
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap:12px;
+  align-items:start;
+  background: rgba(0,0,0,.18);
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+.panelTop .left strong{display:block;font-weight:950;letter-spacing:-.2px;margin-bottom:2px}
+.panelTop .left span{color: rgba(255,255,255,.72);font-weight:900;font-size:12.5px}
+.panelTop .right{justify-self:end;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chip{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.86);
+  font-weight:950;
+  font-size:12px;
+  white-space:nowrap;
+}
+.panelBody{padding: 12px 16px 16px}
+
+/* accordion sections */
+.section{
+  margin-top:12px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.12);
+  border-radius: 20px;
+  overflow:hidden;
+  box-shadow: var(--shadow2);
+}
+.sectionHead{
+  padding:12px 12px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  cursor:pointer;
+  user-select:none;
+}
+.sectionHead h2{
+  margin:0;
+  font-size:14.5px;
+  font-weight:950;
+  letter-spacing:-.2px;
+  color: rgba(255,255,255,.92);
+  flex: 1 1 auto;
+  min-width:0;
+  line-height:1.25;
+}
+.sectionHead .meta{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  color: rgba(255,255,255,.70);
+  font-weight:900;
+  font-size:12.5px;
+  user-select:none;
+  margin-left:auto;
+  flex:0 0 auto;
+}
+.sectionBody{padding: 12px}
+
+.grid2{display:grid;gap:12px;grid-template-columns: 1fr 1fr}
+.card{
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.18);
+  border-radius: 18px;
+  padding:12px;
+  overflow:hidden;
+}
+.card strong{display:block;font-weight:950;letter-spacing:-.2px;margin-bottom:6px;color: rgba(255,255,255,.92)}
+.card p{margin:0;color: rgba(255,255,255,.82);font-weight:850;font-size:13.5px;line-height:1.55}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+
+.list{
+  margin:0;
+  padding-left: 18px;
+  color: rgba(255,255,255,.86);
+  font-weight:850;
+  font-size:14px;
+  line-height:1.7;
+}
+.list li{margin: 6px 0}
+
+.quote{
+  margin-top:12px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.18);
+  border-radius: 18px;
+  padding:12px;
+  color: rgba(255,255,255,.90);
+  font-weight:900;
+  font-size:14px;
+  line-height:1.7;
+}
+.quote em{font-style:normal;color: rgba(255,255,255,.72);font-weight:900}
+
+.notice{
+  margin-top:10px;
+  border:1px dashed rgba(255,255,255,.18);
+  background: rgba(0,0,0,.18);
+  border-radius: 16px;
+  padding:10px;
+  color: rgba(255,255,255,.82);
+  font-weight:850;
+  font-size:13px;
+  line-height:1.55;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+.notice strong{color: rgba(255,255,255,.92);font-weight:950}
+
+.kbd{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:4px 8px;
+  border-radius: 10px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.22);
+  color: rgba(255,255,255,.92);
+  font-weight:950;
+  font-size:12px;
+  white-space:nowrap;
+}
+
+.step{
+  display:flex; gap:10px; align-items:flex-start;
+  padding:10px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.16);
+  border-radius: 16px;
+}
+.step .n{
+  flex:0 0 auto;
+  width:26px;height:26px;border-radius:10px;
+  display:grid;place-items:center;
+  border:1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  font-weight:950;
+}
+.step .t{font-weight:900;color:rgba(255,255,255,.86);font-size:13.2px;line-height:1.45}
+.steps{display:grid;gap:10px}
+
+.imgBox{
+  width:100%;
+  border-radius: 16px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  box-shadow: 0 12px 26px rgba(0,0,0,.20);
+}
+.imgBox img{width:100%;height:auto;display:block}
+
+@media (max-width: 860px){
+  .grid2{grid-template-columns: 1fr}
+}
+@media (max-width: 560px){
+  h1{font-size:25px}
+  .sub{font-size:14.6px}
+  .panelTop{padding:12px}
+  .panelBody{padding: 12px 12px 14px}
+  .sectionHead{padding:11px}
+  .card{padding:11px}
+  .list{font-size:13.8px}
+}
+
+/* ===== MENU MOBILE (⋮) ===== */
+.btnRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.menuBtn{
+  display:none;
+  width:42px;height:42px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.95);
+  font-weight:950;
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+  user-select:none;
+  margin-right:6px;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+.menuBtn:hover{
+  transform:translateY(-1px);
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.22);
+  box-shadow: 0 10px 18px rgba(0,0,0,.22);
+}
+.menuBtn:active{transform:translateY(0)}
+
+.menuOverlay{
+  position:fixed; inset:0;
+  background: rgba(2,6,23,.50);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display:none;
+  z-index:220;
+}
+.menuOverlay.show{display:block}
+
+.headerMenu{
+  position:fixed;
+  top: calc(70px + env(safe-area-inset-top));
+  left:50%;
+  transform: translateX(-50%);
+  width:min(360px, calc(100vw - 32px));
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(11,18,32,.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 22px;
+  box-shadow: 0 22px 90px rgba(0,0,0,.55);
+  padding:12px;
+  display:none;
+  z-index:230;
+}
+.headerMenu.show{display:block}
+
+.headerMenu .menuTitle{
+  font-weight:950;
+  letter-spacing:-.2px;
+  font-size:13px;
+  color: rgba(255,255,255,.90);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:6px 6px 10px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  margin-bottom:10px;
+}
+.headerMenu .menuClose{
+  width:38px;height:38px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.92);
+  font-weight:950;
+  cursor:pointer;
+}
+.headerMenu .menuGrid{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.headerMenu .menuGrid .btn{
+  width:100%;
+  justify-content:flex-start;
+}
+
+/* no mobile: some a fileira de botões e aparece o ⋮ */
+@media (max-width: 520px){
+  .btnRow{display:none;}
+  .menuBtn{display:inline-grid;place-items:center;}
+  .head{flex-wrap:nowrap;}
+}
+
+/* ===== SETINHA ANIMADA (→ fechado, ↓ aberto) ===== */
+.sectionHead .chev{
+  transition: transform .25s ease;
+  transform: rotate(-90deg);
+}
+.sectionHead[aria-expanded="true"] .chev{
+  transform: rotate(0deg);
+}
+@media (max-width: 560px){
+  .sectionHead{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .sectionHead h2{width:100%}
+  .sectionHead .meta{
+    width:100%;
+    margin-left:0;
+    justify-content:flex-start;
+  }
+  .sectionHead .meta .chip{
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:12px;
+    padding:6px 10px;
+  }
+}
+  </style>
+</head>
+
+<body>
+  <header id="topbar">
+    <div class="container head">
+      <a class="brand" href="index.html" aria-label="Voltar para a página inicial">
+        <div class="logo">
+          <img src="https://i.imgur.com/PlDV9NW.jpeg" alt="IEQ Nuporanga" />
+        </div>
+        <div class="brandTxt">
+          <strong>Manual da Mídia</strong>
+          <span>IEQ Nuporanga • Projeção (Holyrics)</span>
+        </div>
+      </a>
+
+      <div class="btnRow" id="btnRowDesktop">
+        <a class="btn ghost" href="index.html" aria-label="Página inicial">🏠 Início</a>
+        <a class="btn ghost" href="CheckList.html" aria-label="Abrir checklist">📋 Checklist</a>
+        <a class="btn ghost" href="solucoes.html" aria-label="Abrir soluções">🛠 Soluções</a>
+        <a class="btn ghost" href="iluminacao.html" aria-label="Abrir iluminação">💡 Iluminação</a>
+        <a class="btn primary" href="projecao.html" aria-label="Abrir projeção">📽️ Projeção</a>
+      </div>
+
+      <button class="menuBtn" id="menuBtn" type="button" aria-label="Abrir menu" aria-expanded="false">⋮</button>
+    </div>
+  </header>
+
+  <div class="menuOverlay" id="menuOverlay" aria-hidden="true"></div>
+
+  <nav class="headerMenu" id="headerMenu" aria-label="Menu do topo">
+    <div class="menuTitle">
+      <span>Opções</span>
+      <button class="menuClose" id="menuClose" type="button" aria-label="Fechar menu">✕</button>
+    </div>
+
+    <div class="menuGrid">
+      <a class="btn ghost" href="index.html">🏠 Início</a>
+      <a class="btn ghost" href="CheckList.html">📋 Checklist</a>
+      <a class="btn ghost" href="solucoes.html">🛠 Soluções</a>
+      <a class="btn ghost" href="iluminacao.html">💡 Iluminação</a>
+      <a class="btn primary" href="projecao.html">📽️ Projeção</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="hero">
+      <div class="kicker">
+        <div class="kickerBar" aria-hidden="true"></div>
+        <span class="pill"><span class="dot" aria-hidden="true"></span>Guia rápido do Holyrics</span>
+      </div>
+
+      <h1>Projeção no Holyrics</h1>
+      <p class="sub">
+        Passo a passo para adicionar músicas, projetar versículos, usar ferramentas e controlar pelo celular
+        — do jeito mais simples e legível para a igreja.
+      </p>
+
+      <div class="searchWrap" aria-label="Busca">
+        <input id="q" type="search" placeholder="Buscar (ex: música, bíblia, versão, cronômetro, sorteio, celular, IP)..." />
+        <button class="btn primary" id="clearBtn" type="button">Limpar</button>
+      </div>
+    </div>
+
+    <section class="panel" aria-label="Conteúdo de projeção">
+      <div class="panelTop">
+        <div class="left">
+          <strong>Conteúdo</strong>
+          <span id="hint">Toque no título para abrir/fechar.</span>
+        </div>
+        <div class="right">
+          <button class="btn ghost small" id="expandAll" type="button">⬇️ Expandir tudo</button>
+          <button class="btn ghost small" id="collapseAll" type="button">⬆️ Recolher tudo</button>
+          <span class="chip" id="countChip">0 itens</span>
+        </div>
+      </div>
+
+      <div class="panelBody" id="wrap">
+
+        <!-- MÚSICAS -->
+        <div class="section" data-section>
+          <div class="sectionHead" role="button" tabindex="0" aria-label="Adicionar música no Holyrics">
+            <h2>ADICIONAR MÚSICA NOVA</h2>
+            <div class="meta">
+              <span class="chip" data-chip>Passo a passo</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="sectionBody" data-body>
+            <div class="card" data-item>
+              <strong>Fluxo rápido</strong>
+              <div class="steps" style="margin-top:10px">
+                <div class="step">
+                  <div class="n">1</div>
+                  <div class="t"><span class="kbd">Música</span> → <span class="kbd">Pesquisa na internet</span></div>
+                </div>
+                <div class="step">
+                  <div class="n">2</div>
+                  <div class="t">Escreva o nome da música (se necessário, acrescente “letra”).</div>
+                </div>
+                <div class="step">
+                  <div class="n">3</div>
+                  <div class="t">Use <strong>Formatação Padrão (2 linhas)</strong> para manter a leitura confortável.</div>
+                </div>
+                <div class="step">
+                  <div class="n">4</div>
+                  <div class="t"><span class="kbd">Criar música</span> → <span class="kbd">Salvar</span> e saia no canto superior esquerdo da janela.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" data-item>
+              <strong>Fundo da música (muito importante)</strong>
+              <p>
+                Troque o fundo (background) da música para algo que <strong>não distraia</strong> e fique <strong>bem legível</strong>.
+                Prefira o <strong>fundo padrão azul</strong> ou <strong>preto</strong>. Evite backgrounds “chamativos”, animados ou cheios de detalhe.
+              </p>
+            </div>
+
+            <div class="notice" data-item>
+              <strong>Dica:</strong> Se o texto “sumir” em alguma parte do fundo, pare e ajuste. Projeção é para servir o culto.
+            </div>
+          </div>
+        </div>
+
+        <!-- BÍBLIA -->
+        <div class="section" data-section>
+          <div class="sectionHead" role="button" tabindex="0" aria-label="Projetar versículos e configurar versão da Bíblia">
+            <h2>VERSÍCULOS (BÍBLIA)</h2>
+            <div class="meta">
+              <span class="chip" data-chip>Versões / referência</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="sectionBody" data-body>
+            <div class="card" data-item>
+              <strong>Como projetar um versículo</strong>
+              <p>Vá em <span class="kbd">Bíblia</span> e escolha a referência. Antes do culto, confirme a versão com quem vai pregar.</p>
+              <div class="row" style="margin-top:10px">
+                <span class="chip">Regra de ouro: confirme a versão</span>
+                <span class="chip">Não invente “no achismo”</span>
+              </div>
+            </div>
+
+            <div class="card" data-item>
+              <strong>Trocar a versão da Bíblia</strong>
+              <p style="margin-bottom:10px">Troque a versão aqui (exemplo):</p>
+              <div class="imgBox">
+                <img src="https://i.imgur.com/uB5TVMr.png" alt="Exemplo de onde trocar a versão da Bíblia no Holyrics" loading="lazy" decoding="async" referrerpolicy="no-referrer" />
+              </div>
+              <div class="notice" data-item style="margin-top:10px">
+                Se não souber qual é a versão: <strong>pergunte para o pregador antes do culto</strong>.
+              </div>
+            </div>
+
+            <div class="card" data-item>
+              <strong>Mostrar só a referência (ex: “Isaías 1:1”)</strong>
+              <p>
+                Na tela da Bíblia, clique em <span class="kbd">Configurações</span> (canto inferior esquerdo) →
+                <strong>Exibir apenas referência</strong>. Quando o pregador começar a ler o texto, <strong>desmarque</strong> essa opção.
+              </p>
+              <div class="row">
+                <span class="chip">Útil no início</span>
+                <span class="chip">Desmarcar na leitura</span>
+              </div>
+            </div>
+
+            <div class="card" data-item>
+              <strong>Exibir segunda versão</strong>
+              <p>
+                Nessa mesma aba, você pode marcar <strong>Exibir segunda versão</strong> para mostrar 2 versões da Bíblia
+                que você selecionou anteriormente.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- FERRAMENTAS -->
+        <div class="section" data-section>
+          <div class="sectionHead" role="button" tabindex="0" aria-label="Ferramentas do Holyrics">
+            <h2>FERRAMENTAS ÚTEIS</h2>
+            <div class="meta">
+              <span class="chip" data-chip>3 funções</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="sectionBody" data-body>
+            <div class="grid2">
+              <div class="card" data-item>
+                <strong>Cronômetro</strong>
+                <p>Volte ao menu principal → <span class="kbd">Ferramentas</span> → <span class="kbd">Contagem regressiva</span>.</p>
+              </div>
+              <div class="card" data-item>
+                <strong>Sorteio</strong>
+                <p><span class="kbd">Ferramentas</span> → <span class="kbd">Sorteio</span>.</p>
+              </div>
+              <div class="card" data-item>
+                <strong>Jogo de múltipla escolha</strong>
+                <p><span class="kbd">Ferramentas</span> → <span class="kbd">Múltipla escolha</span>.</p>
+              </div>
+            </div>
+
+            <div class="notice" data-item>
+              <strong>Dica:</strong> Deixe essas telas prontas antes do culto se for usar (evita correr no meio do culto).
+            </div>
+          </div>
+        </div>
+
+        <!-- CELULAR -->
+        <div class="section" data-section>
+          <div class="sectionHead" role="button" tabindex="0" aria-label="Controlar Holyrics pelo celular">
+            <h2>CONTROLAR PELO CELULAR</h2>
+            <div class="meta">
+              <span class="chip" data-chip>App Holyrics</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="sectionBody" data-body>
+            <div class="card" data-item>
+              <strong>Passo a passo</strong>
+              <div class="steps" style="margin-top:10px">
+                <div class="step">
+                  <div class="n">1</div>
+                  <div class="t">No Holyrics: <span class="kbd">Arquivo</span> → <span class="kbd">Configurações</span> → <span class="kbd">Exibir</span> → veja a <strong>senha</strong> → salve essa senha.</div>
+                </div>
+                <div class="step">
+                  <div class="n">2</div>
+                  <div class="t">Volte ao menu principal → <span class="kbd">Ferramentas</span> → <span class="kbd">Plugin Holyrics</span> → veja o <strong>IP</strong> exibido/cadastrado.</div>
+                </div>
+                <div class="step">
+                  <div class="n">3</div>
+                  <div class="t">No celular: abra o <strong>app Holyrics</strong> → coloque o <strong>IP</strong> → coloque a <strong>senha</strong> → pronto!</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="notice" data-item>
+              <strong>Obs importante:</strong> Prefira usar o <strong>computador da projeção</strong> para isso, porque assim vai para a live também.
+              Se você usar o computador da transmissão, o Holyrics pode não reconhecer na live.
+            </div>
+          </div>
+        </div>
+
+        <!-- ROTEAMENTO / BOTÃO 1-2 -->
+        <div class="section" data-section>
+          <div class="sectionHead" role="button" tabindex="0" aria-label="Selecionar qual computador vai para o telão">
+            <h2>QUAL PC VAI PARA O TELÃO (BOTÃO 1 / 2)</h2>
+            <div class="meta">
+              <span class="chip" data-chip>Importante</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="sectionBody" data-body>
+            <div class="card" data-item>
+              <strong>Como usar</strong>
+              <p>
+                Ao lado do PC de projeção existe um <strong>botão seletor</strong>. Ele define qual computador aparece no telão:
+              </p>
+              <ul class="list" data-item style="margin-top:10px">
+                <li><strong>Selecionado 1:</strong> PC da live.</li>
+                <li><strong>Selecionado 2:</strong> PC da transmissão.</li>
+              </ul>
+            </div>
+
+            <div class="card" data-item>
+              <strong>Quando usar o PC da transmissão?</strong>
+              <p>
+                Use o PC da transmissão para projetar <strong>vídeos</strong> (ex: clipes, slides em vídeo, conteúdos que precisam de Bluetooth),
+                pois o PC de projeção não possui Bluetooth.
+              </p>
+            </div>
+
+            <div class="notice" data-item>
+              <strong>Regra prática:</strong> Letra/versículos/anúncios → <strong>PC de projeção</strong>. Vídeos/áudio Bluetooth → <strong>PC da transmissão</strong>.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="quote" style="margin-top:16px">
+      “Tudo seja feito com decência e ordem.”
+      <div style="margin-top:8px"><em>1 Coríntios 14:40</em></div>
+    </div>
+  </main>
+
+  <script>
+    // ===== Header compact on scroll
+    (function(){
+      const header = document.getElementById("topbar");
+      const onScroll = () => {
+        if(!header) return;
+        header.classList.toggle("compact", window.scrollY > 8);
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive:true });
+    })();
+
+    // ===== Mobile menu
+    (function(){
+      const btn = document.getElementById("menuBtn");
+      const overlay = document.getElementById("menuOverlay");
+      const menu = document.getElementById("headerMenu");
+      const close = document.getElementById("menuClose");
+
+      function openMenu(){
+        menu.classList.add("show");
+        overlay.classList.add("show");
+        btn.setAttribute("aria-expanded","true");
+        overlay.setAttribute("aria-hidden","false");
+      }
+      function closeMenu(){
+        menu.classList.remove("show");
+        overlay.classList.remove("show");
+        btn.setAttribute("aria-expanded","false");
+        overlay.setAttribute("aria-hidden","true");
+      }
+
+      if(btn){
+        btn.addEventListener("click", ()=>{
+          const isOpen = menu.classList.contains("show");
+          isOpen ? closeMenu() : openMenu();
+        });
+      }
+      if(close) close.addEventListener("click", closeMenu);
+      if(overlay) overlay.addEventListener("click", closeMenu);
+      document.addEventListener("keydown", (e)=>{
+        if(e.key === "Escape") closeMenu();
+      });
+    })();
+
+    // ===== Accordion
+    function toggleBody(head){
+      const body = head.parentElement.querySelector("[data-body]");
+      if(!body) return;
+      const hidden = body.classList.toggle("hidden");
+      head.setAttribute("aria-expanded", (!hidden).toString());
+    }
+
+    function collapseAllSections(){
+      document.querySelectorAll("[data-section]").forEach(sec=>{
+        const body = sec.querySelector("[data-body]");
+        const head = sec.querySelector(".sectionHead");
+        if(body) body.classList.add("hidden");
+        if(head) head.setAttribute("aria-expanded","false");
+      });
+    }
+    function expandAllSections(){
+      document.querySelectorAll("[data-section]").forEach(sec=>{
+        const body = sec.querySelector("[data-body]");
+        const head = sec.querySelector(".sectionHead");
+        if(body) body.classList.remove("hidden");
+        if(head) head.setAttribute("aria-expanded","true");
+      });
+    }
+
+    // Init: all closed
+    document.querySelectorAll(".sectionHead").forEach(head=>{
+      head.addEventListener("click", ()=>toggleBody(head));
+      head.addEventListener("keydown", (e)=>{
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          toggleBody(head);
+        }
+      });
+
+      const body = head.parentElement.querySelector("[data-body]");
+      if(body) body.classList.add("hidden");
+      head.setAttribute("aria-expanded","false");
+    });
+
+    // Expand/collapse buttons
+    (function(){
+      const expandBtn = document.getElementById("expandAll");
+      const collapseBtn = document.getElementById("collapseAll");
+      if(expandBtn) expandBtn.addEventListener("click", ()=>expandAllSections());
+      if(collapseBtn) collapseBtn.addEventListener("click", ()=>collapseAllSections());
+    })();
+
+    // ===== Search / filter (somente itens com data-item contam)
+    const q = document.getElementById("q");
+    const clearBtn = document.getElementById("clearBtn");
+    const countChip = document.getElementById("countChip");
+
+    function normalize(s){
+      return (s||"")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function updateCount(){
+      const visible = Array.from(document.querySelectorAll("[data-item]"))
+        .filter(el => !el.classList.contains("hidden")).length;
+      countChip.textContent = `${visible} item(ns)`;
+    }
+
+    function filter(){
+      const term = normalize(q.value.trim());
+      const items = document.querySelectorAll("[data-item]");
+      const sections = document.querySelectorAll("[data-section]");
+
+      if(!term){
+        items.forEach(el=>el.classList.remove("hidden"));
+        sections.forEach(sec=>sec.classList.remove("hidden"));
+        collapseAllSections();
+        updateCount();
+        return;
+      }
+
+      items.forEach(el=>el.classList.add("hidden"));
+      sections.forEach(sec=>sec.classList.add("hidden"));
+
+      items.forEach(el=>{
+        const text = normalize(el.textContent);
+        if(text.includes(term)){
+          el.classList.remove("hidden");
+          const sec = el.closest("[data-section]");
+          if(sec) sec.classList.remove("hidden");
+
+          if(sec){
+            const body = sec.querySelector("[data-body]");
+            if(body) body.classList.remove("hidden");
+            const head = sec.querySelector(".sectionHead");
+            if(head) head.setAttribute("aria-expanded","true");
+          }
+        }
+      });
+
+      updateCount();
+    }
+
+    if(q) q.addEventListener("input", filter);
+    if(clearBtn) clearBtn.addEventListener("click", ()=>{
+      q.value = "";
+      filter();
+      q.focus();
+    });
+
+    // first count
+    updateCount();
+  </script>
+</body>
+</html>
