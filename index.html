@@ -643,7 +643,81 @@ h1{
   border:0;
   display:block;
 }
-  </style>
+  
+/* ===== SETINHA ANIMADA (→ fechado, ↓ aberto) ===== */
+.sectionHead .chev{
+  transition: transform .25s ease;
+  transform: rotate(-90deg);
+}
+.sectionHead[aria-expanded="true"] .chev{
+  transform: rotate(0deg);
+}
+
+@media (max-width: 560px){
+  /* Mobile: título em cima e chips embaixo (evita esmagar) */
+  .sectionHead{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .sectionHead h2{width:100%}
+  .sectionHead .meta{
+    width:100%;
+    margin-left:0;
+    justify-content:flex-start;
+  }
+  .sectionHead .meta .chip{
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    font-size:12px;
+    padding:6px 10px;
+  }
+}
+
+/* =========================
+   IPS (NOVO)
+   ========================= */
+.ipTop{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.ipNameBtn{
+  appearance:none;
+  border:0;
+  background: transparent;
+  padding:0;
+  margin:0;
+  text-align:left;
+  color: rgba(255,255,255,.92);
+  font-weight:950;
+  letter-spacing:-.2px;
+  cursor:pointer;
+  line-height:1.25;
+}
+.ipNameBtn:hover{ text-decoration: underline; }
+.ipVal{
+  font-weight:950;
+  font-size:12.8px;
+  color: rgba(255,255,255,.78);
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.16);
+  padding:6px 10px;
+  border-radius: 999px;
+  white-space:nowrap;
+}
+.ipHint{
+  margin-top:8px;
+  color: rgba(255,255,255,.76);
+  font-weight:850;
+  font-size:13.2px;
+  line-height:1.55;
+}
+</style>
 </head>
 
 <body>
@@ -709,6 +783,8 @@ h1{
           <span id="hint">Toque no título para abrir/fechar.</span>
         </div>
         <div class="right" style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn ghost small" id="expandAll" type="button">⬇️ Expandir tudo</button>
+          <button class="btn ghost small" id="collapseAll" type="button">⬆️ Recolher tudo</button>
           <span class="chip" id="countChip">0 itens</span>
         </div>
       </div>
@@ -721,6 +797,7 @@ h1{
             <h2>GERADOR DE TÍTULO DA LIVE</h2>
             <div class="meta">
               <span class="chip" id="liveWhenChip">—</span>
+              <span class="chip" id="nextCultoChip">Próximo culto: —</span>
               <span class="chev" aria-hidden="true">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -953,8 +1030,6 @@ h1{
           </div>
         </div>
 
-        <!-- (resto do seu site continua igual) -->
-
         <!-- TRANSMISSÃO -->
         <div class="section" data-section>
           <div class="sectionHead" role="button" tabindex="0" aria-label="Importante para transmissão">
@@ -1099,6 +1174,86 @@ h1{
           </div>
         </div>
 
+        <!-- IPS (NOVO) — LOGO ABAIXO DE DIRETRIZES -->
+        <div class="section" data-section>
+          <div class="sectionHead" role="button" tabindex="0" aria-label="IPs usados na igreja">
+            <h2>IPS (REDE DA IGREJA)</h2>
+            <div class="meta">
+              <span class="chip" data-chip>3 itens</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div class="sectionBody" data-body>
+            <div class="grid2">
+
+              <div class="card" data-item>
+                <div class="ipTop">
+                  <button class="ipNameBtn" type="button" data-ip-search="192.168.3.1" aria-label="Pesquisar no Google: IP do roteador">
+                    IP ROTEADOR
+                  </button>
+                  <span class="ipVal">192.168.3.1</span>
+                </div>
+
+                <div class="ipHint">
+                  Clique no nome para pesquisar no Google. Use os botões abaixo para abrir ou copiar.
+                </div>
+
+                <div class="row">
+                  <button class="btn primary small" type="button" data-ip-https="192.168.3.1">🔒 Abrir https://</button>
+                  <button class="btn ghost small" type="button" data-ip-copy="192.168.3.1">📋 Copiar IP</button>
+                </div>
+              </div>
+
+              <div class="card" data-item>
+                <div class="ipTop">
+                  <button class="ipNameBtn" type="button" data-ip-search="192.168.3.30" aria-label="Pesquisar no Google: Abrir câmera PTZ">
+                    Abrir Camera PTZ
+                  </button>
+                  <span class="ipVal">192.168.3.30</span>
+                </div>
+
+                <div class="ipHint">
+                  Clique no nome para pesquisar no Google. Use os botões abaixo para abrir ou copiar.
+                </div>
+
+                <div class="row">
+                  <button class="btn primary small" type="button" data-ip-https="192.168.3.30">🔒 Abrir https://</button>
+                  <button class="btn ghost small" type="button" data-ip-copy="192.168.3.30">📋 Copiar IP</button>
+                </div>
+              </div>
+
+              <div class="card" data-item>
+                <div class="ipTop">
+                  <button class="ipNameBtn" type="button" data-ip-search="172.14.52.1" aria-label="Pesquisar no Google: Abrir mesa de som">
+                    Abrir Mesa de Som
+                  </button>
+                  <span class="ipVal">172.14.52.1</span>
+                </div>
+
+                <div class="ipHint">
+                  Clique no nome para pesquisar no Google. Use os botões abaixo para abrir ou copiar.
+                </div>
+
+                <div class="row">
+                  <button class="btn primary small" type="button" data-ip-https="172.14.52.1">🔒 Abrir https://</button>
+                  <button class="btn ghost small" type="button" data-ip-copy="172.14.52.1">📋 Copiar IP</button>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="notice" data-item>
+              <strong>Obs:</strong> Se algum equipamento não tiver HTTPS habilitado, o navegador pode bloquear/alertar.
+              Se precisar, posso colocar um botão extra de <strong>http://</strong> também.
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -1167,6 +1322,26 @@ h1{
       head.setAttribute("aria-expanded", (!hidden).toString());
     }
 
+    // Recolher tudo
+    function collapseAllSections(){
+      document.querySelectorAll("[data-section]").forEach(sec=>{
+        const body = sec.querySelector("[data-body]");
+        const head = sec.querySelector(".sectionHead");
+        if(body) body.classList.add("hidden");
+        if(head) head.setAttribute("aria-expanded","false");
+      });
+    }
+
+    // Expandir tudo
+    function expandAllSections(){
+      document.querySelectorAll("[data-section]").forEach(sec=>{
+        const body = sec.querySelector("[data-body]");
+        const head = sec.querySelector(".sectionHead");
+        if(body) body.classList.remove("hidden");
+        if(head) head.setAttribute("aria-expanded","true");
+      });
+    }
+
     // Iniciar TODAS as seções recolhidas
     document.querySelectorAll(".sectionHead").forEach(head=>{
       head.addEventListener("click", ()=>toggleBody(head));
@@ -1181,6 +1356,14 @@ h1{
       if(body) body.classList.add("hidden");
       head.setAttribute("aria-expanded","false");
     });
+
+    // Botões expand/recolher
+    (function(){
+      const expandBtn = document.getElementById("expandAll");
+      const collapseBtn = document.getElementById("collapseAll");
+      if(expandBtn) expandBtn.addEventListener("click", ()=>expandAllSections());
+      if(collapseBtn) collapseBtn.addEventListener("click", ()=>collapseAllSections());
+    })();
 
     // Search / filter (somente itens com data-item contam)
     const q = document.getElementById("q");
@@ -1209,12 +1392,7 @@ h1{
         items.forEach(el=>el.classList.remove("hidden"));
         sections.forEach(sec=>sec.classList.remove("hidden"));
         // fecha tudo de novo
-        document.querySelectorAll("[data-section]").forEach(sec=>{
-          const body = sec.querySelector("[data-body]");
-          const head = sec.querySelector(".sectionHead");
-          if(body) body.classList.add("hidden");
-          if(head) head.setAttribute("aria-expanded","false");
-        });
+        collapseAllSections();
         updateCount();
         return;
       }
@@ -1254,21 +1432,113 @@ h1{
       }[m]));
     }
 
-    // ===== GERADOR DE TITULO LIVE =====
+    // ===== GERADOR DE TITULO LIVE + CRONÔMETRO PRÓXIMO CULTO (QUINTA 19H, DOMINGO 18H) =====
     (function(){
       const liveTitle = document.getElementById("liveTitle");
       const copyLive = document.getElementById("copyLive");
       const refreshLive = document.getElementById("refreshLive");
       const liveWhenChip = document.getElementById("liveWhenChip");
-      if(!liveTitle || !copyLive || !refreshLive || !liveWhenChip) return;
+      const nextCultoChip = document.getElementById("nextCultoChip");
+      if(!liveTitle || !copyLive || !refreshLive || !liveWhenChip || !nextCultoChip) return;
 
       const dias = ["DOMINGO","SEGUNDA","TERÇA","QUARTA","QUINTA","SEXTA","SÁBADO"];
+
+      // ✅ CULTOS FIXOS
+      // 0=DOM, 1=SEG, 2=TER, 3=QUA, 4=QUI, 5=SEX, 6=SÁB
+      const CULTOS = [
+        { dow: 4, h: 19, m: 0 }, // Quinta 19:00
+        { dow: 0, h: 18, m: 0 }, // Domingo 18:00
+      ];
+
+      // Estado travado do cronômetro (evita "pulos" por arredondamento / drift do setInterval)
+      const state = {
+        target: null,
+        baseNow: 0,
+        basePerf: 0,
+        setTarget(d){
+          this.target = d;
+          this.baseNow = Date.now();
+          this.basePerf = (typeof performance !== "undefined" ? performance.now() : 0);
+        },
+        nowMs(){
+          const p = (typeof performance !== "undefined" ? performance.now() : 0);
+          return this.baseNow + (p - this.basePerf);
+        }
+      };
+
+      function pad2(n){ return String(n).padStart(2,"0"); }
+
+      function formatRemaining(ms){
+        ms = Math.max(0, ms);
+        const totalSec = Math.floor(ms / 1000);
+        const d = Math.floor(totalSec / 86400);
+        const h = Math.floor((totalSec % 86400) / 3600);
+        const m = Math.floor((totalSec % 3600) / 60);
+        const s = totalSec % 60;
+
+        if(d > 0) return `${d}d ${h}h ${m}m ${s}s`;
+        if(h > 0) return `${h}h ${m}m ${s}s`;
+        if(m > 0) return `${m}m ${s}s`;
+        return `${s}s`;
+      }
+
+      function getNextCulto(fromDate){
+        const now = fromDate || new Date();
+        const nowTime = now.getTime();
+        let best = null;
+
+        for(const c of CULTOS){
+          const todayDow = now.getDay();
+          let delta = (c.dow - todayDow + 7) % 7;
+
+          const cand = new Date(now);
+          cand.setHours(c.h, c.m, 0, 0);
+          cand.setDate(now.getDate() + delta);
+
+          // se for "hoje" mas já passou, pula pra semana que vem
+          if(cand.getTime() <= nowTime){
+            cand.setDate(cand.getDate() + 7);
+          }
+
+          if(!best || cand.getTime() < best.getTime()){
+            best = cand;
+          }
+        }
+        return best;
+      }
+
+      function updateCountdown(){
+        // trava o alvo para não "pular" pra frente/voltar quando o relógio arredonda
+        if(!state.target){
+          state.setTarget(getNextCulto(new Date()));
+        }
+
+        const nowMs = state.nowMs();
+        let diff = state.target.getTime() - nowMs;
+
+        // passou do horário? recalcula o próximo (com pequena folga)
+        if(diff <= 0){
+          state.setTarget(getNextCulto(new Date(nowMs + 1500)));
+          diff = state.target.getTime() - nowMs;
+        }
+
+        // no chip: só o tempo (sem repetir dia/data)
+        nextCultoChip.textContent = `Próximo culto: ${formatRemaining(diff)}`;
+
+        // info completa fica no title (sem poluir o layout)
+        const dia = dias[state.target.getDay()];
+        const dd = pad2(state.target.getDate());
+        const mm = pad2(state.target.getMonth()+1);
+        const hh = pad2(state.target.getHours());
+        const mi = pad2(state.target.getMinutes());
+        nextCultoChip.title = `${dia} ${dd}/${mm} ${hh}:${mi}`;
+      }
 
       function gerarTituloHoje(){
         const now = new Date();
         const dia = dias[now.getDay()];
-        const dd = String(now.getDate()).padStart(2,"0");
-        const mm = String(now.getMonth()+1).padStart(2,"0");
+        const dd = pad2(now.getDate());
+        const mm = pad2(now.getMonth()+1);
         const titulo = `🔴LIVE - CULTO ${dia} ${dd}/${mm} | IEQ NUPORANGA - TEMPLO A RESPOSTA`;
         liveTitle.textContent = titulo;
         liveWhenChip.textContent = `${dia} ${dd}/${mm}`;
@@ -1298,9 +1568,11 @@ h1{
       }
 
       copyLive.addEventListener("click", (e)=>{ e.stopPropagation(); copiar(); });
-      refreshLive.addEventListener("click", (e)=>{ e.stopPropagation(); gerarTituloHoje(); });
+      refreshLive.addEventListener("click", (e)=>{ e.stopPropagation(); gerarTituloHoje(); updateCountdown(); });
 
       gerarTituloHoje();
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
     })();
 
     // ===== REGISTRO DE PROBLEMAS (localStorage) =====
@@ -1551,6 +1823,77 @@ h1{
       document.addEventListener("keydown", (e)=>{
         if(e.key === "Escape"){
           closeHeaderMenu();
+        }
+      });
+    })();
+
+    // =========================
+    // IPS — AÇÕES (Google / https / copiar)
+    // =========================
+    (function(){
+      function openGoogle(ip){
+        const url = "https://www.google.com/search?q=" + encodeURIComponent(ip);
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+
+      function openHttps(ip){
+        const url = "https://" + ip;
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+
+      async function copyText(txt){
+        try{
+          if(navigator.clipboard && navigator.clipboard.writeText){
+            await navigator.clipboard.writeText(txt);
+            return true;
+          }
+        }catch(e){}
+        try{
+          const ta = document.createElement("textarea");
+          ta.value = txt;
+          ta.setAttribute("readonly","");
+          ta.style.position = "fixed";
+          ta.style.top = "0";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          ta.setSelectionRange(0, 99999);
+          const ok = document.execCommand("copy");
+          ta.remove();
+          return !!ok;
+        }catch(e){
+          return false;
+        }
+      }
+
+      document.addEventListener("click", async (e)=>{
+        const t = e.target;
+        if(!t) return;
+
+        const searchBtn = t.closest("[data-ip-search]");
+        if(searchBtn){
+          e.stopPropagation();
+          openGoogle(searchBtn.getAttribute("data-ip-search"));
+          return;
+        }
+
+        const httpsBtn = t.closest("[data-ip-https]");
+        if(httpsBtn){
+          e.stopPropagation();
+          openHttps(httpsBtn.getAttribute("data-ip-https"));
+          return;
+        }
+
+        const copyBtn = t.closest("[data-ip-copy]");
+        if(copyBtn){
+          e.stopPropagation();
+          const ip = copyBtn.getAttribute("data-ip-copy");
+          const ok = await copyText(ip);
+
+          const prev = copyBtn.textContent;
+          copyBtn.textContent = ok ? "Copiado!" : "Falhou";
+          setTimeout(()=>copyBtn.textContent = prev, 1200);
         }
       });
     })();
