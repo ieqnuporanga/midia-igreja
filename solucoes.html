@@ -316,7 +316,6 @@ main{padding: 14px 0 24px}
 }
 .hero{
   padding:18px 0 10px;
-  /* garante “centralizado” dentro do container e sem quebrar layout */
   display:flex;
   flex-direction:column;
   align-items:flex-start;
@@ -495,19 +494,53 @@ h1{
   gap:10px;
   flex:0 0 auto;
 }
-.chev{
-  width:38px;height:38px;border-radius:14px;
-  display:grid;place-items:center;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.06);
-  color: rgba(255,255,255,.92);
-  transition: transform .16s ease;
-  font-weight: 950;
-  font-size: 18px;
-  line-height: 1;
+
+/* ===== LAYOUT: “Possíveis soluções: X” + seta redonda ===== */
+.miniNav{
+  display:flex;
+  align-items:center;
+  gap:10px;
 }
-.problem .chev{transform: rotate(0deg)}
-.problem.open .chev{transform: rotate(180deg)}
+.miniLabel{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  height:28px;
+  padding:0 9px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.16);
+  box-shadow: 0 8px 14px rgba(0,0,0,.16);
+  font-weight:950;
+  letter-spacing:-.2px;
+  color: rgba(255,255,255,.92);
+  line-height:1;
+  white-space:nowrap;
+  font-size:11.5px;            /* 👈 faltava isso */
+}
+
+.miniLabel .muted{opacity:.78;font-weight:950}
+.miniLabel .num{opacity:.95}
+
+.miniArrow{
+  width:32px; height:32px;     /* 👈 diminui o botão */
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.12);
+  box-shadow: 0 8px 14px rgba(0,0,0,.16);
+  display:grid;place-items:center;
+  color: rgba(255,255,255,.92);
+  font-weight:950;
+  font-size:18px;              /* 👈 diminui a seta */
+  line-height:1;
+  transition: transform .16s ease, background .12s ease, border-color .12s ease;
+}
+.problemTop:hover .miniArrow{
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.18);
+}
+.problem .miniArrow{transform: rotate(0deg)}
+.problem.open .miniArrow{transform: rotate(90deg)}
 
 .problemBody{
   display:none;
@@ -690,7 +723,8 @@ body.mobileMode .sub{ font-size:15px; line-height:1.55; }
 body.mobileMode .search input{ font-size:15px; }
 body.mobileMode .q{ font-size:16px; line-height:1.25; }
 body.mobileMode .problemTop{ padding:16px 14px; }
-body.mobileMode .chev{ width:42px; height:42px; border-radius:16px; }
+body.mobileMode .miniLabel{ height:40px; }
+body.mobileMode .miniArrow{ width:44px; height:44px; }
 body.mobileMode .solText{ font-size:15.2px; line-height:1.45; }
 body.mobileMode .solutionTop{ padding:14px 12px; }
 body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
@@ -837,7 +871,7 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
     // ======================
     const TECH_WHATS_NUMBER = "5516994241388";
     const TECH_WHATS_MESSAGE =
-      "Gabriel, estamos com um problema técnico, você pode nos ajudar?";
+      "Olá! Estamos com um problema na transmissão ao vivo na IEQ Nuporanga e não conseguimos resolver. Pode ajudar, por favor?";
 
     // localStorage (apenas preferências)
     const LS_MOBILE = "ieq_live_mobile_v2";
@@ -885,9 +919,9 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
               "Tente novamente acessar: 192.168.3.30"
             ]},
             { text: "Verificar se a câmera trocou de IP.", steps: [
-              "Entre na pasta “Configurador PTZ” na área de trabalho.",
-              "Inicie o aplicativo “Configure Tool”.",
-              "Selecione a fonte de wifi “Realtek PCIe”.",
+              "Entre na pasta “Configurações PTZ” na área de trabalho.",
+              "Inicie o aplicativo “*****”.",
+              "Selecione a fonte de wifi “***”.",
               "Clique em refresh.",
               "A câmera deve aparecer, clique nela e em editar.",
               "Os ips que devem aparecer são 192.168.3.1 e 192.168.3.30 respectivamente.",
@@ -1176,8 +1210,12 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
               <p class="q"><span class="qIcon">?</span>${qHtml}</p>
             </div>
             <div class="rowRight">
-              <span class="chip">${totalSolutions} possíveis soluções</span>
-              <div class="chev" aria-hidden="true">⌄</div>
+              <div class="miniNav" aria-hidden="true">
+                <div class="miniLabel">
+                  <span class="muted">Possíveis soluções:</span>&nbsp;<span class="num">${totalSolutions}</span>
+                </div>
+                <div class="miniArrow">›</div>
+              </div>
             </div>
           </div>
 
@@ -1195,7 +1233,6 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
                 href="${escapeHtml(videoHref)}"
                 target="_blank"
                 rel="noopener"
-                data-video="${escapeHtml(videoHref)}"
                 aria-disabled="${hasVideo ? "false" : "true"}"
                 title="${hasVideo ? "Abrir vídeo deste problema" : "Sem vídeo ainda (adicione o link no DATA)"}"
               >
