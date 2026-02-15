@@ -805,16 +805,21 @@
       head.setAttribute("aria-expanded", (!hidden).toString());
     }
 
-    document.querySelectorAll(".sectionHead").forEach(head=>{
-      head.addEventListener("click", ()=>toggleBody(head));
-      head.addEventListener("keydown", (e)=>{
-        if(e.key === "Enter" || e.key === " "){
-          e.preventDefault();
-          toggleBody(head);
-        }
+      document.querySelectorAll(".sectionHead").forEach(head=>{
+        head.addEventListener("click", ()=>toggleBody(head));
+        head.addEventListener("keydown", (e)=>{
+          if(e.key === "Enter" || e.key === " "){
+            e.preventDefault();
+            toggleBody(head);
+          }
+        });
+      
+        // começar recolhido
+        const body = head.parentElement.querySelector("[data-body]");
+        if(body) body.classList.add("hidden");
+        head.setAttribute("aria-expanded","false");
       });
-      head.setAttribute("aria-expanded","true");
-    });
+
 
     // Search / filter (manual + funções + escala contam como data-item)
     const q = document.getElementById("q");
@@ -1100,3 +1105,4 @@
   </script>
 </body>
 </html>
+
