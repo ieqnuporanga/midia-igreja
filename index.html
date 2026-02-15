@@ -504,6 +504,35 @@
 
       <div class="panelBody" id="wrap">
 
+      <!-- GERADOR DE TÍTULO -->
+      <div class="panel">
+        <div class="panelTop">
+          <div class="left">
+            <strong>Gerador de Título da Live</strong>
+            <span>Dia e data automáticos</span>
+          </div>
+        </div>
+      
+        <div class="panelBody">
+          <div class="fieldGrid">
+            <div class="field">
+              <label>Data do culto</label>
+              <input type="date" id="liveDate" class="input">
+            </div>
+          </div>
+      
+          <div class="card" style="margin-top:12px">
+            <strong>Título gerado</strong>
+            <p id="liveTitle" style="word-break:break-word"></p>
+      
+            <div class="row">
+              <button class="btn primary small" id="copyLive">Copiar título</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
         <!-- VÍDEOS -->
         <div class="section" data-section>
           <div class="sectionHead" role="button" tabindex="0" aria-label="Vídeos explicativos">
@@ -1102,7 +1131,41 @@
     loadScale();
     renderScale();
     updateCount();
+
+    // ===== GERADOR DE TITULO LIVE =====
+    const liveDate = document.getElementById("liveDate");
+    const liveTitle = document.getElementById("liveTitle");
+    const copyLive = document.getElementById("copyLive");
+    
+    const dias = ["DOMINGO","SEGUNDA","TERÇA","QUARTA","QUINTA","SEXTA","SÁBADO"];
+    
+    function gerarTitulo(){
+      if(!liveDate.value){
+        liveTitle.textContent = "";
+        return;
+      }
+    
+      const d = new Date(liveDate.value + "T00:00:00");
+      const dia = dias[d.getDay()];
+      const dd = String(d.getDate()).padStart(2,"0");
+      const mm = String(d.getMonth()+1).padStart(2,"0");
+    
+      const titulo = `🔴LIVE - CULTO ${dia} ${dd}/${mm} | IEQ NUPORANGA - TEMPLO A RESPOSTA`;
+    
+      liveTitle.textContent = titulo;
+    }
+    
+    liveDate.addEventListener("change", gerarTitulo);
+    
+    copyLive.addEventListener("click", ()=>{
+      navigator.clipboard.writeText(liveTitle.textContent);
+      copyLive.textContent = "Copiado!";
+      setTimeout(()=>copyLive.textContent="Copiar título",1500);
+    });
+
+    
   </script>
 </body>
 </html>
+
 
