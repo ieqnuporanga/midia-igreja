@@ -5,384 +5,513 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Manual da Mídia | IEQ Nuporanga</title>
   <meta name="description" content="Vídeos explicativos, links úteis e diretrizes para transmissão, projeção, iluminação e fotografia." />
-  <meta name="theme-color" content="#060A12" />
+  <meta name="theme-color" content="#0B1220" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900;950&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#060A12;
-      --panel: rgba(255,255,255,.07);
-      --panel2: rgba(255,255,255,.10);
-      --line: rgba(255,255,255,.14);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.74);
+:root{
+  --bg0:#070A12;
+  --bg1:#0B1220;
+  --bg2:#0A0F1D;
 
-      --red:#FF0000;
-      --yellow:#FFCC00;
-      --blue:#00B2FF;
-      --purple:#6600FF;
+  --card: rgba(255,255,255,.06);
+  --card2: rgba(255,255,255,.08);
+  --line: rgba(255,255,255,.12);
+  --line2: rgba(255,255,255,.16);
 
-      --max: 980px;
-      --r24: 24px;
-      --padX: 18px;
-    }
+  --text: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.72);
 
-    *{box-sizing:border-box}
-    html{
-      scroll-behavior:auto;
-      height:100%;
-      background:#060A12;
-      overscroll-behavior: none;
-    }
-    body{
-      margin:0;
-      min-height:100%;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: linear-gradient(180deg, #070B14, #050812);
-      color:#fff;
-      line-height:1.65;
-      overflow-x:hidden;
-      text-rendering: optimizeLegibility;
-    }
+  --accent1:#7C3AED; /* roxo */
+  --accent2:#06B6D4; /* ciano */
+  --accent3:#22C55E; /* verde */
+  --accent4:#F59E0B; /* âmbar */
+  --danger:#EF4444;
+  --ok:#22C55E;
 
-    a{color:inherit;text-decoration:none}
-    .container{max-width:var(--max);margin:0 auto;padding:0 var(--padX)}
-    .kickerBar{
-      height:6px;border-radius:999px;
-      background: linear-gradient(90deg, var(--red), var(--yellow), var(--blue), var(--purple));
-      width: 160px;margin: 18px 0 14px;
-    }
+  --shadow: 0 18px 55px rgba(0,0,0,.45);
+  --shadow2: 0 10px 26px rgba(0,0,0,.35);
 
-    header{
-      position:sticky;top:0;z-index:50;
-      backdrop-filter: blur(10px);
-      background: rgba(6,10,18,.82);
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .head{
-      display:flex;align-items:center;justify-content:space-between;
-      gap:12px;
-      padding:12px 0;
-      flex-wrap:wrap;
-    }
-    .brand{
-      display:flex;align-items:center;gap:12px;min-width:0;
-    }
-    .logo{
-      width:42px;height:42px;border-radius:14px;overflow:hidden;flex:0 0 auto;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      display:grid;place-items:center;
-    }
-    .logo img{width:100%;height:100%;object-fit:cover}
-    .brandTxt{min-width:0}
-    .brandTxt strong{
-      display:block;
-      font-weight:950;letter-spacing:-.3px;
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-      max-width: 64vw;
-    }
-    .brandTxt span{
-      display:block;
-      font-size:12.5px;
-      font-weight:900;
-      color: rgba(255,255,255,.70);
-      white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-      max-width: 64vw;
-      margin-top:2px;
-    }
+  --max: 1040px;
+  --r28: 28px;
+  --r20: 20px;
+  --r16: 16px;
+  --padX: 18px;
+}
 
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;gap:10px;
-      font-size:13.5px;font-weight:950;
-      padding:10px 12px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.08);
-      color: rgba(255,255,255,.95);
-      cursor:pointer;user-select:none;
-      transition: transform .12s ease, background .12s ease, border-color .12s ease;
-      white-space:nowrap;
-    }
-    .btn:hover{transform:translateY(-1px);background: rgba(255,255,255,.12);border-color: rgba(255,255,255,.22)}
-    .btn.primary{background: rgba(255,255,255,.14);border-color: rgba(255,255,255,.26)}
-    .btn.ghost{background: rgba(255,255,255,.06)}
-    .btn.small{padding:8px 10px;font-size:13px}
-    .btn.danger{background: rgba(255,0,0,.12);border-color: rgba(255,0,0,.22)}
+*{box-sizing:border-box}
+html{
+  height:100%;
+  background:#070A12;
+  overscroll-behavior:none;
+}
+body{
+  margin:0;
+  min-height:100%;
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  line-height:1.65;
+  overflow-x:hidden;
+  text-rendering: optimizeLegibility;
+  position:relative;
+  background: linear-gradient(180deg, #0B1220 0%, #070A12 100%);
+}
+body::before{
+  content:"";
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 700px at 18% 12%, rgba(124,58,237,.22), transparent 70%),
+    radial-gradient(900px 700px at 82% 16%, rgba(6,182,212,.18), transparent 72%),
+    radial-gradient(900px 700px at 55% 88%, rgba(34,197,94,.12), transparent 74%),
+    radial-gradient(1100px 900px at 50% 50%, rgba(245,158,11,.06), transparent 78%);
+  filter: blur(55px);
+  opacity: .95;
+  transform: translateZ(0);
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
 
-    main{padding: 14px 0 36px}
+.container{
+  max-width:var(--max);
+  margin:0 auto;
+  padding:
+    0 calc(var(--padX) + env(safe-area-inset-right))
+    0 calc(var(--padX) + env(safe-area-inset-left));
+}
 
-    .hero{padding: 10px 0 14px}
-    h1{
-      margin:0 0 6px;
-      font-size:28px;
-      letter-spacing:-.9px;
-      line-height:1.15;
-      font-weight:950;
-    }
-    .sub{
-      margin:0;
-      color: rgba(255,255,255,.80);
-      font-size:15px;
-      max-width: 92ch;
-    }
+/* ===== HEADER ===== */
+header{
+  position:sticky;top:0;z-index:50;
+  background: rgba(7,10,18,.70);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom:1px solid rgba(255,255,255,.10);
+  transition: background .25s ease, box-shadow .25s ease;
+}
+header.compact{
+  background: rgba(7,10,18,.85);
+  box-shadow: 0 10px 25px rgba(0,0,0,.35);
+}
+.head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;
+  padding:12px 0;
+  flex-wrap:wrap;
+  transition: padding .22s ease;
+}
+header.compact .head{padding:8px 0}
 
-    .panel{
-      margin-top:16px;
-      border:1px solid var(--line);
-      background: var(--panel);
-      border-radius: var(--r24);
-      box-shadow: 0 16px 40px rgba(0,0,0,.30);
-      overflow:hidden;
-    }
-    .panelTop{
-      padding:14px 16px;
-      display:flex;align-items:flex-start;justify-content:space-between;gap:12px;
-      background: rgba(0,0,0,.12);
-      border-bottom:1px solid rgba(255,255,255,.10);
-      flex-wrap:wrap;
-    }
-    .panelTop .left strong{
-      display:block;
-      font-weight:950;
-      letter-spacing:-.2px;
-      margin-bottom:2px;
-    }
-    .panelTop .left span{
-      color: rgba(255,255,255,.72);
-      font-weight:900;
-      font-size:12.5px;
-    }
-    .panelBody{padding: 12px 16px 16px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.logo{
+  width:44px;height:44px;border-radius:16px;overflow:hidden;flex:0 0 auto;
+  border:1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  box-shadow: 0 10px 18px rgba(0,0,0,.25);
+  display:grid;place-items:center;
+  transition: width .22s ease, height .22s ease, border-radius .22s ease;
+}
+header.compact .logo{width:38px;height:38px;border-radius:13px}
+.logo img{width:100%;height:100%;object-fit:cover}
+.brandTxt{min-width:0}
+.brandTxt strong{
+  display:block;font-weight:950;letter-spacing:-.4px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width: 66vw;line-height:1.05;
+}
+.brandTxt span{
+  display:block;font-size:12.5px;font-weight:900;
+  color: rgba(255,255,255,.70);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width: 66vw;margin-top:3px;
+}
+header.compact .brandTxt strong{font-size:15px}
+header.compact .brandTxt span{font-size:11px}
 
-    .section{
-      margin-top:12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      border-radius: 18px;
-      overflow:hidden;
-    }
-    .sectionHead{
-      padding:12px 12px;
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      cursor:pointer;
-    }
-    .sectionHead h2{
-      margin:0;
-      font-size:15px;
-      font-weight:950;
-      letter-spacing:-.2px;
-      color: rgba(255,255,255,.92);
-    }
-    .sectionHead .meta{
-      display:flex;align-items:center;gap:10px;flex-wrap:wrap;
-      color: rgba(255,255,255,.70);
-      font-weight:900;
-      font-size:12.5px;
-      user-select:none;
-    }
-    .chip{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:6px 10px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.16);
-      color: rgba(255,255,255,.86);
-      font-weight:950;
-      font-size:12px;
-    }
+/* ===== BUTTONS ===== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-size:13.5px;font-weight:950;
+  padding:10px 12px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.95);
+  cursor:pointer;user-select:none;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease, opacity .12s ease;
+  white-space:nowrap;
+}
+.btn:hover{
+  transform:translateY(-1px);
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.22);
+  box-shadow: 0 10px 18px rgba(0,0,0,.25);
+}
+.btn:active{transform:translateY(0)}
+.btn.primary{
+  border-color: rgba(124,58,237,.45);
+  background: linear-gradient(180deg, rgba(124,58,237,.32), rgba(124,58,237,.18));
+  box-shadow: 0 10px 22px rgba(124,58,237,.12);
+}
+.btn.primary:hover{
+  border-color: rgba(124,58,237,.62);
+  background: linear-gradient(180deg, rgba(124,58,237,.42), rgba(124,58,237,.20));
+}
+.btn.ghost{background: rgba(255,255,255,.05)}
+.btn.small{padding:8px 10px;font-size:13px}
+.btn.danger{
+  border-color: rgba(239,68,68,.40);
+  background: rgba(239,68,68,.14);
+}
+.btn.danger:hover{
+  border-color: rgba(239,68,68,.58);
+  background: rgba(239,68,68,.18);
+}
 
-    .sectionBody{padding: 12px}
-    .grid2{display:grid;gap:12px;grid-template-columns: 1fr 1fr}
-    .card{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      border-radius: 16px;
-      padding:12px;
-      overflow:hidden;
-    }
-    .card strong{
-      display:block;
-      font-weight:950;
-      letter-spacing:-.2px;
-      margin-bottom:6px;
-      color: rgba(255,255,255,.92);
-    }
-    .card p{margin:0;color: rgba(255,255,255,.82);font-weight:800;font-size:13.5px;line-height:1.55}
-    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+:focus-visible{
+  outline: 2px solid rgba(6,182,212,.65);
+  outline-offset: 2px;
+  border-radius: 14px;
+}
+.hidden{display:none !important}
 
-    .list{
-      margin:0;
-      padding-left: 18px;
-      color: rgba(255,255,255,.86);
-      font-weight:800;
-      font-size:14px;
-      line-height:1.7;
-    }
-    .list li{margin: 6px 0}
-    .quote{
-      margin-top:12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      border-radius: 16px;
-      padding:12px;
-      color: rgba(255,255,255,.90);
-      font-weight:850;
-      font-size:14px;
-      line-height:1.7;
-    }
-    .quote em{font-style:normal;color: rgba(255,255,255,.72);font-weight:900}
+@media (max-width: 560px){
+  :root{--padX: 16px;}
+  .brandTxt strong{max-width: 78vw}
+  .brandTxt span{max-width: 78vw}
+}
 
-    .searchWrap{
-      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      border-radius: 16px;
-      padding:10px;
-      margin-top:12px;
-    }
-    .searchWrap input{
-      flex: 1 1 220px;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.92);
-      border-radius: 12px;
-      padding:10px 12px;
-      font-family:inherit;
-      font-weight:850;
-      outline:none;
-    }
-    .searchWrap input::placeholder{color: rgba(255,255,255,.55);font-weight:900}
-    .hidden{display:none !important}
+@media (prefers-reduced-motion: reduce){
+  *{scroll-behavior:auto !important;transition:none !important;animation:none !important}
+}
 
-    /* Funções */
-    .miniList{display:grid;gap:10px}
-    .miniRow{
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      border-radius: 16px;
-      padding:12px;
-    }
-    .miniRow .name{
-      font-weight:950;
-      letter-spacing:-.2px;
-      color: rgba(255,255,255,.92);
-      font-size:14px;
-      line-height:1.25;
-    }
-    .miniRow .role{
-      margin-top:6px;
-      color: rgba(255,255,255,.78);
-      font-weight:850;
-      font-size:13.5px;
-      line-height:1.35;
-    }
+main{padding: 14px 0 36px}
 
-    /* Registro */
-    .textarea{
-      width:100%;
-      min-height: 110px;
-      resize: vertical;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.92);
-      border-radius: 12px;
-      padding:10px 12px;
-      font-family:inherit;
-      font-weight:850;
-      outline:none;
-    }
-    .input{
-      width:100%;
-      background: rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.14);
-      color: rgba(255,255,255,.92);
-      border-radius: 12px;
-      padding:10px 12px;
-      font-family:inherit;
-      font-weight:850;
-      outline:none;
-    }
-    .miniList2{display:grid;gap:10px;margin-top:10px}
-    .miniNote{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.16);
-      border-radius: 14px;
-      padding:10px;
-    }
-    .miniNote .topline{
-      display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;
-    }
-    .miniNote .when{
-      font-weight:950;
-      color: rgba(255,255,255,.90);
-      font-size:12.8px;
-      letter-spacing:-.2px;
-    }
-    .miniNote .who{
-      margin-top:2px;
-      color: rgba(255,255,255,.78);
-      font-weight:900;
-      font-size:12.5px;
-      letter-spacing:-.1px;
-    }
-    .miniNote .txt{
-      margin-top:8px;
-      color: rgba(255,255,255,.84);
-      font-weight:850;
-      font-size:13.2px;
-      line-height:1.55;
-      white-space:pre-wrap;
-      word-break:break-word;
-    }
-    .empty{
-      color: rgba(255,255,255,.74);
-      font-weight:850;
-      font-size:13px;
-      line-height:1.55;
-      padding: 8px 2px;
-    }
+/* ===== HERO / KICKER ===== */
+.kicker{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.86);
+  font-weight:950;
+  font-size:12px;
+  white-space:nowrap;
+}
+.dot{width:8px;height:8px;border-radius:999px;background: rgba(6,182,212,.85);box-shadow:0 0 0 4px rgba(6,182,212,.18)}
+.kickerBar{
+  height:10px;border-radius:999px;
+  background: linear-gradient(90deg, var(--accent1), var(--accent2), var(--accent3), var(--accent4));
+  width: 168px;margin: 14px 0 12px;
+  box-shadow: 0 10px 28px rgba(124,58,237,.10);
+}
 
-    /* ✅ NOTICE ARRUMADO (não “separa” pontuação e ainda quebra bem no mobile) */
-    .notice{
-      margin-top:10px;
-      border:1px dashed rgba(255,255,255,.18);
-      background: rgba(0,0,0,.18);
-      border-radius: 14px;
-      padding:10px;
-      color: rgba(255,255,255,.82);
-      font-weight:850;
-      font-size:13px;
-      line-height:1.55;
+.hero{padding: 10px 0 14px}
+h1{
+  margin:0 0 6px;
+  font-size:30px;
+  letter-spacing:-1px;
+  line-height:1.12;
+  font-weight:950;
+}
+.sub{
+  margin:0;
+  color: rgba(255,255,255,.80);
+  font-size:15px;
+  max-width: 92ch;
+  font-weight:800;
+}
 
-      white-space: normal;
-      word-break: normal;
-      overflow-wrap: anywhere; /* quebra "localStorage" se precisar */
-      hyphens: auto;
-    }
-    .notice strong{color: rgba(255,255,255,.92);font-weight:950}
+/* search */
+.searchWrap{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  border-radius: 20px;
+  padding:10px;
+  margin-top:12px;
+  box-shadow: var(--shadow2);
+}
+.searchWrap input{
+  flex: 1 1 220px;
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.92);
+  border-radius: 14px;
+  padding:10px 12px;
+  font-family:inherit;
+  font-weight:900;
+  outline:none;
+}
+.searchWrap input::placeholder{color: rgba(255,255,255,.55);font-weight:900}
 
-    /* Mobile */
-    @media (max-width: 860px){
-      .grid2{grid-template-columns: 1fr}
-    }
-    @media (max-width: 560px){
-      :root{--padX: 16px;}
-      h1{font-size:24px}
-      .sub{font-size:14.5px}
-      .panelTop{padding:12px}
-      .panelBody{padding: 12px 12px 14px}
-      .sectionHead{padding:11px}
-      .card{padding:11px}
-      .list{font-size:13.8px}
-    }
+/* panels */
+.panel{
+  margin-top:16px;
+  border:1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.05));
+  border-radius: var(--r28);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+}
+.panelTop{
+  padding:14px 16px;
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap:12px;
+  align-items:start;
+  background: rgba(0,0,0,.18);
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+.panelTop .left strong{display:block;font-weight:950;letter-spacing:-.2px;margin-bottom:2px}
+.panelTop .left span{color: rgba(255,255,255,.72);font-weight:900;font-size:12.5px}
+.panelTop .right{justify-self:end;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chip{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:6px 10px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.86);
+  font-weight:950;
+  font-size:12px;
+  white-space:nowrap;
+}
+.panelBody{padding: 12px 16px 16px}
 
-    @media (prefers-reduced-motion: reduce){
-      *{scroll-behavior:auto !important;transition:none !important;animation:none !important}
-    }
+/* accordion sections */
+.section{
+  margin-top:12px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.12);
+  border-radius: 20px;
+  overflow:hidden;
+  box-shadow: var(--shadow2);
+}
+.sectionHead{
+  padding:12px 12px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  cursor:pointer;
+  user-select:none;
+}
+.sectionHead h2{
+  margin:0;
+  font-size:14.5px;
+  font-weight:950;
+  letter-spacing:-.2px;
+  color: rgba(255,255,255,.92);
+  flex: 1 1 auto;
+  min-width:0;
+  line-height:1.25;
+}
+.sectionHead .meta{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  color: rgba(255,255,255,.70);
+  font-weight:900;
+  font-size:12.5px;
+  user-select:none;
+  margin-left:auto;
+  flex:0 0 auto;
+}
+.sectionBody{padding: 12px}
+
+.grid2{display:grid;gap:12px;grid-template-columns: 1fr 1fr}
+.card{
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.18);
+  border-radius: 18px;
+  padding:12px;
+  overflow:hidden;
+}
+.card strong{display:block;font-weight:950;letter-spacing:-.2px;margin-bottom:6px;color: rgba(255,255,255,.92)}
+.card p{margin:0;color: rgba(255,255,255,.82);font-weight:850;font-size:13.5px;line-height:1.55}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+
+.list{
+  margin:0;
+  padding-left: 18px;
+  color: rgba(255,255,255,.86);
+  font-weight:850;
+  font-size:14px;
+  line-height:1.7;
+}
+.list li{margin: 6px 0}
+
+.quote{
+  margin-top:12px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.18);
+  border-radius: 18px;
+  padding:12px;
+  color: rgba(255,255,255,.90);
+  font-weight:900;
+  font-size:14px;
+  line-height:1.7;
+}
+.quote em{font-style:normal;color: rgba(255,255,255,.72);font-weight:900}
+
+/* mini lists */
+.miniList{display:grid;gap:10px}
+.miniRow{
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.18);
+  border-radius: 18px;
+  padding:12px;
+}
+.miniRow .name{font-weight:950;letter-spacing:-.2px;color: rgba(255,255,255,.92);font-size:14px;line-height:1.25}
+.miniRow .role{margin-top:6px;color: rgba(255,255,255,.78);font-weight:850;font-size:13.5px;line-height:1.35}
+
+/* form */
+.textarea, .input{
+  width:100%;
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  color: rgba(255,255,255,.92);
+  border-radius: 14px;
+  padding:10px 12px;
+  font-family:inherit;
+  font-weight:900;
+  outline:none;
+}
+.textarea{min-height: 110px;resize: vertical;}
+
+.miniList2{display:grid;gap:10px;margin-top:10px}
+.miniNote{
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.16);
+  border-radius: 16px;
+  padding:10px;
+}
+.miniNote .topline{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.miniNote .when{font-weight:950;color: rgba(255,255,255,.90);font-size:12.8px;letter-spacing:-.2px}
+.miniNote .who{margin-top:2px;color: rgba(255,255,255,.78);font-weight:900;font-size:12.5px;letter-spacing:-.1px}
+.miniNote .txt{margin-top:8px;color: rgba(255,255,255,.84);font-weight:850;font-size:13.2px;line-height:1.55;white-space:pre-wrap;word-break:break-word}
+.empty{color: rgba(255,255,255,.74);font-weight:850;font-size:13px;line-height:1.55;padding: 8px 2px}
+
+/* notice */
+.notice{
+  margin-top:10px;
+  border:1px dashed rgba(255,255,255,.18);
+  background: rgba(0,0,0,.18);
+  border-radius: 16px;
+  padding:10px;
+  color: rgba(255,255,255,.82);
+  font-weight:850;
+  font-size:13px;
+  line-height:1.55;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+}
+.notice strong{color: rgba(255,255,255,.92);font-weight:950}
+
+@media (max-width: 860px){
+  .grid2{grid-template-columns: 1fr}
+}
+@media (max-width: 560px){
+  h1{font-size:25px}
+  .sub{font-size:14.6px}
+  .panelTop{padding:12px}
+  .panelBody{padding: 12px 12px 14px}
+  .sectionHead{padding:11px}
+  .card{padding:11px}
+  .list{font-size:13.8px}
+}
+
+/* ===== MENU MOBILE (⋮) ===== */
+.btnRow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.menuBtn{
+  display:none;
+  width:42px;height:42px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.95);
+  font-weight:950;
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+  user-select:none;
+  margin-right:6px;
+  transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+.menuBtn:hover{
+  transform:translateY(-1px);
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.22);
+  box-shadow: 0 10px 18px rgba(0,0,0,.22);
+}
+.menuBtn:active{transform:translateY(0)}
+
+.menuOverlay{
+  position:fixed; inset:0;
+  background: rgba(2,6,23,.50);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display:none;
+  z-index:220;
+}
+.menuOverlay.show{display:block}
+
+.headerMenu{
+  position:fixed;
+  top: calc(70px + env(safe-area-inset-top));
+  left:50%;
+  transform: translateX(-50%);
+  width:min(360px, calc(100vw - 32px));
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(11,18,32,.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 22px;
+  box-shadow: 0 22px 90px rgba(0,0,0,.55);
+  padding:12px;
+  display:none;
+  z-index:230;
+}
+.headerMenu.show{display:block}
+
+.headerMenu .menuTitle{
+  font-weight:950;
+  letter-spacing:-.2px;
+  font-size:13px;
+  color: rgba(255,255,255,.90);
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:6px 6px 10px;
+  border-bottom:1px solid rgba(255,255,255,.10);
+  margin-bottom:10px;
+}
+.headerMenu .menuClose{
+  width:38px;height:38px;border-radius:14px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.92);
+  font-weight:950;
+  cursor:pointer;
+}
+.headerMenu .menuGrid{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.headerMenu .menuGrid .btn{
+  width:100%;
+  justify-content:flex-start;
+}
+
+/* no mobile: some a fileira de botões e aparece o ⋮ */
+@media (max-width: 520px){
+  .btnRow{display:none;}
+  .menuBtn{display:inline-grid;place-items:center;}
+  .head{flex-wrap:nowrap;}
+}
   </style>
 </head>
 
@@ -399,16 +528,39 @@
         </div>
       </a>
 
-      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-        <a class="btn" href="checklist.html" aria-label="Abrir checklist da transmissão">Checklist</a>
-        <a class="btn" href="solucoes.html" aria-label="Abrir soluções de problemas">Soluções</a>
+      <div class="btnRow" id="btnRowDesktop">
+        <a class="btn ghost" href="index.html" aria-label="Página inicial">🏠 Início</a>
+        <a class="btn ghost" href="CheckList.html" aria-label="Abrir checklist">📋 Checklist</a>
+        <a class="btn ghost" href="solucoes.html" aria-label="Abrir soluções">🛠 Soluções</a>
       </div>
+
+      <button class="menuBtn" id="menuBtn" type="button" aria-label="Abrir menu" aria-expanded="false">⋮</button>
     </div>
   </header>
 
+  <!-- ✅ FORA DO HEADER (evita bug no iOS + melhora centralização/blur) -->
+  <div class="menuOverlay" id="menuOverlay" aria-hidden="true"></div>
+
+  <nav class="headerMenu" id="headerMenu" aria-label="Menu do topo">
+    <div class="menuTitle">
+      <span>Opções</span>
+      <button class="menuClose" id="menuClose" type="button" aria-label="Fechar menu">✕</button>
+    </div>
+
+    <div class="menuGrid">
+      <a class="btn ghost" href="index.html">🏠 Início</a>
+      <a class="btn ghost" href="CheckList.html">📋 Checklist</a>
+      <a class="btn ghost" href="solucoes.html">🛠 Soluções</a>
+    </div>
+  </nav>
+
   <main class="container">
-    <div class="hero">
-      <div class="kickerBar"></div>
+    <div class="hero fadeUp">
+      <div class="kicker">
+        <div class="kickerBar" aria-hidden="true"></div>
+        <span class="pill"><span class="dot" aria-hidden="true"></span>Central rápida da equipe</span>
+      </div>
+
       <h1>Central da Mídia</h1>
       <p class="sub">
         Aqui você encontra vídeos explicativos, links úteis e diretrizes para transmissão, projeção, iluminação e fotografia.
@@ -420,7 +572,7 @@
       </div>
     </div>
 
-    <section class="panel" aria-label="Conteúdo do manual">
+    <section class="panel fadeUp" aria-label="Conteúdo do manual">
       <div class="panelTop">
         <div class="left">
           <strong>Conteúdo</strong>
@@ -439,16 +591,24 @@
             <h2>GERADOR DE TÍTULO DA LIVE</h2>
             <div class="meta">
               <span class="chip" id="liveWhenChip">—</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </div>
           </div>
           <div class="sectionBody" data-body>
-            <div class="card">
+            <div class="card" data-item>
               <strong>Título gerado</strong>
               <p id="liveTitle" style="word-break:break-word"></p>
 
               <div class="row">
                 <button class="btn primary small" id="copyLive" type="button">Copiar título</button>
                 <button class="btn ghost small" id="refreshLive" type="button">Atualizar</button>
+              </div>
+              <div class="notice">
+                <strong>Dica:</strong> Se o YouTube não aceitar emoji, remova o “🔴” no começo.
               </div>
             </div>
           </div>
@@ -460,16 +620,19 @@
             <h2>REGISTRO DE PROBLEMAS</h2>
             <div class="meta">
               <span class="chip" id="probCountChip">0 registro(s)</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </div>
           </div>
           <div class="sectionBody" data-body>
-            <div class="card">
+            <div class="card" data-item>
               <strong>Anotar ocorrência</strong>
               <p style="margin:0 0 10px;color:rgba(255,255,255,.78);font-weight:850;font-size:13.3px;line-height:1.55">
-				OBS: Registre a ocorrência apenas no computador da live, pois ela são salvas no navegador local!<br>
+                OBS: Registre a ocorrência apenas no computador da live, pois ela fica salva no navegador local.
               </p>
-
-              <!-- ✅ texto sem quebra errada (sem vírgula solta) -->
 
               <div style="margin-top:10px;display:grid;gap:10px">
                 <div>
@@ -495,104 +658,96 @@
           </div>
         </div>
 
-		<!-- VÍDEOS -->
-		<div class="section" data-section>
-		  <div class="sectionHead" role="button" tabindex="0" aria-label="Vídeos explicativos">
-			<h2>VÍDEOS EXPLICATIVOS</h2>
-			<div class="meta">
-			  <span class="chip" data-chip>9 vídeos</span>
-			</div>
-		  </div>
+        <!-- VÍDEOS -->
+        <div class="section" data-section>
+          <div class="sectionHead" role="button" tabindex="0" aria-label="Vídeos explicativos">
+            <h2>VÍDEOS EXPLICATIVOS</h2>
+            <div class="meta">
+              <span class="chip" data-chip>9 vídeos</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
 
-		  <div class="sectionBody" data-body>
-			<div class="grid2">
+          <div class="sectionBody" data-body>
+            <div class="grid2">
+              <div class="card" data-item>
+                <strong>Como funciona a sala da mídia</strong>
+                <p>Vídeo explicando o ambiente e organização da sala.</p>
+                <div class="row">
+                  <a class="btn small" href="https://youtu.be/bHvkwNT70sk" target="_blank" rel="noopener">Abrir no YouTube</a>
+                </div>
+              </div>
 
-			  <div class="card" data-item>
-				<strong>Como funciona a sala da mídia</strong>
-				<p>Vídeo explicando o ambiente e organização da sala.</p>
-				<div class="row">
-				  <a class="btn small" href="https://youtu.be/bHvkwNT70sk" target="_blank" rel="noopener">Abrir no YouTube</a>
-				</div>
-			  </div>
+              <div class="card" data-item>
+                <strong>Como funciona o programa de transmissão</strong>
+                <p>Visão geral do software utilizado na live.</p>
+                <div class="row">
+                  <a class="btn small" href="https://youtu.be/lfOu8_fzxBI" target="_blank" rel="noopener">Abrir no YouTube</a>
+                </div>
+              </div>
 
-			  <div class="card" data-item>
-				<strong>Como funciona o programa de transmissão</strong>
-				<p>Visão geral do software utilizado na live.</p>
-				<div class="row">
-				  <a class="btn small" href="https://youtu.be/lfOu8_fzxBI" target="_blank" rel="noopener">Abrir no YouTube</a>
-				</div>
-			  </div>
+              <div class="card" data-item>
+                <strong>Como iniciar uma transmissão do culto (Atualizado)</strong>
+                <p>Passos essenciais antes de entrar ao vivo.</p>
+                <div class="row">
+                  <a class="btn small" href="https://youtu.be/qPlfcIo4XXo" target="_blank" rel="noopener">Abrir no YouTube</a>
+                </div>
+              </div>
 
-			  <div class="card" data-item>
-				<strong>Como iniciar uma transmissão do culto (Atualizado)</strong>
-				<p>Passos essenciais antes de entrar ao vivo.</p>
-				<div class="row">
-				  <a class="btn small" href="https://youtu.be/qPlfcIo4XXo" target="_blank" rel="noopener">Abrir no YouTube</a>
-				</div>
-			  </div>
+              <div class="card" data-item>
+                <strong>Como funciona a projeção no culto</strong>
+                <p>Orientações para projeção e acompanhamento do culto.</p>
+                <div class="row">
+                  <a class="btn small" href="https://youtu.be/hV1OfCjrcVU" target="_blank" rel="noopener">Abrir no YouTube</a>
+                </div>
+              </div>
 
-			  <div class="card" data-item>
-				<strong>Como funciona a projeção no culto</strong>
-				<p>Orientações para projeção e acompanhamento do culto.</p>
-				<div class="row">
-				  <a class="btn small" href="https://youtu.be/hV1OfCjrcVU" target="_blank" rel="noopener">Abrir no YouTube</a>
-				</div>
-			  </div>
+              <div class="card" data-item>
+                <strong>Como controlar o áudio que vai para a transmissão</strong>
+                <p>Como ajustar o mix da live com clareza.</p>
+                <div class="row">
+                  <a class="btn small" href="https://youtu.be/E3oSplzdOBA" target="_blank" rel="noopener">Abrir no YouTube</a>
+                </div>
+              </div>
 
-			  <div class="card" data-item>
-				<strong>Como controlar o áudio que vai para a transmissão</strong>
-				<p>Como ajustar o mix da live com clareza.</p>
-				<div class="row">
-				  <a class="btn small" href="https://youtu.be/E3oSplzdOBA" target="_blank" rel="noopener">Abrir no YouTube</a>
-				</div>
-			  </div>
+              <div class="card" data-item>
+                <strong>Como enviar a imagem da câmera para a projeção</strong>
+                <p>Fluxo de vídeo: câmera → projeção.</p>
+                <div class="row">
+                  <a class="btn small" href="https://youtu.be/PBif7TNvut8" target="_blank" rel="noopener">Abrir no YouTube</a>
+                </div>
+              </div>
 
-			  <div class="card" data-item>
-				<strong>Como enviar a imagem da câmera para a projeção</strong>
-				<p>Fluxo de vídeo: câmera → projeção.</p>
-				<div class="row">
-				  <a class="btn small" href="https://youtu.be/PBif7TNvut8" target="_blank" rel="noopener">Abrir no YouTube</a>
-				</div>
-			  </div>
+              <div class="card" data-item>
+                <strong>Como conectar o áudio e projetar vídeos</strong>
+                <p>Conexões práticas e cuidados na execução.</p>
+                <div class="row">
+                  <a class="btn small" href="https://youtu.be/PMEtejRNf5k" target="_blank" rel="noopener">Abrir no YouTube</a>
+                </div>
+              </div>
 
-			  <div class="card" data-item>
-				<strong>Como conectar o áudio e projetar vídeos</strong>
-				<p>Conexões práticas e cuidados na execução.</p>
-				<div class="row">
-				  <a class="btn small" href="https://youtu.be/PMEtejRNf5k" target="_blank" rel="noopener">Abrir no YouTube</a>
-				</div>
-			  </div>
+              <div class="card" data-item>
+                <strong>Básico da Mesa de Som</strong>
+                <p>Fundamentos para operar e entender o áudio.</p>
+                <div class="row">
+                  <a class="btn small" href="https://youtu.be/AaPl1Lh2E70" target="_blank" rel="noopener">Abrir no YouTube</a>
+                </div>
+              </div>
 
-			  <div class="card" data-item>
-				<strong>Básico da Mesa de Som</strong>
-				<p>Fundamentos para operar e entender o áudio.</p>
-				<div class="row">
-				  <a class="btn small" href="https://youtu.be/AaPl1Lh2E70" target="_blank" rel="noopener">Abrir no YouTube</a>
-				</div>
-			  </div>
-
-			  <div class="card" data-item>
-				<strong>Como corrigir o IP do roteador</strong>
-				<p>A câmera não funciona? Corrija o IP.</p>
-				<div class="row">
-				  <a class="btn small" href="https://youtu.be/Xi2b-17VGbU" target="_blank" rel="noopener">Abrir no YouTube</a>
-				</div>
-			  </div>
-
-			  <!-- ====== CARD MODELO (COPIE E COLE PARA ADICIONAR MAIS) ======
-			  <div class="card" data-item>
-				<strong>TÍTULO DO VÍDEO</strong>
-				<p>Descrição curta do que o vídeo ensina.</p>
-				<div class="row">
-				  <a class="btn small" href="https://youtu.be/SEU_LINK_AQUI" target="_blank" rel="noopener">Abrir no YouTube</a>
-				</div>
-			  </div>
-			  ============================================================ -->
-
-			</div>
-		  </div>
-		</div>
-
+              <div class="card" data-item>
+                <strong>Como corrigir o IP do roteador</strong>
+                <p>A câmera não funciona? Corrija o IP.</p>
+                <div class="row">
+                  <a class="btn small" href="https://youtu.be/Xi2b-17VGbU" target="_blank" rel="noopener">Abrir no YouTube</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- DRIVES -->
         <div class="section" data-section>
@@ -600,12 +755,17 @@
             <h2>LINKS DE DRIVERS ÚTEIS</h2>
             <div class="meta">
               <span class="chip" data-chip>5 links</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </div>
           </div>
           <div class="sectionBody" data-body>
             <div class="grid2">
               <div class="card" data-item>
-                <strong>Driver Mídia Nuporanga</strong>
+                <strong>Drive Mídia Nuporanga</strong>
                 <p>Pasta principal com arquivos e materiais da mídia.</p>
                 <div class="row">
                   <a class="btn small" href="https://drive.google.com/drive/folders/1-GQcfvZRFquY4fwe92kJaebK8PD-Q3kI?usp=drive_link" target="_blank" rel="noopener">Google Drive</a>
@@ -613,7 +773,7 @@
               </div>
 
               <div class="card" data-item>
-                <strong>Driver para enviar arquivos pro PC</strong>
+                <strong>Drive para enviar arquivos pro PC</strong>
                 <p>Envio e organização de arquivos para o computador.</p>
                 <div class="row">
                   <a class="btn small" href="https://drive.google.com/drive/folders/1QjY1DF6QsRXKQGtE8BK4-lvwv3mjKDYk?usp=drive_link" target="_blank" rel="noopener">Google Drive</a>
@@ -621,7 +781,7 @@
               </div>
 
               <div class="card" data-item>
-                <strong>Driver EVENTOS</strong>
+                <strong>Drive EVENTOS</strong>
                 <p>Fotos e registros de eventos.</p>
                 <div class="row">
                   <a class="btn small" href="https://drive.google.com/drive/folders/1LG5aJrqR8th5IkgLpDCRSFci9OvYjNt3?usp=drive_link" target="_blank" rel="noopener">Google Drive</a>
@@ -629,7 +789,7 @@
               </div>
 
               <div class="card" data-item>
-                <strong>Driver Ministério Quadrangular Nacional</strong>
+                <strong>Drive Ministério Quadrangular Nacional</strong>
                 <p>Arquivos e materiais nacionais.</p>
                 <div class="row">
                   <a class="btn small" href="https://drive.google.com/drive/u/0/folders/1IVmIFSqOS4ai-nKMJYzkx-IhiDXxV02O" target="_blank" rel="noopener">Google Drive</a>
@@ -637,7 +797,7 @@
               </div>
 
               <div class="card" data-item>
-                <strong>Driver Secretária de Comunicação</strong>
+                <strong>Drive Secretária de Comunicação</strong>
                 <p>Documento com orientações e materiais.</p>
                 <div class="row">
                   <a class="btn small" href="https://docs.google.com/document/d/1H7ag2DlPKMsB8zpv1w6szogb5b-KQ2O9bjy6smvPwyg/edit?tab=t.0#heading=h.oxwmg6qc6mf5" target="_blank" rel="noopener">Google Docs</a>
@@ -653,6 +813,11 @@
             <h2>IMPORTANTE PARA TRANSMISSÃO</h2>
             <div class="meta">
               <span class="chip" data-chip>10 itens</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </div>
           </div>
           <div class="sectionBody" data-body>
@@ -677,6 +842,11 @@
             <h2>IMPORTANTE PARA PROJEÇÃO</h2>
             <div class="meta">
               <span class="chip" data-chip>8 itens</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </div>
           </div>
           <div class="sectionBody" data-body>
@@ -699,6 +869,11 @@
             <h2>IMPORTANTE PARA ILUMINAÇÃO</h2>
             <div class="meta">
               <span class="chip" data-chip>8 itens</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </div>
           </div>
           <div class="sectionBody" data-body>
@@ -721,6 +896,11 @@
             <h2>IMPORTANTE PARA FOTOGRAFIA</h2>
             <div class="meta">
               <span class="chip" data-chip>10 itens</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </div>
           </div>
           <div class="sectionBody" data-body>
@@ -745,6 +925,11 @@
             <h2>DIRETRIZES GERAIS</h2>
             <div class="meta">
               <span class="chip" data-chip>8 itens</span>
+              <span class="chev" aria-hidden="true">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M6 9l6 6 6-6" stroke="rgba(255,255,255,.85)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
             </div>
           </div>
           <div class="sectionBody" data-body>
@@ -769,7 +954,7 @@
       </div>
     </section>
 
-    <section class="panel" aria-label="Funções da equipe de mídia">
+    <section class="panel fadeUp" aria-label="Funções da equipe de mídia">
       <div class="panelTop">
         <div class="left">
           <strong>Funções da Equipe de Mídia</strong>
@@ -807,9 +992,7 @@
       </div>
     </section>
 
-    <!-- ✅ NO FIM DE TUDO: só o versículo (troca ao abrir o site) -->
-    <div class="quote" id="verseBox" style="margin-top:16px"></div>
-
+    <div class="quote fadeUp" id="verseBox" style="margin-top:16px"></div>
   </main>
 
   <script>
@@ -862,6 +1045,13 @@
       if(!term){
         items.forEach(el=>el.classList.remove("hidden"));
         sections.forEach(sec=>sec.classList.remove("hidden"));
+        // fecha tudo de novo
+        document.querySelectorAll("[data-section]").forEach(sec=>{
+          const body = sec.querySelector("[data-body]");
+          const head = sec.querySelector(".sectionHead");
+          if(body) body.classList.add("hidden");
+          if(head) head.setAttribute("aria-expanded","false");
+        });
         updateCount();
         return;
       }
@@ -901,7 +1091,7 @@
       }[m]));
     }
 
-    // ===== GERADOR DE TITULO LIVE (IOS/ANDROID OK) =====
+    // ===== GERADOR DE TITULO LIVE =====
     (function(){
       const liveTitle = document.getElementById("liveTitle");
       const copyLive = document.getElementById("copyLive");
@@ -935,7 +1125,7 @@
 
         ta.focus();
         ta.select();
-        ta.setSelectionRange(0, 99999); // iOS
+        ta.setSelectionRange(0, 99999);
 
         const ok = document.execCommand("copy");
         ta.remove();
@@ -952,7 +1142,7 @@
 
     // ===== REGISTRO DE PROBLEMAS (localStorage) =====
     (function(){
-      const KEY = "ieq_midias_problemas_v2"; // v2 (com "quem")
+      const KEY = "ieq_midias_problemas_v2";
 
       const probWho  = document.getElementById("probWho");
       const probText = document.getElementById("probText");
@@ -1105,9 +1295,102 @@
       render();
     })();
 
+    // Versículo final (fixo por enquanto)
+    (function(){
+      const box = document.getElementById("verseBox");
+      if(!box) return;
+      box.innerHTML = `
+        “Mas tudo deve ser feito com decência e ordem.”
+        <div style="margin-top:8px"><em>1 Coríntios 14:40</em></div>
+      `;
+    })();
 
     // init count
     updateCount();
+
+    // ===== HEADER SHRINK (SEM FLICKER) =====
+    (function(){
+      const header = document.querySelector("header");
+      if(!header) return;
+
+      let ticking = false;
+      let compact = false;
+
+      const ENTER_Y = 70;
+      const EXIT_Y  = 20;
+
+      function update(){
+        ticking = false;
+        const y = window.scrollY || 0;
+
+        if(!compact && y > ENTER_Y){
+          compact = true;
+          header.classList.add("compact");
+        }else if(compact && y < EXIT_Y){
+          compact = false;
+          header.classList.remove("compact");
+        }
+      }
+
+      function onScroll(){
+        if(!ticking){
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      }
+
+      window.addEventListener("scroll", onScroll, {passive:true});
+      update();
+    })();
+
+    // ===== MENU ⋮ (mobile) =====
+    (function(){
+      const menuBtn = document.getElementById("menuBtn");
+      const headerMenu = document.getElementById("headerMenu");
+      const menuOverlay = document.getElementById("menuOverlay");
+      const menuClose = document.getElementById("menuClose");
+
+      if(!menuBtn || !headerMenu || !menuOverlay || !menuClose) return;
+
+      function openHeaderMenu(){
+        headerMenu.classList.add("show");
+        menuOverlay.classList.add("show");
+        menuOverlay.setAttribute("aria-hidden","false");
+        menuBtn.setAttribute("aria-expanded","true");
+      }
+      function closeHeaderMenu(){
+        headerMenu.classList.remove("show");
+        menuOverlay.classList.remove("show");
+        menuOverlay.setAttribute("aria-hidden","true");
+        menuBtn.setAttribute("aria-expanded","false");
+      }
+      function toggleHeaderMenu(){
+        const isOpen = headerMenu.classList.contains("show");
+        if(isOpen) closeHeaderMenu();
+        else openHeaderMenu();
+      }
+
+      menuBtn.addEventListener("click", (e)=>{
+        e.stopPropagation();
+        toggleHeaderMenu();
+      });
+
+      menuOverlay.addEventListener("click", closeHeaderMenu);
+      menuClose.addEventListener("click", closeHeaderMenu);
+
+      headerMenu.addEventListener("click", (e)=>{
+        const t = e.target;
+        if(t && t.tagName === "A"){
+          setTimeout(closeHeaderMenu, 0);
+        }
+      });
+
+      document.addEventListener("keydown", (e)=>{
+        if(e.key === "Escape"){
+          closeHeaderMenu();
+        }
+      });
+    })();
   </script>
 </body>
 </html>
