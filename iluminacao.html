@@ -556,6 +556,24 @@ h1{
   .bankGrid{grid-template-columns: repeat(2, 1fr);}
 }
 
+/* ===== Versículo (igual você curtiu no Projeção) ===== */
+.quote{
+  margin-top:16px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.18);
+  border-radius: 18px;
+  padding:12px;
+  color: rgba(255,255,255,.90);
+  font-weight:900;
+  font-size:14px;
+  line-height:1.7;
+  box-shadow: var(--shadow2);
+}
+.quote em{
+  font-style: normal;
+  color: rgba(255,255,255,.72);
+  font-weight:900;
+}
 
 /* Rodapé só pra dar respiro no final */
 .siteFooter{
@@ -567,7 +585,6 @@ h1{
   padding-bottom: env(safe-area-inset-bottom);
   height: calc(80px + env(safe-area-inset-bottom));
 }
-
   </style>
 </head>
 
@@ -1220,6 +1237,14 @@ h1{
       </div>
     </section>
 
+    <!-- ✅ Versículo (igual no Projeção) -->
+    <div class="quote" aria-label="Versículo">
+      “Tudo seja feito com decência e ordem.”
+      <div style="margin-top:8px">
+        <em>1 Coríntios 14:40</em>
+      </div>
+    </div>
+
   </main>
 
   <script>
@@ -1440,8 +1465,8 @@ h1{
       });
     })();
   </script>
-  
-<footer class="siteFooter" aria-label="Rodapé"></footer>
+
+  <footer class="siteFooter" aria-label="Rodapé"></footer>
 
 </body>
 </html>
