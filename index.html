@@ -2162,27 +2162,26 @@ h1{
         }
       });
     })();
-<script>
-(async () => {
-  try {
-    const r = await fetch("/__me", { credentials: "include" });
-    if (!r.ok) return;
-
-    const data = await r.json();
-
-    if (data.ok) {
-      const el = document.getElementById("welcomeUser");
-      if (el) {
-        el.textContent = "Bem-vindo, " + (data.display || data.user);
-      }
-    }
-  } catch {}
-})();
-</script>
+    (async () => {
+      try {
+        const r = await fetch("/__me", { credentials: "include" });
+        if (!r.ok) return;
+    
+        const data = await r.json();
+    
+        if (data.ok) {
+          const el = document.getElementById("welcomeUser");
+          if (el) {
+            el.textContent = "Bem-vindo, " + (data.display || data.user);
+          }
+        }
+      } catch {}
+    })();
 
   </script>
 </body>
 </html>
+
 
 
 
