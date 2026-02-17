@@ -287,6 +287,15 @@ h1{
   background: rgba(239,68,68,.12);
 }
 
+.alertBox.ok{
+  border-color: rgba(34,197,94,.35);
+  background: rgba(34,197,94,.08);
+}
+.alertBox.ok .ico{
+  border-color: rgba(34,197,94,.35);
+  background: rgba(34,197,94,.12);
+}
+
 /* ✅ FIX MOBILE: badges viram “full width” e quebram texto */
 @media (max-width: 560px){
   .alertBox .meta{
@@ -1163,14 +1172,14 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
       nextServiceBadge.textContent = `Próximo culto: ${next.label} (${formatDateTime(next.when)})`;
       countdownBadge.textContent = `Faltam: ${humanCountdown(diff)}`;
 
-      timeAlert.classList.remove("hidden","warn","danger");
+      timeAlert.classList.remove("hidden","warn","danger","ok");
 
 		const secondsLeft = Math.floor(diff / 1000);
 		const warnSeconds = WARN_MINUTES * 60;
 
 		// > 30:00: mostra “Planeje com antecedência”
 		if(secondsLeft > warnSeconds){
-		  timeAlert.classList.add("warn");
+		  timeAlert.classList.add("ok");
 		  timeAlertIco.textContent = "🗓️";
 		  timeAlertTitle.textContent = "Planeje com antecedência";
 		  timeAlertText.textContent = `Comece o checklist com pelo menos ${WARN_MINUTES} minutos de antecedência para evitar correria.`;
@@ -1179,7 +1188,7 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
 
 		// de 30:00 até 00:00 (inclusive): mostra “Você começou tarde!”
 		if(secondsLeft >= 0){
-		  timeAlert.classList.add("danger");
+		  timeAlert.classList.add("warn");
 		  timeAlertIco.textContent = "⚠️";
 		  timeAlertTitle.textContent = "Você começou tarde!";
 		  timeAlertText.textContent = `Você deve começar a fazer o checklist no mínimo ${WARN_MINUTES} minutos antes do início do culto! Se erros acontecerem não reclame!`;
@@ -1344,6 +1353,7 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
   </script>
 </body>
 </html>
+
 
 
 
