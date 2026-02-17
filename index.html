@@ -733,6 +733,15 @@ h1{
         </div>
       </a>
 
+       <div id="welcomeUser" style="
+      font-weight:900;
+      font-size:13px;
+      color:rgba(255,255,255,.85);
+      margin-right:10px;
+      white-space:nowrap;
+      "></div>
+
+
       <div class="btnRow" id="btnRowDesktop">
         <a class="btn primary" href="index.html" aria-label="Página inicial">🏠 Início</a>
         <a class="btn ghost" href="checklist.html" aria-label="Abrir checklist">📋 Checklist</a>
@@ -2153,9 +2162,28 @@ h1{
         }
       });
     })();
+<script>
+(async () => {
+  try {
+    const r = await fetch("/__me", { credentials: "include" });
+    if (!r.ok) return;
+
+    const data = await r.json();
+
+    if (data.ok) {
+      const el = document.getElementById("welcomeUser");
+      if (el) {
+        el.textContent = "Bem-vindo, " + (data.display || data.user);
+      }
+    }
+  } catch {}
+})();
+</script>
+
   </script>
 </body>
 </html>
+
 
 
 
