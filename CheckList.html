@@ -788,7 +788,7 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
         id: "etapa7",
         title: "ETAPA 7 – INICIAR TRANSMISSÃO",
         items: [
-          { text:"No OBS clicar na cena “Início”", tech:"Confirme se a cena tem áudio e a imagem do começo. Deixe tudo pronto antes de apertar ‘Start’." },
+          { text:"No OBS clicar na cena “Início” e iniciar a LIVE do facebook manualmente.", tech:"Confirme se a cena tem áudio e a imagem do começo. Deixe tudo pronto antes de inícia-las." },
           { text:"Abrir YouTube Studio e verificar se na visualização está aparecendo o contador de início", tech:"Se não aparecer preview, pode ser atraso. Confira se o OBS está ‘Transmitindo’." },
           { text:"Abrir Facebook e verificar se na visualização está aparecendo o contador de início", tech:"Facebook às vezes demora. Atualize a página uma vez, sem ficar recarregando em loop." },
           { text:"Clicar em “iniciar a transmissão” no canto inferior esquerdo (Facebook)", tech:"Algumas configurações exigem ‘Go live’ no Facebook mesmo com OBS transmitindo." }
@@ -807,10 +807,11 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
         id: "etapa9",
         title: "ETAPA 9 – ENCERRAMENTO",
         items: [
-          { text:"Clicar na cena “Encerrar”", tech:"Deixe 10–20s na tela de encerramento antes de parar (evita corte seco)." },
+          { text:"Clicar na cena “Encerrar”", tech:"Essa cena encerra apenas a live no YOUTUBE." },
+		  { text:"No OBS encerre a live do facebook manualmente", tech:"Clique no mesmo lugar que você iniciou." },
           { text:"Confirmar encerramento no YouTube", tech:"Finalizou? Verifique se salvou/arquivou normal." },
           { text:"Confirmar encerramento no Facebook", tech:"Facebook às vezes mantém sessão. Confirme ‘Finalizada’." },
-          { text:"Desligar câmera PTZ", tech:"Use o método correto (standby/power). Evite cortar energia de uma vez." },
+          { text:"Desligar câmera PTZ", tech:"Deslique pelo controle. Evite cortar energia de uma vez." },
           { text:"Desligar o notebook pela função desligar (nunca direto no disjuntor ou no botão físico de ligar)",
             tech:"Isso evita corromper Windows/OBS/arquivos de gravação e aumenta a vida útil." }
         ]
@@ -1169,7 +1170,7 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
 
 		// > 30:00: mostra “Planeje com antecedência”
 		if(secondsLeft > warnSeconds){
-		  timeAlert.classList.add("ok");
+		  timeAlert.classList.add("warn");
 		  timeAlertIco.textContent = "🗓️";
 		  timeAlertTitle.textContent = "Planeje com antecedência";
 		  timeAlertText.textContent = `Comece o checklist com pelo menos ${WARN_MINUTES} minutos de antecedência para evitar correria.`;
@@ -1178,7 +1179,7 @@ body.mobileMode main .stepHead h2{font-size: 15px;}
 
 		// de 30:00 até 00:00 (inclusive): mostra “Você começou tarde!”
 		if(secondsLeft >= 0){
-		  timeAlert.classList.add("warn");
+		  timeAlert.classList.add("danger");
 		  timeAlertIco.textContent = "⚠️";
 		  timeAlertTitle.textContent = "Você começou tarde!";
 		  timeAlertText.textContent = `Você deve começar a fazer o checklist no mínimo ${WARN_MINUTES} minutos antes do início do culto! Se erros acontecerem não reclame!`;
