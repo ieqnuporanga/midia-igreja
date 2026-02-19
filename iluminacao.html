@@ -1252,8 +1252,25 @@ h1{
     function toggleBody(head){
       const body = head.parentElement.querySelector("[data-body]");
       if(!body) return;
+
+      const willOpen = body.classList.contains("hidden");
+
       const hidden = body.classList.toggle("hidden");
       head.setAttribute("aria-expanded", (!hidden).toString());
+
+      if(willOpen){
+        setHashFromSectionHead(head);
+      }else{
+        // fechando: limpa hash se for desta seção
+        const h2 = head.querySelector("h2");
+        if(h2){
+          const slug = slugify(h2.textContent || "");
+          const cur = (location.hash || "").replace("#","");
+          if(slug && cur === slug){
+            clearHash();
+          }
+        }
+      }
     }
 
     function collapseAllSections(){
@@ -1263,6 +1280,8 @@ h1{
         if(body) body.classList.add("hidden");
         if(head) head.setAttribute("aria-expanded","false");
       });
+    
+      clearHash();
     }
 
     function expandAllSections(){
@@ -1306,6 +1325,46 @@ h1{
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
     }
+
+    // ===== HASH PARA SEÇÕES =====
+    function slugify(str){
+      return normalize(str)
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function clearHash(){
+      // mantém path e query, remove #
+      history.replaceState(null, "", location.pathname + location.search);
+    }
+
+    function setHashFromSectionHead(head){
+      const h2 = head.querySelector("h2");
+      if(!h2) return;
+      const slug = slugify(h2.textContent || "");
+      if(slug) history.replaceState(null, "", "#" + slug);
+    }
+
+    function openSectionFromHash(){
+      const h = (location.hash || "").replace("#","");
+      if(!h) return;
+
+      document.querySelectorAll("[data-section]").forEach(sec=>{
+        const head = sec.querySelector(".sectionHead");
+        const body = sec.querySelector("[data-body]");
+        if(!head || !body) return;
+
+        const h2 = head.querySelector("h2");
+        if(!h2) return;
+
+        const slug = slugify(h2.textContent || "");
+        if(slug === h){
+          body.classList.remove("hidden");
+          head.setAttribute("aria-expanded","true");
+        }
+      });
+    }
+
 
     function updateCount(){
       const visible = Array.from(document.querySelectorAll("[data-item]"))
@@ -1464,9 +1523,13 @@ h1{
         b.addEventListener("click", ()=> openBank(b.getAttribute("data-open-bank")));
       });
     })();
-  </script>
+  
+    // abre seção pelo hash ao carregar
+    openSectionFromHash();
+</script>
 
   <footer class="siteFooter" aria-label="Rodapé"></footer>
 
 </body>
 </html>
+
