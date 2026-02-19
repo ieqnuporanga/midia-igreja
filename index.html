@@ -1403,6 +1403,10 @@ h1{
       if(!body) return;
       const hidden = body.classList.toggle("hidden");
       head.setAttribute("aria-expanded", (!hidden).toString());
+
+      if(!hidden){
+        setHashFromSection(head);
+      }
     }
 
     // Recolher tudo
@@ -1459,6 +1463,42 @@ h1{
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
     }
+
+    // ===== HASH PARA SEÇÕES =====
+    function slugify(str){
+      return normalize(str)
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function setHashFromSection(head){
+      const h2 = head.querySelector("h2");
+      if(!h2) return;
+      const slug = slugify(h2.textContent || "");
+      if(slug) history.replaceState(null, "", "#" + slug);
+    }
+
+    function openSectionFromHash(){
+      const h = location.hash.replace("#","");
+      if(!h) return;
+
+      document.querySelectorAll("[data-section]").forEach(sec=>{
+        const head = sec.querySelector(".sectionHead");
+        const body = sec.querySelector("[data-body]");
+        if(!head || !body) return;
+
+        const title = head.querySelector("h2");
+        if(!title) return;
+
+        const slug = slugify(title.textContent || "");
+
+        if(slug === h){
+          body.classList.remove("hidden");
+          head.setAttribute("aria-expanded","true");
+        }
+      });
+    }
+
 
     function updateCount(){
       const visible = Array.from(document.querySelectorAll("[data-item]"))
@@ -2178,9 +2218,14 @@ h1{
       } catch {}
     })();
 
-  </script>
+  
+
+    // abre seção pelo hash ao carregar
+    openSectionFromHash();
+</script>
 </body>
 </html>
+
 
 
 
