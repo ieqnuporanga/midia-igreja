@@ -1447,6 +1447,8 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
     function closeAllProblems(){
       document.querySelectorAll(".problem.open").forEach(p=>p.classList.remove("open"));
       document.querySelectorAll(".solution.open").forEach(s=>s.classList.remove("open"));
+    
+      history.replaceState(null,"",location.pathname+location.search);
     }
 
     function closeOtherProblems(currentWrap){
@@ -1507,11 +1509,19 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
               closeOtherProblems(wrap);
               wrap.classList.add("open");
               setHashFromProblem(wrap);
-              // REMOVIDO: scrollIntoView (não rola a tela)
             }else{
-			  wrap.classList.remove("open");
-			  wrap.querySelectorAll(".solution.open").forEach(s=>s.classList.remove("open"));
-			}
+              // fechando: limpa hash se for este problema
+              const qEl = wrap.querySelector(".q");
+              if(qEl){
+                const slug = slugify(qEl.textContent||"");
+                const cur = (location.hash||"").replace("#","");
+                if(slug && cur===slug){
+                  history.replaceState(null,"",location.pathname+location.search);
+                }
+              }
+              wrap.classList.remove("open");
+              wrap.querySelectorAll(".solution.open").forEach(s=>s.classList.remove("open"));
+            }
 		  });
 
         el.addEventListener("keydown", (e)=>{
@@ -1771,4 +1781,5 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
   </script>
 </body>
 </html>
+
 
