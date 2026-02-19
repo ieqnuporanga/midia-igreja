@@ -1406,6 +1406,16 @@ h1{
 
       if(!hidden){
         setHashFromSection(head);
+      }else{
+        // se você fechou exatamente a seção que está no hash, limpa o hash
+        const h2 = head.querySelector("h2");
+        if(h2){
+          const slug = slugify(h2.textContent || "");
+          const cur = (location.hash || "").replace("#","");
+          if(slug && cur === slug){
+            history.replaceState(null, "", location.pathname + location.search);
+          }
+        }
       }
     }
 
@@ -1417,7 +1427,10 @@ h1{
         if(body) body.classList.add("hidden");
         if(head) head.setAttribute("aria-expanded","false");
       });
-    }
+    
+      // limpa o hash ao recolher tudo
+      history.replaceState(null, "", location.pathname + location.search);
+}
 
     // Expandir tudo
     function expandAllSections(){
