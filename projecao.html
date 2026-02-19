@@ -571,6 +571,19 @@ h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: -1px; line-height: 1.12; 
       if(!body) return;
       const hidden = body.classList.toggle("hidden");
       head.setAttribute("aria-expanded", (!hidden).toString());
+
+      if(!hidden){
+        setHashFromSection(head);
+      }else{
+        const h2 = head.querySelector("h2");
+        if(h2){
+          const slug = slugify(h2.textContent||"");
+          const cur = (location.hash||"").replace("#","");
+          if(slug && cur===slug){
+            history.replaceState(null,"",location.pathname+location.search);
+          }
+        }
+      }
     }
 
     function collapseAllSections(){
@@ -580,6 +593,8 @@ h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: -1px; line-height: 1.12; 
         if(body) body.classList.add("hidden");
         if(head) head.setAttribute("aria-expanded","false");
       });
+    
+      history.replaceState(null,"",location.pathname+location.search);
     }
     function expandAllSections(){
       document.querySelectorAll("[data-section]").forEach(sec=>{
@@ -624,6 +639,41 @@ h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: -1px; line-height: 1.12; 
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "");
     }
+    
+    // ===== HASH PARA SEÇÕES =====
+    function slugify(str){
+      return normalize(str)
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function setHashFromSection(head){
+      const h2 = head.querySelector("h2");
+      if(!h2) return;
+      const slug = slugify(h2.textContent || "");
+      if(slug) history.replaceState(null, "", "#" + slug);
+    }
+
+    function openSectionFromHash(){
+      const h = location.hash.replace("#","");
+      if(!h) return;
+
+      document.querySelectorAll("[data-section]").forEach(sec=>{
+        const head = sec.querySelector(".sectionHead");
+        const body = sec.querySelector("[data-body]");
+        if(!head || !body) return;
+
+        const title = head.querySelector("h2");
+        if(!title) return;
+
+        const slug = slugify(title.textContent || "");
+        if(slug === h){
+          body.classList.remove("hidden");
+          head.setAttribute("aria-expanded","true");
+        }
+      });
+    }
+
 
     function updateCount(){
       const visible = Array.from(document.querySelectorAll("[data-item]"))
@@ -675,9 +725,13 @@ h1 { margin: 0 0 6px; font-size: 30px; letter-spacing: -1px; line-height: 1.12; 
 
     // first count
     updateCount();
-  </script>         
+  
+    // abre seção pelo hash ao carregar
+    openSectionFromHash();
+</script>         
     </body>     
 </html>
+
 
 
 
