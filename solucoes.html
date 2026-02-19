@@ -1354,7 +1354,8 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
 
       resultCountEl.textContent = String(totalVisibleProblems);
       bindEvents();
-    }
+      openProblemFromHash();
+}
 
     function renderProblem(si, pi, stageTitle, p){
       const totalSolutions = (p.solutions || []).length;
@@ -1460,6 +1461,41 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
       });
     }
 
+    // ===== HASH HELPERS =====
+    function slugify(str){
+      return norm(str)
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function setHashFromProblem(problemWrap){
+      const qEl = problemWrap ? problemWrap.querySelector(".q") : null;
+      if(!qEl) return;
+      const slug = slugify(qEl.textContent || "");
+      if(!slug) return;
+      history.replaceState(null, "", "#" + slug);
+    }
+
+    function openProblemFromHash(){
+      const h = (window.location.hash || "").replace("#","");
+      if(!h) return;
+
+      const problems = document.querySelectorAll(".problem");
+      problems.forEach(p=>{
+        const qEl = p.querySelector(".q");
+        if(!qEl) return;
+        const slug = slugify(qEl.textContent || "");
+        if(slug === h){
+          closeOtherProblems(p);
+          p.classList.add("open");
+          // fecha soluções abertas (se existirem) para manter estado limpo
+          p.querySelectorAll(".solution.open").forEach(s=>s.classList.remove("open"));
+        }
+      });
+    }
+
+
+
     function bindEvents(){
       // Problemas (accordion: abre um e fecha os outros)
       document.querySelectorAll(".problemTop").forEach(el=>{
@@ -1467,15 +1503,16 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
           const wrap = el.closest(".problem");
           const willOpen = !wrap.classList.contains("open");
 
-          if(willOpen){
-            closeOtherProblems(wrap);
-            wrap.classList.add("open");
-            setTimeout(()=>wrap.scrollIntoView({behavior:"smooth", block:"start"}), 0);
-          }else{
-            wrap.classList.remove("open");
-            wrap.querySelectorAll(".solution.open").forEach(s=>s.classList.remove("open"));
-          }
-        });
+			if(willOpen){
+              closeOtherProblems(wrap);
+              wrap.classList.add("open");
+              setHashFromProblem(wrap);
+              // REMOVIDO: scrollIntoView (não rola a tela)
+            }else{
+			  wrap.classList.remove("open");
+			  wrap.querySelectorAll(".solution.open").forEach(s=>s.classList.remove("open"));
+			}
+		  });
 
         el.addEventListener("keydown", (e)=>{
           if(e.key === "Enter" || e.key === " "){
@@ -1728,6 +1765,10 @@ body.mobileMode .steps li{ font-size:14.6px; line-height:1.6; }
         closeVideo();
       }
     });
+	
+
+
   </script>
 </body>
 </html>
+
