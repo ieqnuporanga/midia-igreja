@@ -708,13 +708,13 @@ body {
 }
 
 .global-accent-toggle.enabled {
-    background: #16a34a;
-    box-shadow: 0 0 12px #16a34a;
+    background: #f59e0b;
+    box-shadow: 0 0 12px  #f59e0b;
 }
 
 .global-accent-toggle.disabled {
-    background: #f59e0b;
-    box-shadow: 0 0 12px #f59e0b;
+    background: #16a34a;
+    box-shadow: 0 0 12px #16a34a;
 }
 
 .global-accent-toggle:hover {
@@ -863,16 +863,18 @@ body {
 
 .beat-indicators {
     display: flex;
-    gap: 4px;
     justify-content: center;
+    gap: 6px;
+    flex-wrap: nowrap; /* impede quebrar */
+    width: 100%;
+    margin-top: 6px;
+}
 }
 
 .beat-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #6b7280;
-    transition: all 0.2s;
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0; /* impede sumir */
 }
 
 .beat-dot.active {
@@ -2173,6 +2175,7 @@ footer a:hover {
         margin-bottom: 12px;
         border-left: none;
         position: relative;
+		overflow: visible;
     }
 
     .metronome-item.playing {
@@ -2318,7 +2321,8 @@ footer a:hover {
 
     /* Esconder indicadores de beat no mobile */
     .beat-indicators {
-        display: none;
+        display: flex;
+		justify-content: center
     }
 
     /* Botão remover — dentro do remove-cell (já posicionado absoluto) */
