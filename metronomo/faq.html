@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Perguntas Frequentes</title>
+    <meta name="description" content="Perguntas frequentes sobre o Metronome List. Encontre respostas sobre BPM, configurações, técnicas de prática e muito mais.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M35 95 L65 95 L50 15 Z' fill='%23654321' stroke='%23000' stroke-width='3'/><line x1='50' y1='20' x2='70' y2='55' stroke='%23ff0000' stroke-width='5' stroke-linecap='round'/><circle cx='50' cy='55' r='6' fill='%23000'/><rect x='30' y='90' width='40' height='8' rx='2' fill='%238b4513'/></svg>">
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1>🎵 Metronômo IEQ Nuporanga</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Metrônomo</a></li>              
+                <li><a href="como-usar.html" >Como Usar</a></li>
+                <li><a href="faq.html" class="active">FAQ</a></li>
+            </ul>
+            <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+        </div>
+    </nav>
+
+    <div class="content-page">
+        <div class="content-header">
+            <h1>❓ Perguntas Frequentes</h1>
+            <p class="subtitle">Respostas para as dúvidas mais comuns</p>
+        </div>
+
+        <div class="content-section">
+            <h2>⚙️ Funcionalidades Básicas</h2>
+            
+            <div class="faq-item">
+                <h3>O som está muito baixo ou muito alto. Como ajusto?</h3>
+                <p>Use o slider de volume (🔊) nos controles globais no topo da página. Arraste para a esquerda para diminuir ou para a direita para aumentar. O volume afeta todos os metrônomos igualmente.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Por que o som não está tocando?</h3>
+                <p>Alguns navegadores bloqueiam áudio até haver interação do usuário. Certifique-se de clicar em qualquer lugar da página primeiro. Também verifique se o volume do seu dispositivo está ligado e se o slider de volume do metrônomo não está em zero.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Os timbres são sons gravados ou sintetizados?</h3>
+                <p>Todos os timbres são sintetizados em tempo real usando Web Audio API. Não são samples gravados. Isso garante precisão absoluta de timing e qualidade consistente, além de permitir funcionamento offline.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎓 Prática e Técnicas</h2>
+            
+            <div class="faq-item">
+                <h3>Como melhorar meu senso rítmico?</h3>
+                <p>Pratique diariamente com o metrônomo por pelo menos 15-20 minutos. Comece tocando apenas nos tempos fortes, depois adicione subdivisões. Grave-se tocando com o metrônomo e identifique inconsistências. Com o tempo, desenvolva seu relógio interno praticando também sem o metrônomo.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Quanto tempo devo praticar com metrônomo?</h3>
+                <p>Recomendamos dedicar pelo menos 50% do tempo de prática com o metrônomo. Para melhores resultados, alterne entre prática com e sem metrônomo para desenvolver tanto precisão externa quanto senso rítmico interno. Sessões de 15-30 minutos são ideais para evitar fadiga mental.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Qual a melhor forma de aumentar a velocidade de uma música?</h3>
+                <p>Use o método de incremento gradual: comece em 60-70% do andamento final. Toque perfeitamente três vezes consecutivas, então aumente 5 BPM. Repita até atingir o andamento desejado. Este método garante desenvolvimento de memória muscular precisa sem criar vícios técnicos.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Devo sempre praticar com metrônomo?</h3>
+                <p>Não. O metrônomo é uma ferramenta, não uma muleta. Use-o para desenvolver precisão rítmica, mas também pratique sem ele para desenvolver expressão musical e senso interno de tempo. O equilíbrio é fundamental.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Como usar o metrônomo para diferentes compassos?</h3>
+                <p>Selecione o compasso apropriado no menu dropdown. O primeiro tempo sempre terá acento (indicador dourado e som mais forte). Por exemplo, em 3/4 você ouvirá FORTE-fraco-fraco, em 4/4 será FORTE-fraco-médio-fraco.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Posso praticar subdivisões (semicolcheias, etc)?</h3>
+                <p>Sim! Configure o metrônomo no andamento desejado e mentalmente subdivida cada batida. Por exemplo, em 120 BPM você pode mentalizar semicolcheias (efetivamente 480 pulsos por minuto) enquanto o metrônomo marca apenas as semínimas.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🎬 Uso Profissional</h2>
+            
+            <div class="faq-item">
+                <h3>Posso usar este metrônomo para gravações?</h3>
+                <p>Absolutamente! Nosso metrônomo oferece qualidade de áudio profissional adequada para gravações caseiras e estúdios profissionais. Use o controle de canal estéreo para posicionar o click conforme necessário na sua mixagem. Os timbres Multitrack e Electronic são especialmente desenvolvidos para produções musicais.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Como sincronizar vários músicos em uma gravação?</h3>
+                <p>Configure um metrônomo com o BPM e compasso corretos. Distribua o áudio via fones individuais para cada músico. Use o controle de volume para ajuste personalizado. Mantenha o BPM constante durante toda a sessão para facilitar edição posterior.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>A precisão é adequada para uso profissional?</h3>
+                <p>Sim. Usamos Web Audio API que oferece timing com precisão menor que 1 milissegundo. Isso é mais preciso que muitos metrônomos mecânicos e adequado para qualquer aplicação profissional.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Posso usar em apresentações ao vivo?</h3>
+                <p>Sim. Configure os metrônomos antecipadamente para cada música do setlist. Durante a apresentação, use os atalhos de teclado (1-9, 0) para mudar rapidamente entre configurações. Use fones intra-auriculares para monitoramento discreto.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>💻 Técnico</h2>
+            
+            <div class="faq-item">
+                <h3>O metrônomo funciona offline?</h3>
+                <p>Sim! Após carregar a página uma vez, a aplicação funciona completamente offline utilizando Web Audio API nativa do navegador. Não requer conexão com internet para operar.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Quais navegadores são compatíveis?</h3>
+                <p>O Metronome List funciona em todos os navegadores modernos: Chrome, Firefox, Safari, Edge e Opera. Recomendamos manter seu navegador atualizado para melhor performance.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Funciona em dispositivos móveis?</h3>
+                <p>Sim! A interface é totalmente responsiva e funciona perfeitamente em smartphones e tablets iOS e Android. Alguns recursos (como atalhos de teclado) são específicos de desktop.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Minhas configurações são salvas?</h3>
+                <p>Atualmente as configurações são mantidas apenas durante a sessão. Estamos desenvolvendo funcionalidade de salvamento em nuvem para uma futura atualização. Por enquanto, anote as configurações importantes de suas músicas.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Existe latência no áudio?</h3>
+                <p>A latência é mínima (tipicamente menos de 10ms) graças ao uso de Web Audio API. Isso é imperceptível para o ouvido humano e não afeta a prática ou gravação.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>O código é open source?</h3>
+                <p>Sim! Todo o código está disponível no GitHub. Você pode estudá-lo, contribuir com melhorias ou fazer fork para seu próprio projeto. Visite nosso repositório em github.com/SandroVingla/Metronome-List</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🔒 Privacidade e Segurança</h2>
+            
+            <div class="faq-item">
+                <h3>Vocês coletam meus dados?</h3>
+                <p>Não coletamos dados pessoais dos usuários. O metrônomo funciona inteiramente no seu navegador. Não há rastreamento invasivo ou coleta de informações de prática.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Preciso criar uma conta?</h3>
+                <p>Não. O Metronome List não requer cadastro, login ou qualquer tipo de conta. Basta acessar e usar livremente.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>É realmente grátis?</h3>
+                <p>Sim, completamente gratuito! Não há taxas ocultas, assinaturas ou recursos bloqueados. Todas as funcionalidades estão disponíveis para todos os usuários sem custo algum.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🐛 Problemas e Suporte</h2>
+            
+            <div class="faq-item">
+                <h3>Encontrei um bug. Como reporto?</h3>
+                <p>Por favor, reporte bugs através do nosso GitHub Issues em github.com/SandroVingla/Metronome-List/issues. Inclua detalhes como navegador usado, sistema operacional e passos para reproduzir o problema.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Tenho uma sugestão de recurso. Como envio?</h3>
+                <p>Adoramos sugestões! Você pode enviá-las através do GitHub Issues marcando como "feature request" ou entrando em contato conosco diretamente. Avaliamos todas as sugestões para futuras atualizações.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>O metrônomo está atrasando ou pulando batidas</h3>
+                <p>Isso pode acontecer se houver outros processos pesados rodando no navegador ou computador. Tente fechar outras abas e programas. Se o problema persistir, atualize seu navegador para a versão mais recente.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Posso contribuir com o projeto?</h3>
+                <p>Sim! Aceitamos contribuições via GitHub. Você pode melhorar o código, adicionar recursos, corrigir bugs ou melhorar a documentação. Toda ajuda é bem-vinda!</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>❓ Não encontrou sua pergunta?</h2>
+            <p>Se sua dúvida não foi respondida aqui, você pode:</p>
+            <ul>
+                <li>Consultar o <a href="blog.html">Blog</a> no artigo 'Guia completo' para informações detalhadas</li>
+                <li>Ver o tutorial <a href="como-usar.html">Como Usar</a> passo a passo</li>
+                <li>Reportar sua dúvida no <a href="https://github.com/SandroVingla/Metronome-List/issues" target="_blank">GitHub Issues</a></li>
+                <li>Entrar em contato diretamente conosco</li>
+            </ul>
+        </div>
+
+        <div class="cta-section">
+            <h2>Pronto para começar?</h2>
+            <p>Agora que suas dúvidas foram esclarecidas, experimente o metrônomo!</p>
+            <a href="index.html" class="cta-button">Usar o Metrônomo →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Metronome List. Todos os direitos reservados.</p>
+        <p>
+            <a href="privacy.html">Política de Privacidade</a> |
+            <a href="sobre.html">Sobre</a> |
+            <a href="https://github.com/SandroVingla/Metronome-List" target="_blank">GitHub</a>
+        </p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('active');
+        }
+    </script>
+</body>
