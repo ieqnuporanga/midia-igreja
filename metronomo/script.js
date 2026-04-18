@@ -2,7 +2,7 @@
 let metronomes = [];
 let nextId = 1;
 let globalChannel = 'C';
-let globalVolume = 5; // Volume fixo do sistema
+let globalVolume = 7; // Volume fixo do sistema
 let clickMuted = false; // Mute do click (pad continua tocando)
 let selectedTimbre = 'click';
 let globalAccentEnabled = false; // Controle global de acentuação
